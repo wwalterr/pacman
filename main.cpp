@@ -93,7 +93,7 @@ int main(const int argc, const char *argv[])
             {
                 f[c_food].set(col * 30, row * 30);
 
-                w[c_food].draw();
+                f[c_food].draw();
 
                 c_food++;
             }
