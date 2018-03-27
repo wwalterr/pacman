@@ -20,15 +20,15 @@ private:
   ALLEGRO_BITMAP *img;
 
 public:
-  Wall(void); // Default constructor
+  Wall(void);
 
-  Wall(const int x, const int y, char const *img_url); // Normal constructor
+  Wall(const int x, const int y, char const *img_url);
 
   void draw(void); // Draw on Display
 
   void set(float x_set, float y_set); // Define positions
 
-  ~Wall(void); // Destructor
+  ~Wall(void);
 };
 
 #endif

@@ -12,12 +12,12 @@
 using namespace std;
 
 Wall::Wall()
-{ // Default values to some object
+{
     this->x = 0;
 
     this->y = 0;
 
-    this->img = al_load_bitmap("images/wall.bmp");
+    this->img = al_load_bitmap("images/wall.png");
 };
 
 Wall::Wall(const int x, const int y, char const *img_url)

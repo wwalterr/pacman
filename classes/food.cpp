@@ -12,12 +12,12 @@
 using namespace std;
 
 Food::Food()
-{ // Default values to some object
+{
     this->x = 0;
 
     this->y = 0;
 
-    this->img = al_load_bitmap("images/food.bmp");
+    this->img = al_load_bitmap("images/food.png");
 };
 
 Food::Food(const int x, const int y, char const *img_url)

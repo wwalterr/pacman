@@ -20,15 +20,15 @@ private:
   ALLEGRO_BITMAP *img;
 
 public:
-  Food(void); // Default constructor
+  Food(void);
 
-  Food(const int x, const int y, char const *img_url); // Normal constructor
+  Food(const int x, const int y, char const *img_url);
 
   void draw(void); // Draw on Display
 
   void set(float x_set, float y_set); // Define positions
 
-  ~Food(void); // Destructor
+  ~Food(void);
 };
 
 #endif
