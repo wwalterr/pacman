@@ -1,9 +1,5 @@
 
-// Built-ins
-
 #include <iostream>
-
-// Allegro
 
 #include <allegro5/allegro.h>
 
@@ -12,8 +8,6 @@
 #include <allegro5/allegro_image.h>
 
 #include <allegro5/allegro_primitives.h>
-
-// Project
 
 #include "classes/extras.hpp"
 
@@ -51,15 +45,13 @@ int main(const int argc, const char *argv[])
     if (!al_init())
         fail("Failed to load Allegro 5");
 
-    // Addons
+    // Addons :
 
     al_init_image_addon();
 
     al_init_primitives_addon();
 
     al_install_keyboard();
-
-    // Addons End
 
     ALLEGRO_DISPLAY *display = nullptr;
 
@@ -71,8 +63,6 @@ int main(const int argc, const char *argv[])
 
     display = al_create_display(480, 600); // X - Y
 
-    al_clear_to_color(al_map_rgb(0, 0, 0));
-
     if (!display)
         fail("Failed to initialize Display");
 
@@ -80,9 +70,9 @@ int main(const int argc, const char *argv[])
 
     al_set_display_icon(display, icon);
 
-    Wall w[154]; // Array of Walls
+    Wall w[154];
 
-    Food f[166]; // Array of Foods
+    Food f[166];
 
     int c_wall = 0, c_food = 0;
 
@@ -110,80 +100,92 @@ int main(const int argc, const char *argv[])
         }
     }
 
-    al_flip_display();
-
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
 
-    // Pacman
-
-    ALLEGRO_BITMAP *pacbmp = al_load_bitmap("images/pacman.bmp");
+    ALLEGRO_BITMAP *pac = al_load_bitmap("images/pacman.bmp");
 
     int direction = 0, xPacman = 210, yPacman = 360;
 
-    // End Pacman
+    al_draw_bitmap_region(pac, 30, 0, 30, 30, xPacman, yPacman, 0);
+
+    al_flip_display();
+
+    bool cl = false;
 
     while (true)
     {
-        ALLEGRO_EVENT events; // Instantiate a event
+        ALLEGRO_EVENT events;
 
-        al_wait_for_event(event_queue, &events); // Wait for some action
+        al_wait_for_event(event_queue, &events);
 
         if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
         {
-            cout << string(50, '\n'); // Clear screen
-
             cout << "\n"
                  << al_get_app_name() << " \033[31mclosed\033[37m !\n\n";
 
             break;
         }
 
-        switch (events.keyboard.keycode)
+        if (events.type == ALLEGRO_EVENT_KEY_DOWN)
         {
-        case ALLEGRO_EVENT_KEY_DOWN: // Down
-        case ALLEGRO_KEY_S:
-            yPacman += 30;
-            direction = 3;
-            break;
 
-        case ALLEGRO_EVENT_KEY_UP: // Up
-        case ALLEGRO_KEY_W:
-            yPacman -= 30;
-            direction = 2;
-            break;
+            cl = true;
 
-        case ALLEGRO_KEY_RIGHT: // Right
-        case ALLEGRO_KEY_D:
-            xPacman += 30;
-            direction = 1;
-            break;
+            switch (events.keyboard.keycode)
+            {
+            case ALLEGRO_KEY_S:
+                yPacman += 15;
+                direction = 3;
+                break;
 
-        case ALLEGRO_KEY_LEFT: // Left
-        case ALLEGRO_KEY_A:
-            xPacman -= 30;
-            direction = 0;
-            break;
+            case ALLEGRO_KEY_W:
+                yPacman -= 15;
+                direction = 2;
+                break;
 
-        default:
-            cout << "\nPress the appropriate \033[31mshortcut\033[37m\n\n";
+            case ALLEGRO_KEY_RIGHT:
+            case ALLEGRO_KEY_D:
+                xPacman += 15;
+                direction = 1;
+                break;
+
+            case ALLEGRO_KEY_LEFT:
+            case ALLEGRO_KEY_A:
+                xPacman -= 15;
+                direction = 0;
+                break;
+
+            default:
+                cout << "\nPress the appropriate \033[31mshortcut\033[37m\n\n";
+            }
         }
 
-        // al_draw_rectangle(xPacman, yPacman, xPacman + 30, yPacman + 30, al_map_rgb(44, 117, 255), 2.0);
+        if (cl)
+        {
 
-        al_draw_bitmap_region(pacbmp, direction * 33, 0, 33, 33, xPacman, yPacman, 0);
+            cl = false;
 
+            al_clear_to_color(al_map_rgb(0, 0, 0));
+
+            for (int col = 0; col < c_wall; col++)
+                w[col].draw();
+
+            for (int line = 0; line < c_food; line++)
+                f[line].draw();
+
+            al_draw_bitmap_region(pac, direction * 30, 0, 30, 30, xPacman, yPacman, 0);
+            
+        }
         al_flip_display();
     }
 
-    // Direction = 4 when Pacman eat something
-
     al_destroy_event_queue(event_queue);
 
-    al_destroy_bitmap(pacbmp);
+    al_destroy_bitmap(pac);
 
     al_destroy_bitmap(icon);
 
