@@ -51,6 +51,8 @@ int main(const int argc, const char *argv[])
 
     al_init_primitives_addon();
 
+    al_install_keyboard();
+
     ALLEGRO_DISPLAY *display = nullptr;
 
     ALLEGRO_BITMAP *icon = al_load_bitmap("images/pacman.png");
@@ -71,10 +73,10 @@ int main(const int argc, const char *argv[])
     // Start Code
 
     Wall w[154]; // Array of Walls
-    
+
     Food f[166]; // Array of Foods
 
-    int c_wall = 0, c_food = 0; // Counter
+    int c_wall = 0, c_food = 0;
 
     for (int row = 0; row < 20; row++)
     {
@@ -101,6 +103,28 @@ int main(const int argc, const char *argv[])
     }
 
     al_flip_display();
+
+    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+
+    al_register_event_source(event_queue, al_get_keyboard_event_source());
+
+    al_register_event_source(event_queue, al_get_display_event_source(display));
+
+    while (true)
+    {
+
+        ALLEGRO_EVENT events; // Instantiate a event
+
+        al_wait_for_event(event_queue, &events); // Wait for some action
+
+        if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+        {
+            cout << "\n" << al_get_app_name() << " was \033[31mclosed\033[37m\n\n";
+
+            exit(0);
+        }
+
+    }
 
     // End Code
 
