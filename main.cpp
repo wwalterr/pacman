@@ -106,7 +106,7 @@ int main(const int argc, const char *argv[])
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
 
-    ALLEGRO_BITMAP *pac = al_load_bitmap("images/pacman.bmp");
+    ALLEGRO_BITMAP *pac = al_load_bitmap("images/pac.png");
 
     int direction = 0, xPacman = 210, yPacman = 360;
 
@@ -138,24 +138,24 @@ int main(const int argc, const char *argv[])
             switch (events.keyboard.keycode)
             {
             case ALLEGRO_KEY_S:
-                yPacman += 15;
+                yPacman += 30;
                 direction = 3;
                 break;
 
             case ALLEGRO_KEY_W:
-                yPacman -= 15;
+                yPacman -= 30;
                 direction = 2;
                 break;
 
             case ALLEGRO_KEY_RIGHT:
             case ALLEGRO_KEY_D:
-                xPacman += 15;
+                xPacman += 30;
                 direction = 1;
                 break;
 
             case ALLEGRO_KEY_LEFT:
             case ALLEGRO_KEY_A:
-                xPacman -= 15;
+                xPacman -= 30;
                 direction = 0;
                 break;
 
