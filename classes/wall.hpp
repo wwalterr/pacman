@@ -22,11 +22,11 @@ private:
 public:
   Wall(void);
 
-  Wall(const int x, const int y, char const *img_url);
+  Wall(const int x, const int y, char const *img);
 
-  void draw(void); // Draw on Display
+  void draw(void);
 
-  void set(float x_set, float y_set); // Define positions
+  void set(float x, float y);
 
   ~Wall(void);
 };

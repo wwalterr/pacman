@@ -22,11 +22,11 @@ private:
 public:
   Food(void);
 
-  Food(const int x, const int y, char const *img_url);
+  Food(const int x, const int y, char const *img);
 
-  void draw(void); // Draw on Display
+  void draw(void);
 
-  void set(float x_set, float y_set); // Define positions
+  void set(float x, float y);
 
   ~Food(void);
 };

@@ -15,6 +15,8 @@
 
 #include "classes/food.hpp"
 
+#include "classes/pac.hpp"
+
 using namespace std;
 
 char const map[20][17] = {
@@ -45,6 +47,7 @@ int main(const int argc, const char *argv[])
     if (!al_init())
         fail("Failed to load Allegro 5");
 
+
     // Addons :
 
     al_init_image_addon();
@@ -53,15 +56,16 @@ int main(const int argc, const char *argv[])
 
     al_install_keyboard();
 
-    ALLEGRO_DISPLAY *display = nullptr;
+
+    // Window / Settings
+
+    ALLEGRO_DISPLAY *display = al_create_display(480, 600);;
 
     ALLEGRO_BITMAP *icon = al_load_bitmap("images/pacman.png");
 
     al_set_new_display_flags(ALLEGRO_RESIZABLE);
 
-    al_set_new_window_position(410, 80); // X - Y
-
-    display = al_create_display(480, 600); // X - Y
+    al_set_new_window_position(410, 80);
 
     if (!display)
         fail("Failed to initialize Display");
@@ -69,6 +73,7 @@ int main(const int argc, const char *argv[])
     al_set_window_title(display, "Pac Man");
 
     al_set_display_icon(display, icon);
+
 
     Wall w[154];
 
@@ -100,21 +105,24 @@ int main(const int argc, const char *argv[])
         }
     }
 
+
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
 
-    ALLEGRO_BITMAP *pac = al_load_bitmap("images/pac.png");
+    
+    int x_pac = 240, y_pac = 360, direction = 0;
 
-    int direction = 0, xPacman = 210, yPacman = 360;
-
-    al_draw_bitmap_region(pac, 30, 0, 30, 30, xPacman, yPacman, 0);
+    Pac pac;
+    
+    pac.draw();
 
     al_flip_display();
+    
 
-    bool cl = false;
+    bool clear = false;
 
     while (true)
     {
@@ -123,39 +131,33 @@ int main(const int argc, const char *argv[])
         al_wait_for_event(event_queue, &events);
 
         if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
-        {
-            cout << "\n"
-                 << al_get_app_name() << " \033[31mclosed\033[37m !\n\n";
-
             break;
-        }
-
+      
         if (events.type == ALLEGRO_EVENT_KEY_DOWN)
         {
-
-            cl = true;
+            clear = true;
 
             switch (events.keyboard.keycode)
             {
             case ALLEGRO_KEY_S:
-                yPacman += 30;
+                y_pac += 30;
                 direction = 3;
                 break;
 
             case ALLEGRO_KEY_W:
-                yPacman -= 30;
+                y_pac -= 30;
                 direction = 2;
                 break;
 
             case ALLEGRO_KEY_RIGHT:
             case ALLEGRO_KEY_D:
-                xPacman += 30;
+                x_pac += 30;
                 direction = 1;
                 break;
 
             case ALLEGRO_KEY_LEFT:
             case ALLEGRO_KEY_A:
-                xPacman -= 30;
+                x_pac -= 30;
                 direction = 0;
                 break;
 
@@ -164,10 +166,10 @@ int main(const int argc, const char *argv[])
             }
         }
 
-        if (cl)
+        if (clear)
         {
 
-            cl = false;
+            clear = false;
 
             al_clear_to_color(al_map_rgb(0, 0, 0));
 
@@ -176,16 +178,18 @@ int main(const int argc, const char *argv[])
 
             for (int line = 0; line < c_food; line++)
                 f[line].draw();
-
-            al_draw_bitmap_region(pac, direction * 30, 0, 30, 30, xPacman, yPacman, 0);
             
+            pac.set(x_pac, y_pac, direction);
+
+            pac.draw();
+
         }
+
         al_flip_display();
     }
 
-    al_destroy_event_queue(event_queue);
 
-    al_destroy_bitmap(pac);
+    al_destroy_event_queue(event_queue);
 
     al_destroy_bitmap(icon);
 

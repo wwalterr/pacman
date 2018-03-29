@@ -11,7 +11,7 @@
 
 using namespace std;
 
-Wall::Wall()
+Wall::Wall(void)
 {
     this->x = 0;
 
@@ -20,20 +20,17 @@ Wall::Wall()
     this->img = al_load_bitmap("images/wall.png");
 };
 
-Wall::Wall(const int x, const int y, char const *img_url)
+Wall::Wall(const int x, const int y, char const *img)
 {
     this->x = x;
 
     this->y = y;
 
-    this->img = al_load_bitmap(img_url);
+    this->img = al_load_bitmap(img);
 };
 
 Wall::~Wall(void)
 {
-    /* cout << "\nObject [ \033[36mWall\033[37m ] is being \033[31mdeleted\033[37m\n"
-         << endl; */
-
     al_destroy_bitmap(this->img);
 }
 
@@ -42,9 +39,9 @@ void Wall::draw(void)
     al_draw_bitmap(this->img, this->x, this->y, 0);
 }
 
-void Wall::set(float x_set, float y_set)
+void Wall::set(float x, float y)
 {
-    this->x = x_set;
+    this->x = x;
 
-    this->y = y_set;
+    this->y = y;
 }
