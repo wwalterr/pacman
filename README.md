@@ -17,11 +17,19 @@ Pacman in [C++](http://www.cplusplus.com) with [Allegro 5](https://www.allegro.c
 
 To install Allegro 5 use this [script](https://github.com/Sphinxs/Scripts/blob/master/Allegro.sh).
 
+Screenshots [here](https://imgur.com/a/9S39X).
+
 ##### Img
 
 To fix warnings about lib png, run :
 
 `pngcrush -ow -rem allb -reduce file.png`
+
+#### Tools
+
+[Convert Rgba to Hex](https://www.webpagefx.com/web-design/hex-to-rgb/)
+
+[Table Ascii](http://www.theasciicode.com.ar)
 
 #### Fix
 

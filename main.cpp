@@ -19,7 +19,7 @@
 
 using namespace std;
 
-char const map[20][17] = {
+const char map[20][17] = {
     "WWWWWWWWWWWWWWWW",
     "WFFFFFFFFFFFFFFW",
     "WFWWWWWFFWWWWWFW",
@@ -59,7 +59,7 @@ int main(const int argc, const char *argv[])
 
     // Window / Settings
 
-    ALLEGRO_DISPLAY *display = al_create_display(480, 600);;
+    ALLEGRO_DISPLAY *display = nullptr;
 
     ALLEGRO_BITMAP *icon = al_load_bitmap("images/pacman.png");
 
@@ -67,12 +67,16 @@ int main(const int argc, const char *argv[])
 
     al_set_new_window_position(410, 80);
 
+    display = al_create_display(480, 600);
+
     if (!display)
         fail("Failed to initialize Display");
 
     al_set_window_title(display, "Pac Man");
 
     al_set_display_icon(display, icon);
+
+    // al_clear_to_color(al_map_rgb(36,26,31));
 
 
     Wall w[154];
@@ -132,7 +136,12 @@ int main(const int argc, const char *argv[])
 
         if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
             break;
-      
+
+        if(events.type == ALLEGRO_EVENT_KEY_UP) {
+            if(events.keyboard.keycode == ALLEGRO_KEY_ESCAPE) 
+	    		break;
+        }
+
         if (events.type == ALLEGRO_EVENT_KEY_DOWN)
         {
             clear = true;
@@ -162,7 +171,8 @@ int main(const int argc, const char *argv[])
                 break;
 
             default:
-                cout << "\nPress the appropriate \033[31mshortcut\033[37m\n\n";
+                cout << "\nInvalid \033[31mshortcut\033[37m [ " << events.keyboard.keycode << " ]\n\n";
+                continue;
             }
         }
 
@@ -171,14 +181,18 @@ int main(const int argc, const char *argv[])
 
             clear = false;
 
-            al_clear_to_color(al_map_rgb(0, 0, 0));
+            al_clear_to_color(al_map_rgb(0,0,0));
 
-            for (int col = 0; col < c_wall; col++)
-                w[col].draw();
+            for (int counter = 0; counter < c_wall; counter++)
+            {  
+                w[counter].draw();
+            }
 
-            for (int line = 0; line < c_food; line++)
-                f[line].draw();
-            
+            for (int counter = 0; counter < c_food; counter++)
+            {
+                f[counter].draw();
+            }
+
             pac.set(x_pac, y_pac, direction);
 
             pac.draw();
@@ -186,6 +200,7 @@ int main(const int argc, const char *argv[])
         }
 
         al_flip_display();
+
     }
 
 
