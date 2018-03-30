@@ -9,6 +9,10 @@
 
 #include <allegro5/allegro_primitives.h>
 
+#include <allegro5/allegro_audio.h>
+
+#include <allegro5/allegro_acodec.h>
+
 #include "classes/extras.hpp"
 
 #include "classes/wall.hpp"
@@ -56,6 +60,12 @@ int main(const int argc, const char *argv[])
 
     al_install_keyboard();
 
+    al_install_audio();
+    
+    al_init_acodec_addon();
+    
+    al_reserve_samples(1); // How many tracks
+
 
     // Window / Settings
 
@@ -75,6 +85,20 @@ int main(const int argc, const char *argv[])
     al_set_window_title(display, "Pac Man");
 
     al_set_display_icon(display, icon);
+
+    // Audio
+
+    ALLEGRO_SAMPLE *sample = nullptr;
+
+    ALLEGRO_SAMPLE_INSTANCE *instance = nullptr;
+
+    sample =  al_load_sample("audios/theme.wav");
+
+    instance = al_create_sample_instance(sample);
+
+    al_attach_sample_instance_to_mixer(instance, al_get_default_mixer());
+
+    al_play_sample(sample, 0.3, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, nullptr);
 
 
     Wall w[154];
@@ -110,12 +134,15 @@ int main(const int argc, const char *argv[])
 
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
+    if(!event_queue)
+        fail("Failed to create Event Queue");
+    
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
 
     
-    int l_pac = 13, c_pac = 12, direction = 0;
+    int l_pac = 12, c_pac = 7, direction = 0;
 
     Pac pac;
     
@@ -132,12 +159,16 @@ int main(const int argc, const char *argv[])
 
         al_wait_for_event(event_queue, &events);
 
+        // Close Window
+
         if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
             break;
 
         if(events.type == ALLEGRO_EVENT_KEY_UP)
             if(events.keyboard.keycode == ALLEGRO_KEY_ESCAPE) 
 	    		break;
+    
+        // Player
 
         if (events.type == ALLEGRO_EVENT_KEY_DOWN)
         {
@@ -167,8 +198,12 @@ int main(const int argc, const char *argv[])
                 direction = 0;
                 break;
 
+            /* case ALLEGRO_KEY_P: // Audio
+                al_stop_sample_instance(instance);
+                break; */
+            
             default:
-                cout << "\nInvalid \033[31mshortcut\033[37m [ " << events.keyboard.keycode << " ]\n\n";
+                cout << "\n\033[31mShortcut\033[37m [ " << events.keyboard.keycode << " ]\n\n";
                 continue;
             }
         }
@@ -200,6 +235,10 @@ int main(const int argc, const char *argv[])
 
     }
 
+
+    al_destroy_sample(sample);
+    
+    al_destroy_sample_instance(instance);
 
     al_destroy_event_queue(event_queue);
 

@@ -13,9 +13,9 @@ using namespace std;
 
 Pac::Pac(void)
 {
-    this->c_pac = 12;
+    this->c_pac = 7;
 
-    this->l_pac = 13;
+    this->l_pac = 12;
 
     this->size = 30;
 
@@ -24,7 +24,7 @@ Pac::Pac(void)
     this->img = al_load_bitmap("images/pac.png");
 };
 
-Pac::Pac(const int c_pac = 12, const int l_pac = 13, const int size = 30, const int direction = 0, char const *img = {"images/pac.png"})
+Pac::Pac(const int c_pac = 7, const int l_pac = 12, const int size = 30, const int direction = 0, char const *img = {"images/pac.png"})
 {
     this->c_pac = c_pac;
 
