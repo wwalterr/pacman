@@ -13,9 +13,9 @@ using namespace std;
 
 Pac::Pac(void)
 {
-    this->x = 210;
+    this->c_pac = 12;
 
-    this->y = 360;
+    this->l_pac = 13;
 
     this->size = 30;
 
@@ -24,11 +24,11 @@ Pac::Pac(void)
     this->img = al_load_bitmap("images/pac.png");
 };
 
-Pac::Pac(const int x, const int y, const int size, const int direction, char const *img)
+Pac::Pac(const int c_pac = 12, const int l_pac = 13, const int size = 30, const int direction = 0, char const *img = {"images/pac.png"})
 {
-    this->x = x;
+    this->c_pac = c_pac;
 
-    this->y = y;
+    this->l_pac = l_pac;
 
     this->size = size;
 
@@ -44,14 +44,14 @@ Pac::~Pac(void)
 
 void Pac::draw(void)
 {
-    al_draw_bitmap_region(this->img, this->direction * size, 0, size, size, x, y, 0);
+    al_draw_bitmap_region(this->img, this->direction * size, 0, size, size, this->c_pac * 30, this->l_pac * 30, 0);
 }
 
-void Pac::set(const int x, const int y, const int direction)
+void Pac::set(const int c_pac, const int l_pac, const int direction)
 {
-    this->x = x;
+    this->c_pac = c_pac;
 
-    this->y = y;
+    this->l_pac = l_pac;
 
     this->direction = direction;
 }

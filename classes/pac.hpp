@@ -15,18 +15,18 @@ class Pac
 {
 
 private:
-  int direction, x, y, size;
+  int direction, c_pac, l_pac, size;
 
   ALLEGRO_BITMAP *img;
 
 public:
   Pac(void);
 
-  Pac(const int x, const int y, const int size, const int direction, char const *img);
+  Pac(const int c_pac, const int l_pac, const int size, const int direction, char const *img);
 
   void draw(void);
 
-  void set(const int x, const int y, const int direction);
+  void set(const int c_pac, const int l_pac, const int direction);
 
   ~Pac(void);
 };

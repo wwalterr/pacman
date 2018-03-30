@@ -19,7 +19,10 @@
 
 using namespace std;
 
-const char map[20][17] = {
+int main(const int argc, const char *argv[])
+{
+
+    char map[20][17] = {
     "WWWWWWWWWWWWWWWW",
     "WFFFFFFFFFFFFFFW",
     "WFWWWWWFFWWWWWFW",
@@ -40,9 +43,6 @@ const char map[20][17] = {
     "WFWWWWWFFWWWWWFW",
     "WFFFFFFFFFFFFFFW",
     "WWWWWWWWWWWWWWWW"};
-
-int main(const int argc, const char *argv[])
-{
 
     if (!al_init())
         fail("Failed to load Allegro 5");
@@ -75,8 +75,6 @@ int main(const int argc, const char *argv[])
     al_set_window_title(display, "Pac Man");
 
     al_set_display_icon(display, icon);
-
-    // al_clear_to_color(al_map_rgb(36,26,31));
 
 
     Wall w[154];
@@ -117,7 +115,7 @@ int main(const int argc, const char *argv[])
     al_register_event_source(event_queue, al_get_display_event_source(display));
 
     
-    int x_pac = 240, y_pac = 360, direction = 0;
+    int l_pac = 13, c_pac = 12, direction = 0;
 
     Pac pac;
     
@@ -137,10 +135,9 @@ int main(const int argc, const char *argv[])
         if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
             break;
 
-        if(events.type == ALLEGRO_EVENT_KEY_UP) {
+        if(events.type == ALLEGRO_EVENT_KEY_UP)
             if(events.keyboard.keycode == ALLEGRO_KEY_ESCAPE) 
 	    		break;
-        }
 
         if (events.type == ALLEGRO_EVENT_KEY_DOWN)
         {
@@ -149,24 +146,24 @@ int main(const int argc, const char *argv[])
             switch (events.keyboard.keycode)
             {
             case ALLEGRO_KEY_S:
-                y_pac += 30;
+                l_pac += 1;
                 direction = 3;
                 break;
 
             case ALLEGRO_KEY_W:
-                y_pac -= 30;
+                l_pac -= 1;
                 direction = 2;
                 break;
 
             case ALLEGRO_KEY_RIGHT:
             case ALLEGRO_KEY_D:
-                x_pac += 30;
+                c_pac += 1;
                 direction = 1;
                 break;
 
             case ALLEGRO_KEY_LEFT:
             case ALLEGRO_KEY_A:
-                x_pac -= 30;
+                c_pac -= 1;
                 direction = 0;
                 break;
 
@@ -178,7 +175,7 @@ int main(const int argc, const char *argv[])
 
         if (clear)
         {
-
+            
             clear = false;
 
             al_clear_to_color(al_map_rgb(0,0,0));
@@ -193,7 +190,7 @@ int main(const int argc, const char *argv[])
                 f[counter].draw();
             }
 
-            pac.set(x_pac, y_pac, direction);
+            pac.set(c_pac, l_pac, direction);
 
             pac.draw();
 
