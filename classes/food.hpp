@@ -17,12 +17,14 @@ class Food
 private:
   float x, y;
 
+  int size;
+
   ALLEGRO_BITMAP *img;
 
 public:
   Food(void);
 
-  Food(const int x, const int y, char const *img);
+  Food(const int x, const int y, const int size, char const *img);
 
   void draw(void);
 

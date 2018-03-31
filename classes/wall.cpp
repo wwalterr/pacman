@@ -13,6 +13,8 @@ using namespace std;
 
 Wall::Wall(void)
 {
+    this->size = 30;
+
     this->x = 0;
 
     this->y = 0;
@@ -20,8 +22,10 @@ Wall::Wall(void)
     this->img = al_load_bitmap("images/wall.png");
 };
 
-Wall::Wall(const int x, const int y, char const *img)
+Wall::Wall(const int x, const int y, const int size, char const *img)
 {
+    this->size = size;
+
     this->x = x;
 
     this->y = y;
@@ -36,7 +40,7 @@ Wall::~Wall(void)
 
 void Wall::draw(void)
 {
-    al_draw_bitmap(this->img, this->x, this->y, 0);
+    al_draw_bitmap(this->img, this->x * this->size, this->y * this->size, 0);
 }
 
 void Wall::set(float x, float y)

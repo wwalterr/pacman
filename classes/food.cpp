@@ -13,6 +13,8 @@ using namespace std;
 
 Food::Food(void)
 {
+    this->size = 30;
+
     this->x = 0;
 
     this->y = 0;
@@ -20,8 +22,10 @@ Food::Food(void)
     this->img = al_load_bitmap("images/food.png");
 };
 
-Food::Food(const int x, const int y, char const *img)
+Food::Food(const int x, const int y, const int size, char const *img)
 {
+    this->size = size;
+
     this->x = x;
 
     this->y = y;
@@ -36,7 +40,7 @@ Food::~Food(void)
 
 void Food::draw(void)
 {
-    al_draw_bitmap(this->img, this->x, this->y, 0);
+    al_draw_bitmap(this->img, this->x * this->size, this->y * this->size, 0);
 }
 
 void Food::set(float x, float y)

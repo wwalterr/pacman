@@ -92,13 +92,13 @@ int main(const int argc, const char *argv[])
 
     ALLEGRO_SAMPLE_INSTANCE *instance = nullptr;
 
-    sample =  al_load_sample("audios/theme.wav");
+    sample =  al_load_sample("audios/bits.wav");
 
     instance = al_create_sample_instance(sample);
 
     al_attach_sample_instance_to_mixer(instance, al_get_default_mixer());
 
-    al_play_sample(sample, 0.3, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, nullptr);
+    al_play_sample(sample, 0.1, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, nullptr);
 
 
     Wall w[154];
@@ -113,7 +113,7 @@ int main(const int argc, const char *argv[])
         {
             if (map[row][col] == 'W')
             {
-                w[c_wall].set(col * 30, row * 30);
+                w[c_wall].set(col, row);
 
                 w[c_wall].draw();
 
@@ -122,7 +122,7 @@ int main(const int argc, const char *argv[])
 
             if (map[row][col] == 'F')
             {
-                f[c_food].set(col * 30, row * 30);
+                f[c_food].set(col, row);
 
                 f[c_food].draw();
 
@@ -167,13 +167,13 @@ int main(const int argc, const char *argv[])
         if(events.type == ALLEGRO_EVENT_KEY_UP)
             if(events.keyboard.keycode == ALLEGRO_KEY_ESCAPE) 
 	    		break;
-    
+
         // Player
 
         if (events.type == ALLEGRO_EVENT_KEY_DOWN)
         {
             clear = true;
-
+        
             switch (events.keyboard.keycode)
             {
             case ALLEGRO_KEY_S:
@@ -197,15 +197,20 @@ int main(const int argc, const char *argv[])
                 c_pac -= 1;
                 direction = 0;
                 break;
-
-            /* case ALLEGRO_KEY_P: // Audio
-                al_stop_sample_instance(instance);
-                break; */
             
             default:
                 cout << "\n\033[31mShortcut\033[37m [ " << events.keyboard.keycode << " ]\n\n";
                 continue;
             }
+
+            if (map[l_pac][c_pac] == 'F')
+            {
+                cout<<"\n\nFood\n";
+            } else if (map[l_pac][c_pac] == 'W')
+            {
+                cout<<"\n\nWall\n";
+            }
+
         }
 
         if (clear)
