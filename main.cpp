@@ -1,25 +1,5 @@
 
-#include <iostream>
-
-#include <allegro5/allegro.h>
-
-#include <allegro5/allegro_native_dialog.h>
-
-#include <allegro5/allegro_image.h>
-
-#include <allegro5/allegro_primitives.h>
-
-#include <allegro5/allegro_audio.h>
-
-#include <allegro5/allegro_acodec.h>
-
-#include "classes/extras.hpp"
-
-#include "classes/wall.hpp"
-
-#include "classes/food.hpp"
-
-#include "classes/pac.hpp"
+#include "headers.hpp"
 
 using namespace std;
 
@@ -27,32 +7,31 @@ int main(const int argc, const char *argv[])
 {
 
     char map[20][17] = {
-    "WWWWWWWWWWWWWWWW",
-    "WFFFFFFFFFFFFFFW",
-    "WFWWWWWFFWWWWWFW",
-    "WFFFFFFFFFFFFFFW",
-    "WFWWWWWFFWWWWWFW",
-    "WFFFFFFFFFFFFFFW",
-    "WFWWWWWWWWWWWWFW",
-    "WFFFFFFWWFFFFFFW",
-    "WFFFWFFWWFFWFFFW",
-    "WFWWWFFFFFFWWWFW",
-    "WFWFFFWWWWFFFWFW",
-    "WFFFWFFFFFFWFFFW",
-    "WFWWWFWFFWFWWWFW",
-    "WFFFWFWWWWFWFFFW",
-    "WFFFFFFFFFFFFFFW",
-    "WFFFWWWWWWWWFFFW",
-    "WFWFFFFFFFFFFWFW",
-    "WFWWWWWFFWWWWWFW",
-    "WFFFFFFFFFFFFFFW",
-    "WWWWWWWWWWWWWWWW"};
+        "WWWWWWWWWWWWWWWW",
+        "WFFFFFFFFFFFFFFW",
+        "WFWWWWWFFWWWWWFW",
+        "WFFFFFFFFFFFFFFW",
+        "WFWWWWWFFWWWWWFW",
+        "WFFFFFFFFFFFFFFW",
+        "WFWWWWWWWWWWWWFW",
+        "WFFFFFFWWFFFFFFW",
+        "WFFFWFFWWFFWFFFW",
+        "WFWWWFFFFFFWWWFW",
+        "WFWFFFWWWWFFFWFW",
+        "WFFFWFFFFFFWFFFW",
+        "WFWWWFWFFWFWWWFW",
+        "WFFFWFWWWWFWFFFW",
+        "WFFFFFFFFFFFFFFW",
+        "WFFFWWWWWWWWFFFW",
+        "WFWFFFFFFFFFFWFW",
+        "WFWWWWWFFWWWWWFW",
+        "WFFFFFFFFFFFFFFW",
+        "WWWWWWWWWWWWWWWW"};
 
     if (!al_init())
         fail("Failed to load Allegro 5");
 
-
-    // Addons :
+    // Addon
 
     al_init_image_addon();
 
@@ -61,13 +40,10 @@ int main(const int argc, const char *argv[])
     al_install_keyboard();
 
     al_install_audio();
-    
+
     al_init_acodec_addon();
-    
-    al_reserve_samples(1); // How many tracks
 
-
-    // Window / Settings
+    // Window
 
     ALLEGRO_DISPLAY *display = nullptr;
 
@@ -88,18 +64,19 @@ int main(const int argc, const char *argv[])
 
     // Audio
 
+    al_reserve_samples(1);
+
     ALLEGRO_SAMPLE *sample = nullptr;
 
     ALLEGRO_SAMPLE_INSTANCE *instance = nullptr;
 
-    sample =  al_load_sample("audios/bits.wav");
+    sample = al_load_sample("audios/bits.wav");
 
     instance = al_create_sample_instance(sample);
 
     al_attach_sample_instance_to_mixer(instance, al_get_default_mixer());
 
-    al_play_sample(sample, 0.1, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, nullptr);
-
+    // Map
 
     Wall w[154];
 
@@ -115,43 +92,40 @@ int main(const int argc, const char *argv[])
             {
                 w[c_wall].set(col, row);
 
-                w[c_wall].draw();
-
-                c_wall++;
+                w[c_wall++].draw();
             }
 
             if (map[row][col] == 'F')
             {
                 f[c_food].set(col, row);
 
-                f[c_food].draw();
-
-                c_food++;
+                f[c_food++].draw();
             }
         }
     }
 
+    // Event
 
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
-    if(!event_queue)
+    if (!event_queue)
         fail("Failed to create Event Queue");
-    
+
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
 
-    
+    // Game Loop
+
     int l_pac = 12, c_pac = 7, direction = 0;
 
+    bool clear = false;
+
     Pac pac;
-    
+
     pac.draw();
 
     al_flip_display();
-    
-
-    bool clear = false;
 
     while (true)
     {
@@ -159,21 +133,21 @@ int main(const int argc, const char *argv[])
 
         al_wait_for_event(event_queue, &events);
 
-        // Close Window
-
         if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
             break;
 
-        if(events.type == ALLEGRO_EVENT_KEY_UP)
-            if(events.keyboard.keycode == ALLEGRO_KEY_ESCAPE) 
-	    		break;
-
-        // Player
+        if (events.type == ALLEGRO_EVENT_KEY_UP)
+        {
+            if (events.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+                break;
+            else if (events.keyboard.keycode == ALLEGRO_KEY_P)
+                al_play_sample(sample, 0.1, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, nullptr);
+        }
 
         if (events.type == ALLEGRO_EVENT_KEY_DOWN)
         {
             clear = true;
-        
+
             switch (events.keyboard.keycode)
             {
             case ALLEGRO_KEY_S:
@@ -197,38 +171,28 @@ int main(const int argc, const char *argv[])
                 c_pac -= 1;
                 direction = 0;
                 break;
-            
+
             default:
-                cout << "\n\033[31mShortcut\033[37m [ " << events.keyboard.keycode << " ]\n\n";
                 continue;
             }
 
-            if (map[l_pac][c_pac] == 'F')
-            {
-                cout<<"\n\nFood\n";
-            } else if (map[l_pac][c_pac] == 'W')
-            {
-                cout<<"\n\nWall\n";
-            }
-
+            /* if (map[l_pac][c_pac] == 'F')
+                cout << "\nFood \033[31m:\033[37m L " << l_pac << " C " << c_pac << "\n";
+            else if (map[l_pac][c_pac] == 'W')
+                cout << "\nWall \033[34m:\033[37m L " << l_pac << " C " << c_pac << "\n"; */
         }
 
         if (clear)
         {
-            
             clear = false;
-
-            al_clear_to_color(al_map_rgb(0,0,0));
+            
+            al_clear_to_color(al_map_rgb(0, 0, 0));
 
             for (int counter = 0; counter < c_wall; counter++)
-            {  
                 w[counter].draw();
-            }
 
             for (int counter = 0; counter < c_food; counter++)
-            {
                 f[counter].draw();
-            }
 
             pac.set(c_pac, l_pac, direction);
 
@@ -237,15 +201,13 @@ int main(const int argc, const char *argv[])
         }
 
         al_flip_display();
-
     }
 
+    al_destroy_event_queue(event_queue);
 
-    al_destroy_sample(sample);
-    
     al_destroy_sample_instance(instance);
 
-    al_destroy_event_queue(event_queue);
+    al_destroy_sample(sample);
 
     al_destroy_bitmap(icon);
 
