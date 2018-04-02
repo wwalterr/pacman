@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-// Allegro 5
+// Allegro
 
 #include <allegro5/allegro.h>
 

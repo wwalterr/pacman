@@ -31,8 +31,6 @@ int main(const int argc, const char *argv[])
     if (!al_init())
         fail("Failed to load Allegro 5");
 
-    // Addon
-
     al_init_image_addon();
 
     al_init_primitives_addon();
@@ -47,7 +45,7 @@ int main(const int argc, const char *argv[])
 
     ALLEGRO_DISPLAY *display = nullptr;
 
-    ALLEGRO_BITMAP *icon = al_load_bitmap("images/pacman.png");
+    ALLEGRO_BITMAP *icon = al_load_bitmap("images/pacman_logo.png");
 
     al_set_new_display_flags(ALLEGRO_RESIZABLE);
 
@@ -70,7 +68,7 @@ int main(const int argc, const char *argv[])
 
     ALLEGRO_SAMPLE_INSTANCE *instance = nullptr;
 
-    sample = al_load_sample("audios/bits.wav");
+    sample = al_load_sample("audios/pacman_theme.wav");
 
     instance = al_create_sample_instance(sample);
 
@@ -82,7 +80,7 @@ int main(const int argc, const char *argv[])
 
     Food f[166];
 
-    int c_wall = 0, c_food = 0;
+    int counter_w = 0, counter_f = 0;
 
     for (int row = 0; row < 20; row++)
     {
@@ -90,16 +88,19 @@ int main(const int argc, const char *argv[])
         {
             if (map[row][col] == 'W')
             {
-                w[c_wall].set(col, row);
+                w[counter_w].set(col, row);
 
-                w[c_wall++].draw();
+                w[counter_w++].draw();
             }
 
             if (map[row][col] == 'F')
             {
-                f[c_food].set(col, row);
+                if (row > 9)
+                    f[counter_f].setImg("images/pacman_food_blue.png");
 
-                f[c_food++].draw();
+                f[counter_f].set(col, row);
+
+                f[counter_f++].draw();
             }
         }
     }
@@ -175,29 +176,23 @@ int main(const int argc, const char *argv[])
             default:
                 continue;
             }
-
-            /* if (map[l_pac][c_pac] == 'F')
-                cout << "\nFood \033[31m:\033[37m L " << l_pac << " C " << c_pac << "\n";
-            else if (map[l_pac][c_pac] == 'W')
-                cout << "\nWall \033[34m:\033[37m L " << l_pac << " C " << c_pac << "\n"; */
         }
 
         if (clear)
         {
             clear = false;
-            
+
             al_clear_to_color(al_map_rgb(0, 0, 0));
 
-            for (int counter = 0; counter < c_wall; counter++)
+            for (int counter = 0; counter < counter_w; counter++)
                 w[counter].draw();
 
-            for (int counter = 0; counter < c_food; counter++)
+            for (int counter = 0; counter < counter_f; counter++)
                 f[counter].draw();
 
             pac.set(c_pac, l_pac, direction);
 
             pac.draw();
-
         }
 
         al_flip_display();

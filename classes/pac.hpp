@@ -1,11 +1,7 @@
 
-#include <iostream>
-
 #include <allegro5/allegro.h>
 
 #include <allegro5/allegro_native_dialog.h>
-
-using namespace std;
 
 #ifndef PAC_H
 
@@ -15,18 +11,34 @@ class Pac
 {
 
 private:
-  int direction, c_pac, l_pac, size;
+  int direction, pacman_col, pacman_line, size;
 
   ALLEGRO_BITMAP *img;
 
 public:
   Pac(void);
 
-  Pac(const int c_pac, const int l_pac, const int size, const int direction, char const *img);
+  Pac(const int direction, const int pacman_col, const int pacman_line, const int size, char const *img);
 
   void draw(void);
 
-  void set(const int c_pac, const int l_pac, const int direction);
+  void setDirection(const int direction);
+
+  int getDirection(void);
+
+  void setPacmanCol(const int pacman_col);
+
+  int getPacmanCol(void);
+
+  void setPacmanLine(const int pacman_line);
+
+  int getPacmanLine(void);
+
+  void setSize(const int size);
+
+  int getSize(void);
+
+  void set(const int pacman_col, const int pacman_line, const int direction);
 
   ~Pac(void);
 };

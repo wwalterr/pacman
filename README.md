@@ -1,13 +1,11 @@
 
 #### [Pacman](https://github.com/Sphinxs/Pacman)
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7b4cabacd3d54d49895199a748e15184)](https://www.codacy.com/app/Sphinxs/Pacman?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Sphinxs/Pacman&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7b4cabacd3d54d49895199a748e15184)](https://www.codacy.com/app/Sphinxs/Pacman?utm_source=github.com&utm_medium=referral&utm_content=Sphinxs/Pacman&utm_campaign=Badge_Grade)
 
-:fish_cake: Pacman in C++ with Allegro 5.
+:fish_cake: Pacman in C++ with Allegro 5
 
 #### Run
-
-To run this game you need to :
 
 ```shell
     git clone https://github.com/Sphinxs/Pacman.git
@@ -15,18 +13,14 @@ To run this game you need to :
     cd Pacman
 
     make
+
+    make run
 ```
 
 #### Fix
 
-1. Full Screen
+1.  Full screen
 
-2. Window position
+2.  Icons ( [Reference](http://joshkelle.com/projects/pacman.html) )
 
-3. Icons and background ( [Here](http://joshkelle.com/projects/pacman.html) )
-
-4. Key Up and Key Down
-
-5. Animation
-
-6. Redundancies
+3.  Animations
