@@ -1,11 +1,11 @@
 
-#include <allegro5/allegro.h>
-
-#include <allegro5/allegro_native_dialog.h>
-
 #ifndef WALL_H
 
 #define WALL_H
+
+#include <allegro5/allegro.h>
+
+#include <allegro5/allegro_native_dialog.h>
 
 class Wall
 {

@@ -14,10 +14,13 @@ EXE=pacman
 all: executable
 
 executable: $(CODES)
-	$(CC) $(CODES) -o $(EXE) $(INCLUDE) $(CFLAGS) $(LFLAGS) && ./$(EXE)
+	$(CC) $(CODES) -o $(EXE) $(INCLUDE) $(CFLAGS) $(LFLAGS)
 
 clean:
 	rm -rf *.o
 
 run:
 	./$(EXE)
+
+srgb:
+	pngcrush -ow -rem allb -reduce images/*.png

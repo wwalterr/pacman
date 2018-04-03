@@ -1,11 +1,11 @@
 
-#include <allegro5/allegro.h>
-
-#include <allegro5/allegro_native_dialog.h>
-
 #ifndef FOOD_H
 
 #define FOOD_H
+
+#include <allegro5/allegro.h>
+
+#include <allegro5/allegro_native_dialog.h>
 
 class Food
 {

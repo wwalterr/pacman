@@ -64,6 +64,8 @@ int main(const int argc, const char *argv[])
 
     al_reserve_samples(1);
 
+    ALLEGRO_SAMPLE_ID sp_id;
+
     ALLEGRO_SAMPLE *sample = nullptr;
 
     ALLEGRO_SAMPLE_INSTANCE *instance = nullptr;
@@ -118,7 +120,7 @@ int main(const int argc, const char *argv[])
 
     // Game Loop
 
-    int l_pac = 12, c_pac = 7, direction = 0;
+    int pacman_line = 12, pacman_col = 7, direction = 0;
 
     bool clear = false;
 
@@ -142,7 +144,9 @@ int main(const int argc, const char *argv[])
             if (events.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
                 break;
             else if (events.keyboard.keycode == ALLEGRO_KEY_P)
-                al_play_sample(sample, 0.1, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, nullptr);
+                al_play_sample(sample, 0.3, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &sp_id); // Play
+            else if (events.keyboard.keycode == ALLEGRO_KEY_O)
+                al_stop_sample(&sp_id); // One-stop
         }
 
         if (events.type == ALLEGRO_EVENT_KEY_DOWN)
@@ -152,24 +156,24 @@ int main(const int argc, const char *argv[])
             switch (events.keyboard.keycode)
             {
             case ALLEGRO_KEY_S:
-                l_pac += 1;
+                pacman_line += 1;
                 direction = 3;
                 break;
 
             case ALLEGRO_KEY_W:
-                l_pac -= 1;
+                pacman_line -= 1;
                 direction = 2;
                 break;
 
             case ALLEGRO_KEY_RIGHT:
             case ALLEGRO_KEY_D:
-                c_pac += 1;
+                pacman_col += 1;
                 direction = 1;
                 break;
 
             case ALLEGRO_KEY_LEFT:
             case ALLEGRO_KEY_A:
-                c_pac -= 1;
+                pacman_col -= 1;
                 direction = 0;
                 break;
 
@@ -188,9 +192,18 @@ int main(const int argc, const char *argv[])
                 w[counter].draw();
 
             for (int counter = 0; counter < counter_f; counter++)
-                f[counter].draw();
+            {
+                if (pac.getPacmanLine() == f[counter].getY() && pac.getPacmanCol() == f[counter].getX())
+                {
+                    f[counter].set(-1, -1);
 
-            pac.set(c_pac, l_pac, direction);
+                    continue;
+                }
+
+                f[counter].draw();
+            }
+
+            pac.set(pacman_col, pacman_line, direction);
 
             pac.draw();
         }
