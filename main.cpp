@@ -134,7 +134,7 @@ int main(const int argc, const char *argv[])
 
 	// Game Loop
 
-	int direction = 0, points = 0;
+	int direction = 2, points = 0;
 
 	bool redraw = false;
 
@@ -167,7 +167,7 @@ int main(const int argc, const char *argv[])
 
 		if (events.type == ALLEGRO_EVENT_KEY_DOWN)
 		{
-			redraw = true;
+			// redraw = true;
 
 			switch (events.keyboard.keycode)
 			{
