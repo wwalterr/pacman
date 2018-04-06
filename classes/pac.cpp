@@ -85,6 +85,53 @@ void Pac::set(const int pacman_col = 7, const int pacman_line = 12, const int di
     this->setDirection(direction);
 }
 
+bool Pac::move(const int direction, char map[20][17])
+{
+    this->setDirection(direction);
+
+    switch(direction) {
+        case 0: // Left
+            if(map[this->getPacmanLine()][this->getPacmanCol() - 1] == 'W')
+                return false;
+
+            this->pacman_col -= 1;
+            
+            return true;
+
+            break;
+
+        case 1: // Right
+            if(map[this->getPacmanLine()][this->getPacmanCol() + 1] == 'W')
+                return false;
+
+            this->pacman_col += 1;
+            
+            return true;
+            
+            break;
+
+        case 2: // Up
+            if(map[this->getPacmanLine() - 1][this->getPacmanCol()] == 'W')
+                return false;
+
+            this->pacman_line -= 1;
+            
+            return true;
+            
+            break;
+
+        case 3: // Down
+            if(map[this->getPacmanLine() + 1][this->getPacmanCol()] == 'W')
+                return false;
+
+            this->pacman_line += 1;
+            
+            return true;
+            
+            break;
+    }
+}
+
 Pac::~Pac(void)
 {
     al_destroy_bitmap(this->img);

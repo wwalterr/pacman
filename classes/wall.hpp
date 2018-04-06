@@ -20,7 +20,7 @@ private:
 public:
   Wall(void);
 
-  Wall(const int x, const int y, const int size, char const *img);
+  Wall(const float x, const float y, const int size, char const *img);
 
   void draw(void);
 

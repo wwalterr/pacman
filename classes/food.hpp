@@ -20,7 +20,7 @@ private:
 public:
   Food(void);
 
-  Food(const int x, const int y, const int size, char const *img);
+  Food(const float x, const float y, const int size, char const *img);
 
   void draw(void);
 

@@ -7,16 +7,16 @@
 
 Wall::Wall(void)
 {
-    this->x = 0;
+    this->x = 0.0;
 
-    this->y = 0;
+    this->y = 0.0;
 
     this->size = 30;
 
     this->img = al_load_bitmap("images/pacman_wall.png");
 };
 
-Wall::Wall(const int x = 0, const int y = 0, const int size = 30, char const *img = {"images/pacman_wall.png"})
+Wall::Wall(const float x = 0, const float y = 0, const int size = 30, char const *img = {"images/pacman_wall.png"})
 {
     this->x = x;
 

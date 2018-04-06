@@ -22,5 +22,3 @@
 1.  Full screen
 
 2.  Icons ( [Reference](http://joshkelle.com/projects/pacman.html) )
-
-3.  Animations

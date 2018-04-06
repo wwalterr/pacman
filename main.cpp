@@ -6,220 +6,241 @@ using namespace std;
 int main(const int argc, const char *argv[])
 {
 
-    char map[20][17] = {
-        "WWWWWWWWWWWWWWWW",
-        "WFFFFFFFFFFFFFFW",
-        "WFWWWWWFFWWWWWFW",
-        "WFFFFFFFFFFFFFFW",
-        "WFWWWWWFFWWWWWFW",
-        "WFFFFFFFFFFFFFFW",
-        "WFWWWWWWWWWWWWFW",
-        "WFFFFFFWWFFFFFFW",
-        "WFFFWFFWWFFWFFFW",
-        "WFWWWFFFFFFWWWFW",
-        "WFWFFFWWWWFFFWFW",
-        "WFFFWFFFFFFWFFFW",
-        "WFWWWFWFFWFWWWFW",
-        "WFFFWFWWWWFWFFFW",
-        "WFFFFFFFFFFFFFFW",
-        "WFFFWWWWWWWWFFFW",
-        "WFWFFFFFFFFFFWFW",
-        "WFWWWWWFFWWWWWFW",
-        "WFFFFFFFFFFFFFFW",
-        "WWWWWWWWWWWWWWWW"};
+	char map[20][17] = {
+		"WWWWWWWWWWWWWWWW",
+		"WFFFFFFFFFFFFFFW",
+		"WFWWWWWFFWWWWWFW",
+		"WFFFFFFFFFFFFFFW",
+		"WFWWWWWFFWWWWWFW",
+		"WFFFFFFFFFFFFFFW",
+		"WFWWWWWWWWWWWWFW",
+		"WFFFFFFWWFFFFFFW",
+		"WFFFWFFWWFFWFFFW",
+		"WFWWWFFFFFFWWWFW",
+		"WFWFFFWWWWFFFWFW",
+		"WFFFWFFFFFFWFFFW",
+		"WFWWWFWFFWFWWWFW",
+		"WFFFWFWWWWFWFFFW",
+		"WFFFFFFFFFFFFFFW",
+		"WFFFWWWWWWWWFFFW",
+		"WFWFFFFFFFFFFWFW",
+		"WFWWWWWFFWWWWWFW",
+		"WFFFFFFFFFFFFFFW",
+		"WWWWWWWWWWWWWWWW"};
 
-    if (!al_init())
-        fail("Failed to load Allegro 5");
+	if (!al_init())
+		fail("Failed to load Allegro 5");
 
-    al_init_image_addon();
+	al_init_image_addon();
 
-    al_init_primitives_addon();
+	al_init_acodec_addon();
 
-    al_install_keyboard();
+	al_init_primitives_addon();
 
-    al_install_audio();
+	al_install_keyboard();
 
-    al_init_acodec_addon();
+	al_install_audio();
 
-    // Window
+	// Window
 
-    ALLEGRO_DISPLAY *display = nullptr;
+	ALLEGRO_DISPLAY *display = nullptr;
 
-    ALLEGRO_BITMAP *icon = al_load_bitmap("images/pacman_logo.png");
+	ALLEGRO_BITMAP *icon = al_load_bitmap("images/pacman_logo.png");
 
-    al_set_new_display_flags(ALLEGRO_RESIZABLE);
+	al_set_new_display_flags(ALLEGRO_RESIZABLE);
 
-    al_set_new_window_position(410, 80);
+	al_set_new_window_position(410, 80);
 
-    display = al_create_display(480, 600);
+	display = al_create_display(480, 600);
 
-    if (!display)
-        fail("Failed to initialize Display");
+	if (!display)
+		fail("Failed to initialize Display");
 
-    al_set_window_title(display, "Pac Man");
+	al_set_window_title(display, "Pac Man");
 
-    al_set_display_icon(display, icon);
+	al_set_display_icon(display, icon);
 
-    // Audio
+	// Audio
 
-    al_reserve_samples(1);
+	al_reserve_samples(2);
 
-    ALLEGRO_SAMPLE_ID sp_id;
+	ALLEGRO_SAMPLE_ID sp_id;
 
-    ALLEGRO_SAMPLE *sample = nullptr;
+	ALLEGRO_SAMPLE *theme = nullptr;
 
-    ALLEGRO_SAMPLE_INSTANCE *instance = nullptr;
+	ALLEGRO_SAMPLE *eat_fruit = nullptr;
 
-    sample = al_load_sample("audios/pacman_theme.wav");
+	ALLEGRO_SAMPLE_INSTANCE *instance_theme = nullptr;
 
-    instance = al_create_sample_instance(sample);
+	ALLEGRO_SAMPLE_INSTANCE *instance_eat_fruit = nullptr;
 
-    al_attach_sample_instance_to_mixer(instance, al_get_default_mixer());
+	theme = al_load_sample("audios/pacman_theme.wav");
 
-    // Map
+	eat_fruit = al_load_sample("audios/pacman_eat_fruit.wav");
 
-    Wall w[154];
+	instance_theme = al_create_sample_instance(theme);
 
-    Food f[166];
+	instance_eat_fruit = al_create_sample_instance(eat_fruit);
 
-    int counter_w = 0, counter_f = 0;
+	al_attach_sample_instance_to_mixer(instance_theme, al_get_default_mixer());
 
-    for (int row = 0; row < 20; row++)
-    {
-        for (int col = 0; col < 17; col++)
-        {
-            if (map[row][col] == 'W')
-            {
-                w[counter_w].set(col, row);
+	al_attach_sample_instance_to_mixer(instance_eat_fruit, al_get_default_mixer());
 
-                w[counter_w++].draw();
-            }
+	// Map
 
-            if (map[row][col] == 'F')
-            {
-                if (row > 9)
-                    f[counter_f].setImg("images/pacman_food_blue.png");
+	Wall w[154];
 
-                f[counter_f].set(col, row);
+	Food f[166];
 
-                f[counter_f++].draw();
-            }
-        }
-    }
+	int counter_w = 0, counter_f = 0;
 
-    // Event
+	for (int row = 0; row < 20; row++)
+	{
+		for (int col = 0; col < 17; col++)
+		{
+			if (map[row][col] == 'W')
+			{
+				w[counter_w].set(col, row);
 
-    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+				w[counter_w++].draw();
+			}
 
-    if (!event_queue)
-        fail("Failed to create Event Queue");
+			if (map[row][col] == 'F')
+			{
+				if (row > 9)
+					f[counter_f].setImg("images/pacman_food_blue.png");
 
-    al_register_event_source(event_queue, al_get_keyboard_event_source());
+				f[counter_f].set(col, row);
 
-    al_register_event_source(event_queue, al_get_display_event_source(display));
+				f[counter_f++].draw();
+			}
+		}
+	}
 
-    // Game Loop
+	// Event
 
-    int pacman_line = 12, pacman_col = 7, direction = 0;
+	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
-    bool clear = false;
+	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 60);
 
-    Pac pac;
+	if (!event_queue)
+		fail("Failed to create Event Queue");
 
-    pac.draw();
+	al_register_event_source(event_queue, al_get_keyboard_event_source());
 
-    al_flip_display();
+	al_register_event_source(event_queue, al_get_display_event_source(display));
 
-    while (true)
-    {
-        ALLEGRO_EVENT events;
+	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
-        al_wait_for_event(event_queue, &events);
+	// Game Loop
 
-        if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
-            break;
+	int direction = 0;
 
-        if (events.type == ALLEGRO_EVENT_KEY_UP)
-        {
-            if (events.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-                break;
-            else if (events.keyboard.keycode == ALLEGRO_KEY_P)
-                al_play_sample(sample, 0.3, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &sp_id); // Play
-            else if (events.keyboard.keycode == ALLEGRO_KEY_O)
-                al_stop_sample(&sp_id); // One-stop
-        }
+	bool clear = false;
 
-        if (events.type == ALLEGRO_EVENT_KEY_DOWN)
-        {
-            clear = true;
+	Pac pac;
 
-            switch (events.keyboard.keycode)
-            {
-            case ALLEGRO_KEY_S:
-                pacman_line += 1;
-                direction = 3;
-                break;
+	pac.draw();
 
-            case ALLEGRO_KEY_W:
-                pacman_line -= 1;
-                direction = 2;
-                break;
+	al_flip_display();
 
-            case ALLEGRO_KEY_RIGHT:
-            case ALLEGRO_KEY_D:
-                pacman_col += 1;
-                direction = 1;
-                break;
+	al_start_timer(timer);
 
-            case ALLEGRO_KEY_LEFT:
-            case ALLEGRO_KEY_A:
-                pacman_col -= 1;
-                direction = 0;
-                break;
+	while (true)
+	{
+		ALLEGRO_EVENT events;
 
-            default:
-                continue;
-            }
-        }
+		al_wait_for_event(event_queue, &events);
 
-        if (clear)
-        {
-            clear = false;
+		if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+			break;
 
-            al_clear_to_color(al_map_rgb(0, 0, 0));
+		if (events.type == ALLEGRO_EVENT_KEY_UP)
+		{
+			if (events.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+				break;
+			else if (events.keyboard.keycode == ALLEGRO_KEY_P)
+				al_play_sample(theme, 0.3, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &sp_id);
+			else if (events.keyboard.keycode == ALLEGRO_KEY_O)
+				al_stop_sample(&sp_id);
+		}
 
-            for (int counter = 0; counter < counter_w; counter++)
-                w[counter].draw();
+		if (events.type == ALLEGRO_EVENT_KEY_DOWN)
+		{
+			clear = true;
 
-            for (int counter = 0; counter < counter_f; counter++)
-            {
-                if (pac.getPacmanLine() == f[counter].getY() && pac.getPacmanCol() == f[counter].getX())
-                {
-                    f[counter].set(-1, -1);
+			switch (events.keyboard.keycode)
+			{
+			case ALLEGRO_KEY_S:
+				direction = 3;
+				break;
 
-                    continue;
-                }
+			case ALLEGRO_KEY_W:
+				direction = 2;
+				break;
 
-                f[counter].draw();
-            }
+			case ALLEGRO_KEY_RIGHT:
+			case ALLEGRO_KEY_D:
+				direction = 1;
+				break;
 
-            pac.set(pacman_col, pacman_line, direction);
+			case ALLEGRO_KEY_LEFT:
+			case ALLEGRO_KEY_A:
+				direction = 0;
+				break;
 
-            pac.draw();
-        }
+			default:
+				continue;
+			}
+		}
 
-        al_flip_display();
-    }
+		if (clear)
+		{
+			clear = false;
 
-    al_destroy_event_queue(event_queue);
+			al_clear_to_color(al_map_rgb(0, 0, 0));
 
-    al_destroy_sample_instance(instance);
+			for (int counter = 0; counter < counter_w; counter++)
+				w[counter].draw();
 
-    al_destroy_sample(sample);
+			for (int counter = 0; counter < counter_f; counter++)
+			{
+				if (pac.getPacmanLine() == f[counter].getY() && pac.getPacmanCol() == f[counter].getX())
+				{
+					al_play_sample(eat_fruit, 0.3, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, nullptr);
 
-    al_destroy_bitmap(icon);
+					f[counter].set(-1, -1);
 
-    al_destroy_display(display);
+					continue;
+				}
 
-    return 0;
+				f[counter].draw();
+			}
+			
+			pac.move(direction, map);
+
+			pac.draw();
+
+			al_flip_display();
+		}
+
+	}
+
+	al_destroy_timer(timer);
+
+	al_destroy_event_queue(event_queue);
+
+	al_destroy_sample_instance(instance_theme);
+
+	al_destroy_sample_instance(instance_eat_fruit);
+
+	al_destroy_sample(theme);
+
+	al_destroy_sample(eat_fruit);
+
+	al_destroy_bitmap(icon);
+
+	al_destroy_display(display);
+
+	return 0;
 }
