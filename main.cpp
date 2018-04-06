@@ -121,7 +121,7 @@ int main(const int argc, const char *argv[])
 
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
-	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 60);
+	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 5);
 
 	if (!event_queue)
 		fail("Failed to create Event Queue");
@@ -134,9 +134,9 @@ int main(const int argc, const char *argv[])
 
 	// Game Loop
 
-	int direction = 0;
+	int direction = 0, points = 0;
 
-	bool clear = false;
+	bool redraw = false;
 
 	Pac pac;
 
@@ -167,7 +167,7 @@ int main(const int argc, const char *argv[])
 
 		if (events.type == ALLEGRO_EVENT_KEY_DOWN)
 		{
-			clear = true;
+			redraw = true;
 
 			switch (events.keyboard.keycode)
 			{
@@ -194,9 +194,13 @@ int main(const int argc, const char *argv[])
 			}
 		}
 
-		if (clear)
+		if(events.type == ALLEGRO_EVENT_TIMER) {
+        	redraw = true;
+      	}
+
+		if (redraw)
 		{
-			clear = false;
+			redraw = false;
 
 			al_clear_to_color(al_map_rgb(0, 0, 0));
 
@@ -210,6 +214,8 @@ int main(const int argc, const char *argv[])
 					al_play_sample(eat_fruit, 0.3, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, nullptr);
 
 					f[counter].set(-1, -1);
+					
+					points++;
 
 					continue;
 				}
@@ -223,8 +229,9 @@ int main(const int argc, const char *argv[])
 
 			al_flip_display();
 		}
-
 	}
+
+	cout << "\nPac man was eaten \033[31m" << points << "\033[37m fruits\n\n";
 
 	al_destroy_timer(timer);
 

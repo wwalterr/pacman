@@ -85,7 +85,7 @@ void Pac::set(const int pacman_col = 7, const int pacman_line = 12, const int di
     this->setDirection(direction);
 }
 
-bool Pac::move(const int direction, char map[20][17])
+bool Pac::move(const int direction, char map[][17])
 {
     this->setDirection(direction);
 
