@@ -49,9 +49,9 @@ int main(const int argc, const char *argv[])
 
 	al_set_new_display_flags(ALLEGRO_RESIZABLE);
 
-	al_set_new_window_position(410, 80);
+	al_set_new_window_position(410, 50);
 
-	display = al_create_display(480, 600);
+	display = al_create_display(480, 630);
 
 	if (!display)
 		fail("Failed to initialize Display");
@@ -134,7 +134,7 @@ int main(const int argc, const char *argv[])
 
 	// Game Loop
 
-	int direction = 2, points = 0;
+	int direction = 2, points = 0, intention = 2;
 
 	bool redraw = false;
 
@@ -167,36 +167,44 @@ int main(const int argc, const char *argv[])
 
 		if (events.type == ALLEGRO_EVENT_KEY_DOWN)
 		{
-			// redraw = true;
-
 			switch (events.keyboard.keycode)
 			{
 			case ALLEGRO_KEY_S:
-				direction = 3;
+				intention = 3;
 				break;
 
 			case ALLEGRO_KEY_W:
-				direction = 2;
+				intention = 2;
 				break;
 
 			case ALLEGRO_KEY_RIGHT:
 			case ALLEGRO_KEY_D:
-				direction = 1;
+				intention = 1;
 				break;
 
 			case ALLEGRO_KEY_LEFT:
 			case ALLEGRO_KEY_A:
-				direction = 0;
+				intention = 0;
 				break;
-
-			default:
-				continue;
 			}
 		}
 
-		if(events.type == ALLEGRO_EVENT_TIMER) {
-        	redraw = true;
-      	}
+		if (events.type == ALLEGRO_EVENT_TIMER)
+		{
+			redraw = true;
+
+			/* if(!pac.move(direction, map))
+				direction = intention; */
+
+			if (intention == 0 && map[pac.getPacmanLine()][pac.getPacmanCol() - 1] != 'W')
+				direction = intention;
+			else if (intention == 1 && map[pac.getPacmanLine()][pac.getPacmanCol() + 1] != 'W')
+				direction = intention;
+			else if (intention == 2 && map[pac.getPacmanLine() - 1][pac.getPacmanCol()] != 'W')
+				direction = intention;
+			else if (intention == 3 && map[pac.getPacmanLine() + 1][pac.getPacmanCol()] != 'W')
+				direction = intention;
+		}
 
 		if (redraw)
 		{
@@ -214,7 +222,7 @@ int main(const int argc, const char *argv[])
 					al_play_sample(eat_fruit, 0.3, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, nullptr);
 
 					f[counter].set(-1, -1);
-					
+
 					points++;
 
 					continue;
@@ -222,7 +230,7 @@ int main(const int argc, const char *argv[])
 
 				f[counter].draw();
 			}
-			
+
 			pac.move(direction, map);
 
 			pac.draw();
