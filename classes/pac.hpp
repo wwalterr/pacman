@@ -40,7 +40,15 @@ public:
 
   void set(const int pacman_col, const int pacman_line, const int direction);
 
-  bool move(const int direction, char map[20][17]);
+  bool moveLeft(char map[][17]);
+
+  bool moveRight(char map[][17]);
+
+  bool moveUp(char map[][17]);
+
+  bool moveDown(char map[][17]);
+
+  bool move(const int direction, char map[][17]);
 
   ~Pac(void);
 };

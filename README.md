@@ -12,13 +12,13 @@
 
     cd Pacman
 
-    make
-
-    make run
+    make && make run
 ```
 
-#### Fix
+#### Features
 
 1.  Full screen
 
-2.  Icons ( [Reference](http://joshkelle.com/projects/pacman.html) )
+2.  Icons 'n background ( [Reference](http://joshkelle.com/projects/pacman.html) )
+
+3. Status

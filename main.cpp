@@ -160,7 +160,7 @@ int main(const int argc, const char *argv[])
 			if (events.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				break;
 			else if (events.keyboard.keycode == ALLEGRO_KEY_P)
-				al_play_sample(theme, 0.3, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &sp_id);
+				al_play_sample(theme, 0.2, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &sp_id);
 			else if (events.keyboard.keycode == ALLEGRO_KEY_O)
 				al_stop_sample(&sp_id);
 		}
@@ -193,16 +193,13 @@ int main(const int argc, const char *argv[])
 		{
 			redraw = true;
 
-			/* if(!pac.move(direction, map))
-				direction = intention; */
-
-			if (intention == 0 && map[pac.getPacmanLine()][pac.getPacmanCol() - 1] != 'W')
+			if (intention == 0 && pac.moveLeft(map))
 				direction = intention;
-			else if (intention == 1 && map[pac.getPacmanLine()][pac.getPacmanCol() + 1] != 'W')
+			else if (intention == 1 && pac.moveRight(map))
 				direction = intention;
-			else if (intention == 2 && map[pac.getPacmanLine() - 1][pac.getPacmanCol()] != 'W')
+			else if (intention == 2 && pac.moveUp(map))
 				direction = intention;
-			else if (intention == 3 && map[pac.getPacmanLine() + 1][pac.getPacmanCol()] != 'W')
+			else if (intention == 3 && pac.moveDown(map))
 				direction = intention;
 		}
 
@@ -219,7 +216,7 @@ int main(const int argc, const char *argv[])
 			{
 				if (pac.getPacmanLine() == f[counter].getY() && pac.getPacmanCol() == f[counter].getX())
 				{
-					al_play_sample(eat_fruit, 0.3, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, nullptr);
+					al_play_sample(eat_fruit, 0.2, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, nullptr);
 
 					f[counter].set(-1, -1);
 

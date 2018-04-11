@@ -85,14 +85,46 @@ void Pac::set(const int pacman_col = 7, const int pacman_line = 12, const int di
     this->setDirection(direction);
 }
 
-bool Pac::move(const int direction, char map[20][17])
+bool Pac::moveLeft(char map[][17])
+{
+    if (map[this->getPacmanLine()][this->getPacmanCol() - 1] == 'W')
+        return false;
+
+    return true;
+}
+
+bool Pac::moveRight(char map[][17])
+{
+    if (map[this->getPacmanLine()][this->getPacmanCol() + 1] == 'W')
+        return false;
+
+    return true;
+}
+
+bool Pac::moveUp(char map[][17])
+{
+    if (map[this->getPacmanLine() - 1][this->getPacmanCol()] == 'W')
+        return false;
+
+    return true;
+}
+
+bool Pac::moveDown(char map[][17])
+{
+    if (map[this->getPacmanLine() + 1][this->getPacmanCol()] == 'W')
+        return false;
+
+    return true;
+}
+
+bool Pac::move(const int direction, char map[][17])
 {
     this->setDirection(direction);
 
-    switch (direction)
+    switch (this->direction)
     {
     case 0: // Left
-        if (map[this->getPacmanLine()][this->getPacmanCol() - 1] == 'W')
+        if (!moveLeft(map))
             return false;
 
         this->pacman_col -= 1;
@@ -100,7 +132,7 @@ bool Pac::move(const int direction, char map[20][17])
         return true;
 
     case 1: // Right
-        if (map[this->getPacmanLine()][this->getPacmanCol() + 1] == 'W')
+        if (!moveRight(map))
             return false;
 
         this->pacman_col += 1;
@@ -108,7 +140,7 @@ bool Pac::move(const int direction, char map[20][17])
         return true;
 
     case 2: // Up
-        if (map[this->getPacmanLine() - 1][this->getPacmanCol()] == 'W')
+        if (!moveUp(map))
             return false;
 
         this->pacman_line -= 1;
@@ -116,7 +148,7 @@ bool Pac::move(const int direction, char map[20][17])
         return true;
 
     case 3: // Down
-        if (map[this->getPacmanLine() + 1][this->getPacmanCol()] == 'W')
+        if (!moveDown(map))
             return false;
 
         this->pacman_line += 1;
