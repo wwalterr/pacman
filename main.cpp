@@ -117,6 +117,12 @@ int main(const int argc, const char *argv[])
 		}
 	}
 
+	// Test
+
+	ALLEGRO_BITMAP *back = al_load_bitmap("images/pacman_pattern.png");
+
+	al_draw_bitmap(back, 0, 0, 0);
+
 	// Event
 
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
@@ -134,7 +140,7 @@ int main(const int argc, const char *argv[])
 
 	// Game Loop
 
-	int direction = 2, points = 0, intention = 2;
+	int direction = 1, points = 0, intention = 1;
 
 	bool redraw = false;
 
@@ -208,6 +214,8 @@ int main(const int argc, const char *argv[])
 			redraw = false;
 
 			al_clear_to_color(al_map_rgb(0, 0, 0));
+
+			al_draw_bitmap(back, 0, 0, 0);
 
 			for (int counter = 0; counter < counter_w; counter++)
 				w[counter].draw();
