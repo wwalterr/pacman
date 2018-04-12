@@ -147,9 +147,15 @@ int main(const int argc, const char *argv[])
 
 	al_start_timer(timer);
 
-	// Test
+	// Status
 
-	Btn points_btn;
+	Btn points_btn, life_btn;
+
+	points_btn.setIcon("images/pacman_cherry.png");
+
+	life_btn.setIcon("images/pacman_life.png");
+
+	life_btn.setX(455.0);
 
 	while (true)
 	{
@@ -236,7 +242,9 @@ int main(const int argc, const char *argv[])
 
 			pac.draw();
 
-			points_btn.showBtn();
+			points_btn.showBtn().showIcon();
+
+			life_btn.showBtn().showIcon();
 
 			al_flip_display();
 		}

@@ -15,6 +15,12 @@
     make && make run
 ```
 
+#### Tools
+
+[Rgb to Hex](https://www.webpagefx.com/web-design/hex-to-rgb/)
+
+[Font Squirrel](https://www.fontsquirrel.com/)
+
 #### Features
 
 1. Full screen

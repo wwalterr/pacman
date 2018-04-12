@@ -3,6 +3,8 @@
 
 #define BTN_H
 
+#include <allegro5/allegro.h>
+
 #include <allegro5/allegro_font.h>
 
 #include <allegro5/allegro_ttf.h>
@@ -11,6 +13,8 @@ class Btn
 {
 
   private:
+    ALLEGRO_BITMAP *icon;
+
     ALLEGRO_COLOR color;
 
     ALLEGRO_FONT *font;
@@ -26,7 +30,7 @@ class Btn
   public:
     Btn();
 
-    Btn(const char *, const int, const int, const int, const int, const int, const float, const float, const char *);
+    Btn(const char *, const char *, const int, const int, const int, const int, const int, const float, const float, const char *);
 
     ~Btn(void);
 
@@ -60,7 +64,15 @@ class Btn
 
     const char *getStr(void);
 
-    void showBtn(void);
+    Btn& showBtn(void);
+
+    void setIcon(const char *);
+
+    ALLEGRO_BITMAP * getIcon(void);
+
+    void showIcon(void);
+
+    void showIcon(Btn obj);
 };
 
 #endif
