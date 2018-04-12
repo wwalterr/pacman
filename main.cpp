@@ -37,6 +37,10 @@ int main(const int argc, const char *argv[])
 
 	al_init_primitives_addon();
 
+	al_init_font_addon();
+
+	al_init_ttf_addon();
+
 	al_install_keyboard();
 
 	al_install_audio();
@@ -143,6 +147,10 @@ int main(const int argc, const char *argv[])
 
 	al_start_timer(timer);
 
+	// Test
+
+	Btn points_btn;
+
 	while (true)
 	{
 		ALLEGRO_EVENT events;
@@ -213,7 +221,7 @@ int main(const int argc, const char *argv[])
 				if (pac.getPacmanLine() == f[counter].getY() && pac.getPacmanCol() == f[counter].getX())
 				{
 					al_play_sample(eat_fruit, 0.1, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, nullptr);
-					
+
 					f[counter].set(-1, -1);
 
 					points++;
@@ -225,9 +233,11 @@ int main(const int argc, const char *argv[])
 			}
 
 			pac.move(direction, map);
-			
+
 			pac.draw();
-			
+
+			points_btn.showBtn();
+
 			al_flip_display();
 		}
 	}

@@ -17,6 +17,12 @@
 
 #### Features
 
-1.  Full screen
+1. Full screen
 
-3. Status
+2. Status
+
+3. Keyboard arrows
+
+4. Volume sound
+
+5. Animation pacman

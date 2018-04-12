@@ -12,13 +12,15 @@ class Pac
 
 private:
   int direction, pacman_col, pacman_line, size;
-
+ 
   ALLEGRO_BITMAP *img;
 
 public:
   Pac(void);
 
   Pac(const int direction, const int pacman_col, const int pacman_line, const int size, char const *img);
+
+  Pac(Pac &obj);
 
   void draw(void);
 
