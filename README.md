@@ -19,6 +19,4 @@
 
 1.  Full screen
 
-2.  Icons 'n background ( [Reference](http://joshkelle.com/projects/pacman.html) )
-
 3. Status

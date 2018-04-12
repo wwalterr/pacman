@@ -19,7 +19,7 @@ int main(const int argc, const char *argv[])
 		"WFWWWFFFFFFWWWFW",
 		"WFWFFFWWWWFFFWFW",
 		"WFFFWFFFFFFWFFFW",
-		"WFWWWFWFFWFWWWFW",
+		"WFWWWFW  WFWWWFW",
 		"WFFFWFWWWWFWFFFW",
 		"WFFFFFFFFFFFFFFW",
 		"WFFFWWWWWWWWFFFW",
@@ -45,9 +45,7 @@ int main(const int argc, const char *argv[])
 
 	ALLEGRO_DISPLAY *display = nullptr;
 
-	ALLEGRO_BITMAP *icon = al_load_bitmap("images/pacman_logo.png");
-
-	al_set_new_display_flags(ALLEGRO_RESIZABLE);
+	al_set_new_display_flags(ALLEGRO_WINDOWED);
 
 	al_set_new_window_position(410, 50);
 
@@ -58,13 +56,19 @@ int main(const int argc, const char *argv[])
 
 	al_set_window_title(display, "Pac Man");
 
+	ALLEGRO_BITMAP *icon = al_load_bitmap("images/pacman_logo.png");
+
 	al_set_display_icon(display, icon);
+
+	ALLEGRO_BITMAP *back = al_load_bitmap("images/pacman_pattern.png");
+
+	al_draw_bitmap(back, 0, 0, 0);
 
 	// Audio
 
 	al_reserve_samples(2);
 
-	ALLEGRO_SAMPLE_ID sp_id;
+	ALLEGRO_SAMPLE_ID theme_id;
 
 	ALLEGRO_SAMPLE *theme = nullptr;
 
@@ -86,48 +90,35 @@ int main(const int argc, const char *argv[])
 
 	al_attach_sample_instance_to_mixer(instance_eat_fruit, al_get_default_mixer());
 
-	// Map
+	al_play_sample(theme, 0.1, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &theme_id);
 
-	Wall w[154];
+	// Food
 
 	Food f[166];
 
-	int counter_w = 0, counter_f = 0;
+	int counter_food = 0;
 
 	for (int row = 0; row < 20; row++)
 	{
 		for (int col = 0; col < 17; col++)
 		{
-			if (map[row][col] == 'W')
-			{
-				w[counter_w].set(col, row);
-
-				w[counter_w++].draw();
-			}
-
 			if (map[row][col] == 'F')
 			{
 				if (row > 9)
-					f[counter_f].setImg("images/pacman_food_blue.png");
+					f[counter_food].setImg("images/pacman_food_blue.png");
 
-				f[counter_f].set(col, row);
+				f[counter_food].set(col, row);
 
-				f[counter_f++].draw();
+				f[counter_food++].draw();
 			}
 		}
 	}
-
-	// Test
-
-	ALLEGRO_BITMAP *back = al_load_bitmap("images/pacman_pattern.png");
-
-	al_draw_bitmap(back, 0, 0, 0);
 
 	// Event
 
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
-	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 5);
+	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 4);
 
 	if (!event_queue)
 		fail("Failed to create Event Queue");
@@ -140,15 +131,15 @@ int main(const int argc, const char *argv[])
 
 	// Game Loop
 
-	int direction = 1, points = 0, intention = 1;
-
-	bool redraw = false;
-
 	Pac pac;
 
 	pac.draw();
 
 	al_flip_display();
+
+	int direction = 0, points = 0, intention = 0;
+
+	bool redraw = false;
 
 	al_start_timer(timer);
 
@@ -166,9 +157,9 @@ int main(const int argc, const char *argv[])
 			if (events.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				break;
 			else if (events.keyboard.keycode == ALLEGRO_KEY_P)
-				al_play_sample(theme, 0.2, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &sp_id);
+				al_play_sample_instance(instance_theme);
 			else if (events.keyboard.keycode == ALLEGRO_KEY_O)
-				al_stop_sample(&sp_id);
+				al_stop_sample(&theme_id);
 		}
 
 		if (events.type == ALLEGRO_EVENT_KEY_DOWN)
@@ -217,15 +208,12 @@ int main(const int argc, const char *argv[])
 
 			al_draw_bitmap(back, 0, 0, 0);
 
-			for (int counter = 0; counter < counter_w; counter++)
-				w[counter].draw();
-
-			for (int counter = 0; counter < counter_f; counter++)
+			for (int counter = 0; counter < counter_food; counter++)
 			{
 				if (pac.getPacmanLine() == f[counter].getY() && pac.getPacmanCol() == f[counter].getX())
 				{
-					al_play_sample(eat_fruit, 0.2, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, nullptr);
-
+					al_play_sample(eat_fruit, 0.1, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, nullptr);
+					
 					f[counter].set(-1, -1);
 
 					points++;
@@ -237,9 +225,9 @@ int main(const int argc, const char *argv[])
 			}
 
 			pac.move(direction, map);
-
+			
 			pac.draw();
-
+			
 			al_flip_display();
 		}
 	}
@@ -257,6 +245,8 @@ int main(const int argc, const char *argv[])
 	al_destroy_sample(theme);
 
 	al_destroy_sample(eat_fruit);
+
+	al_destroy_bitmap(back);
 
 	al_destroy_bitmap(icon);
 
