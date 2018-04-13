@@ -149,13 +149,17 @@ int main(const int argc, const char *argv[])
 
 	// Status
 
+	ALLEGRO_BITMAP *logo_bottom = al_load_bitmap("images/pacman_logo_bottom.png");
+
 	Btn points_btn, life_btn;
 
 	points_btn.setIcon("images/pacman_cherry.png");
 
 	life_btn.setIcon("images/pacman_life.png");
 
-	life_btn.setX(455.0);
+	life_btn.setX(421.0);
+
+	life_btn.setIconX(443.0);
 
 	while (true)
 	{
@@ -242,15 +246,19 @@ int main(const int argc, const char *argv[])
 
 			pac.draw();
 
-			points_btn.showBtn().showIcon();
+			points_btn.showStr().showIcon();
 
-			life_btn.showBtn().showIcon();
+			life_btn.showStr().showIcon();
+
+			al_draw_bitmap(logo_bottom, 185.0, 598.0, 0);
 
 			al_flip_display();
 		}
 	}
 
-	cout << "\nPac man was eaten \033[31m" << points << "\033[37m fruits\n\n";
+	// cout << "\nPac man was eaten \033[31m" << points << "\033[37m fruits\n\n";
+
+	al_destroy_bitmap(logo_bottom);
 
 	al_destroy_timer(timer);
 

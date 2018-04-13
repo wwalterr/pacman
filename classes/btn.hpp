@@ -25,12 +25,12 @@ class Btn
 
     int font_size, font_flag;
 
-    float font_x, font_y;
+    float font_x, font_y, icon_x, icon_y;
 
   public:
     Btn();
 
-    Btn(const char *, const char *, const int, const int, const int, const int, const int, const float, const float, const char *);
+    Btn(const char *, const char *, const int, const int, const int, const int, const int, const float, const float, const char *, const float, const float);
 
     ~Btn(void);
 
@@ -52,6 +52,14 @@ class Btn
 
     ALLEGRO_COLOR getColor(void);
 
+    void setIconX(const float);
+
+    float getIconX(void);
+
+    void setIconY(const float);
+
+    float getIconY(void);
+
     void setX(const float);
 
     float getX(void);
@@ -64,7 +72,7 @@ class Btn
 
     const char *getStr(void);
 
-    Btn& showBtn(void);
+    Btn& showStr(void);
 
     void setIcon(const char *);
 
@@ -72,7 +80,7 @@ class Btn
 
     void showIcon(void);
 
-    void showIcon(Btn obj);
+    void showIcon(Btn);
 };
 
 #endif

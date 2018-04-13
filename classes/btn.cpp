@@ -24,9 +24,13 @@ Btn::Btn(void)
     this->setY(605.0);
 
     this->setStr("Text");
+
+    this->setIconX(10.0);
+
+    this->setIconY(598.0);
 }
 
-Btn::Btn(const char *icon= {"images/pacman_wall.png"}, const char *font_path = {"fonts/roboto_regular.ttf"}, const int font_size = 14, const int font_flag = 0, const int red = 255, const int green = 255, const int blue = 0, const float x = 60.0, const float y = 605.0, const char *str = {"Text"})
+Btn::Btn(const char *icon= {"images/pacman_wall.png"}, const char *font_path = {"fonts/roboto_regular.ttf"}, const int font_size = 14, const int font_flag = 0, const int red = 255, const int green = 255, const int blue = 0, const float x = 60.0, const float y = 605.0, const char *str = {"Text"}, const float icon_x = 10.0, const float icon_y = 598.0)
 {
     this->setIcon(icon);
 
@@ -43,10 +47,16 @@ Btn::Btn(const char *icon= {"images/pacman_wall.png"}, const char *font_path = {
     this->setY(y);
 
     this->setStr(str);
+
+    this->setIconX(icon_x);
+
+    this->setIconX(icon_y);
 }
 
 Btn::~Btn(void)
 {
+    al_destroy_bitmap(this->icon);
+
     al_destroy_font(this->font);
 }
 
@@ -95,6 +105,27 @@ ALLEGRO_COLOR Btn::getColor(void)
     return this->color;
 }
 
+void Btn::setIconX(const float x)
+{
+    this->icon_x = x;
+}
+
+float Btn::getIconX(void)
+{
+    return this->icon_x;
+}
+
+void Btn::setIconY(const float y)
+{
+    this->icon_y = y;
+}
+
+float Btn::getIconY(void)
+{
+    return this->icon_y;
+}
+
+
 void Btn::setX(const float x)
 {
     this->font_x = x;
@@ -125,7 +156,7 @@ const char *Btn::getStr(void)
     return this->str;
 }
 
-Btn& Btn::showBtn(void)
+Btn& Btn::showStr(void)
 {
     al_draw_text(this->font, this->color, this->font_x, this->font_y, ALLEGRO_ALIGN_CENTER, this->str);
 
@@ -141,9 +172,9 @@ ALLEGRO_BITMAP * Btn::getIcon(void) {
 }
 
 void Btn::showIcon(void) {
-    al_draw_bitmap(this->icon, this->font_x - 50, this->font_y - 7, 0);
+    al_draw_bitmap(this->icon, this->icon_x, this->icon_y, 0);
 }
 
 void Btn::showIcon(Btn obj) {
-    al_draw_bitmap(this->icon, this->font_x - 50, this->font_y - 7, 0);
+    al_draw_bitmap(this->icon, this->icon_x, this->icon_y, 0);
 }
