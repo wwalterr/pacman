@@ -149,7 +149,7 @@ int main(const int argc, const char *argv[])
 
 	// Status
 
-	ALLEGRO_BITMAP *logo_bottom = al_load_bitmap("images/pacman_logo_bottom.png");
+	ALLEGRO_BITMAP *logo_bottom = al_load_bitmap("images/pacman_logo_bottom_two.png");
 
 	Btn points_btn, life_btn;
 
@@ -160,6 +160,8 @@ int main(const int argc, const char *argv[])
 	life_btn.setX(421.0);
 
 	life_btn.setIconX(443.0);
+
+	char buffer[33];
 
 	while (true)
 	{
@@ -184,10 +186,12 @@ int main(const int argc, const char *argv[])
 		{
 			switch (events.keyboard.keycode)
 			{
+			case ALLEGRO_KEY_DOWN:
 			case ALLEGRO_KEY_S:
 				intention = 3;
 				break;
 
+			case ALLEGRO_KEY_UP:
 			case ALLEGRO_KEY_W:
 				intention = 2;
 				break;
@@ -246,6 +250,8 @@ int main(const int argc, const char *argv[])
 
 			pac.draw();
 
+			points_btn.setStr(to_string(points).c_str());
+			
 			points_btn.showStr().showIcon();
 
 			life_btn.showStr().showIcon();
@@ -255,8 +261,6 @@ int main(const int argc, const char *argv[])
 			al_flip_display();
 		}
 	}
-
-	// cout << "\nPac man was eaten \033[31m" << points << "\033[37m fruits\n\n";
 
 	al_destroy_bitmap(logo_bottom);
 
