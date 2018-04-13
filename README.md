@@ -23,12 +23,6 @@
 
 #### Features
 
-1. Full screen
+1. Volume sound
 
-2. Status
-
-3. Keyboard arrows
-
-4. Volume sound
-
-5. Animation pacman
+2. Animation pacman

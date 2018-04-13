@@ -5,10 +5,6 @@
 
 #include <string>
 
-#include <stdio.h>
-
-#include <stdlib.h>
-
 // Allegro
 
 #include <allegro5/allegro.h>

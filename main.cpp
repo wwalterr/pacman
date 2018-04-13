@@ -141,7 +141,7 @@ int main(const int argc, const char *argv[])
 
 	al_flip_display();
 
-	int direction = 0, points = 0, intention = 0;
+	int direction = 0, points = 0, intention = 0, life = 3;
 
 	bool redraw = false;
 
@@ -160,8 +160,6 @@ int main(const int argc, const char *argv[])
 	life_btn.setX(421.0);
 
 	life_btn.setIconX(443.0);
-
-	char buffer[33];
 
 	while (true)
 	{
@@ -254,6 +252,8 @@ int main(const int argc, const char *argv[])
 			
 			points_btn.showStr().showIcon();
 
+			life_btn.setStr(to_string(life).c_str());
+			
 			life_btn.showStr().showIcon();
 
 			al_draw_bitmap(logo_bottom, 185.0, 598.0, 0);
