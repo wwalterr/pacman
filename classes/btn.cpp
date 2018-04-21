@@ -30,7 +30,7 @@ Btn::Btn(void)
     this->setIconY(598.0);
 }
 
-Btn::Btn(const char *icon= {"images/pacman_wall.png"}, const char *font_path = {"fonts/roboto_regular.ttf"}, const int font_size = 14, const int font_flag = 0, const int red = 255, const int green = 255, const int blue = 0, const float x = 60.0, const float y = 605.0, const char *str = {"Text"}, const float icon_x = 10.0, const float icon_y = 598.0)
+Btn::Btn(const char *icon = {"images/pacman_wall.png"}, const char *font_path = {"fonts/roboto_regular.ttf"}, const int font_size = 14, const int font_flag = 0, const int red = 255, const int green = 255, const int blue = 0, const float x = 60.0, const float y = 605.0, const char *str = {"Text"}, const float icon_x = 10.0, const float icon_y = 598.0)
 {
     this->setIcon(icon);
 
@@ -125,7 +125,6 @@ float Btn::getIconY(void)
     return this->icon_y;
 }
 
-
 void Btn::setX(const float x)
 {
     this->font_x = x;
@@ -156,25 +155,29 @@ const char *Btn::getStr(void)
     return this->str;
 }
 
-Btn& Btn::showStr(void)
+Btn &Btn::showStr(void)
 {
     al_draw_text(this->font, this->color, this->font_x, this->font_y, ALLEGRO_ALIGN_CENTER, this->str);
 
     return *this;
 }
 
-void Btn::setIcon(const char * icon) {
+void Btn::setIcon(const char *icon)
+{
     this->icon = al_load_bitmap(icon);
 }
 
-ALLEGRO_BITMAP * Btn::getIcon(void) {
+ALLEGRO_BITMAP *Btn::getIcon(void)
+{
     return this->icon;
 }
 
-void Btn::showIcon(void) {
+void Btn::showIcon(void)
+{
     al_draw_bitmap(this->icon, this->icon_x, this->icon_y, 0);
 }
 
-void Btn::showIcon(Btn obj) {
+void Btn::showIcon(Btn obj)
+{
     al_draw_bitmap(this->icon, this->icon_x, this->icon_y, 0);
 }

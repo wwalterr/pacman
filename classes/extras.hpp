@@ -3,6 +3,6 @@
 
 #define EXTRAS_H
 
-int fail(const char *message);
+int fail(const char *);
 
 #endif

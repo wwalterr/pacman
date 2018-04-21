@@ -3,7 +3,7 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7b4cabacd3d54d49895199a748e15184)](https://www.codacy.com/app/Sphinxs/Pacman?utm_source=github.com&utm_medium=referral&utm_content=Sphinxs/Pacman&utm_campaign=Badge_Grade)
 
-:fish_cake: Pacman in C++ with Allegro 5 ( [Screenshot](https://github.com/Sphinxs/Pacman/blob/master/screenshot.png) )
+:fish_cake: Pacman in C++ using Allegro 5 ( [Screenshot](https://github.com/Sphinxs/Pacman/blob/master/screenshot.png) )
 
 #### Run
 
@@ -17,12 +17,6 @@
 
 #### Tools
 
-[Rgb to Hex](https://www.webpagefx.com/web-design/hex-to-rgb/)
+[Hex to Rgb](https://www.webpagefx.com/web-design/hex-to-rgb/)
 
 [Font Squirrel](https://www.fontsquirrel.com/)
-
-#### Features
-
-1. Volume sound
-
-2. Animation pacman

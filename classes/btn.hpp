@@ -12,75 +12,75 @@
 class Btn
 {
 
-  private:
-    ALLEGRO_BITMAP *icon;
+private:
+  ALLEGRO_BITMAP *icon;
 
-    ALLEGRO_COLOR color;
+  ALLEGRO_COLOR color;
 
-    ALLEGRO_FONT *font;
+  ALLEGRO_FONT *font;
 
-    const char *font_path;
+  const char *font_path;
 
-    const char *str;
+  const char *str;
 
-    int font_size, font_flag;
+  int font_size, font_flag;
 
-    float font_x, font_y, icon_x, icon_y;
+  float font_x, font_y, icon_x, icon_y;
 
-  public:
-    Btn();
+public:
+  Btn();
 
-    Btn(const char *, const char *, const int, const int, const int, const int, const int, const float, const float, const char *, const float, const float);
+  Btn(const char *, const char *, const int, const int, const int, const int, const int, const float, const float, const char *, const float, const float);
 
-    ~Btn(void);
+  ~Btn(void);
 
-    void updateFont(void);
+  void updateFont(void);
 
-    void setFontPath(const char *);
+  void setFontPath(const char *);
 
-    const char *getFontPath(void);
+  const char *getFontPath(void);
 
-    void setFontSize(const int);
+  void setFontSize(const int);
 
-    int getFontSize(void);
+  int getFontSize(void);
 
-    void setFontFlag(const int);
+  void setFontFlag(const int);
 
-    int getFontFlag(void);
+  int getFontFlag(void);
 
-    void setColor(const int, const int, const int);
+  void setColor(const int, const int, const int);
 
-    ALLEGRO_COLOR getColor(void);
+  ALLEGRO_COLOR getColor(void);
 
-    void setIconX(const float);
+  void setIconX(const float);
 
-    float getIconX(void);
+  float getIconX(void);
 
-    void setIconY(const float);
+  void setIconY(const float);
 
-    float getIconY(void);
+  float getIconY(void);
 
-    void setX(const float);
+  void setX(const float);
 
-    float getX(void);
+  float getX(void);
 
-    void setY(const float);
+  void setY(const float);
 
-    float getY(void);
+  float getY(void);
 
-    void setStr(const char *);
+  void setStr(const char *);
 
-    const char *getStr(void);
+  const char *getStr(void);
 
-    Btn& showStr(void);
+  Btn &showStr(void);
 
-    void setIcon(const char *);
+  void setIcon(const char *);
 
-    ALLEGRO_BITMAP * getIcon(void);
+  ALLEGRO_BITMAP *getIcon(void);
 
-    void showIcon(void);
+  void showIcon(void);
 
-    void showIcon(Btn);
+  void showIcon(Btn);
 };
 
 #endif

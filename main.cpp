@@ -1,12 +1,16 @@
 
 #include "headers.hpp"
 
+#define ROWS 20
+
+#define COLS 17
+
 using namespace std;
 
 int main(const int argc, const char *argv[])
 {
 
-	char map[20][17] = {
+	char map[ROWS][COLS] = {
 		"WWWWWWWWWWWWWWWW",
 		"WFFFFFFFFFFFFFFW",
 		"WFWWWWWFFWWWWWFW",
@@ -28,8 +32,12 @@ int main(const int argc, const char *argv[])
 		"WFFFFFFFFFFFFFFW",
 		"WWWWWWWWWWWWWWWW"};
 
+	// Modules
+
 	if (!al_init())
 		fail("Failed to load Allegro 5");
+
+	// Add-ons
 
 	al_init_image_addon();
 
@@ -64,15 +72,9 @@ int main(const int argc, const char *argv[])
 
 	al_set_display_icon(display, icon);
 
-	ALLEGRO_BITMAP *back = al_load_bitmap("images/pacman_pattern.png");
-
-	al_draw_bitmap(back, 0, 0, 0);
-
 	// Audio
 
 	al_reserve_samples(2);
-
-	ALLEGRO_SAMPLE_ID theme_id;
 
 	ALLEGRO_SAMPLE *theme = nullptr;
 
@@ -94,7 +96,13 @@ int main(const int argc, const char *argv[])
 
 	al_attach_sample_instance_to_mixer(instance_eat_fruit, al_get_default_mixer());
 
-	al_play_sample(theme, 0.1, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &theme_id);
+	al_play_sample(theme, 0.1, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, nullptr);
+
+	// Background
+
+	ALLEGRO_BITMAP *back = al_load_bitmap("images/pacman_pattern.png");
+
+	al_draw_bitmap(back, 0, 0, 0);
 
 	// Food
 
@@ -102,9 +110,9 @@ int main(const int argc, const char *argv[])
 
 	int counter_food = 0;
 
-	for (int row = 0; row < 20; row++)
+	for (int row = 0; row < ROWS; row++)
 	{
-		for (int col = 0; col < 17; col++)
+		for (int col = 0; col < COLS; col++)
 		{
 			if (map[row][col] == 'F')
 			{
@@ -122,7 +130,7 @@ int main(const int argc, const char *argv[])
 
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
-	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 4);
+	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 4); // Framerate
 
 	if (!event_queue)
 		fail("Failed to create Event Queue");
@@ -141,15 +149,15 @@ int main(const int argc, const char *argv[])
 
 	al_flip_display();
 
-	int direction = 0, points = 0, intention = 0, life = 3;
+	int direction = 0, intention = 0, points = 0, life = 3;
 
-	bool redraw = false;
+	bool redraw = false, mute = false;
 
 	al_start_timer(timer);
 
 	// Status
 
-	ALLEGRO_BITMAP *logo_bottom = al_load_bitmap("images/pacman_logo_bottom_two.png");
+	ALLEGRO_BITMAP *logo_bottom = al_load_bitmap("images/pacman_logo_bottom.png");
 
 	Btn points_btn, life_btn;
 
@@ -163,26 +171,28 @@ int main(const int argc, const char *argv[])
 
 	while (true)
 	{
-		ALLEGRO_EVENT events;
+		ALLEGRO_EVENT event;
 
-		al_wait_for_event(event_queue, &events);
+		al_wait_for_event(event_queue, &event);
 
-		if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 			break;
 
-		if (events.type == ALLEGRO_EVENT_KEY_UP)
+		if (event.type == ALLEGRO_EVENT_KEY_UP)
 		{
-			if (events.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+			if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				break;
-			else if (events.keyboard.keycode == ALLEGRO_KEY_P)
-				al_play_sample_instance(instance_theme);
-			else if (events.keyboard.keycode == ALLEGRO_KEY_O)
-				al_stop_sample(&theme_id);
+			else if (event.keyboard.keycode == ALLEGRO_KEY_O)
+			{
+				mute = true;
+				
+				al_stop_samples();
+			}
 		}
 
-		if (events.type == ALLEGRO_EVENT_KEY_DOWN)
+		if (event.type == ALLEGRO_EVENT_KEY_DOWN)
 		{
-			switch (events.keyboard.keycode)
+			switch (event.keyboard.keycode)
 			{
 			case ALLEGRO_KEY_DOWN:
 			case ALLEGRO_KEY_S:
@@ -206,7 +216,7 @@ int main(const int argc, const char *argv[])
 			}
 		}
 
-		if (events.type == ALLEGRO_EVENT_TIMER)
+		if (event.type == ALLEGRO_EVENT_TIMER)
 		{
 			redraw = true;
 
@@ -230,9 +240,10 @@ int main(const int argc, const char *argv[])
 
 			for (int counter = 0; counter < counter_food; counter++)
 			{
-				if (pac.getPacmanLine() == f[counter].getY() && pac.getPacmanCol() == f[counter].getX())
+				if (pac.getCharacterLine() == f[counter].getY() && pac.getCharacterCol() == f[counter].getX())
 				{
-					al_play_sample(eat_fruit, 0.1, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, nullptr);
+					if (!mute)
+						al_play_sample(eat_fruit, 0.1, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, nullptr);
 
 					f[counter].set(-1, -1);
 
@@ -249,14 +260,14 @@ int main(const int argc, const char *argv[])
 			pac.draw();
 
 			points_btn.setStr(to_string(points).c_str());
-			
+
 			points_btn.showStr().showIcon();
 
 			life_btn.setStr(to_string(life).c_str());
-			
+
 			life_btn.showStr().showIcon();
 
-			al_draw_bitmap(logo_bottom, 185.0, 598.0, 0);
+			al_draw_bitmap(logo_bottom, 185.0, 597.0, 0);
 
 			al_flip_display();
 		}
@@ -268,13 +279,13 @@ int main(const int argc, const char *argv[])
 
 	al_destroy_event_queue(event_queue);
 
-	al_destroy_sample_instance(instance_theme);
-
 	al_destroy_sample_instance(instance_eat_fruit);
 
-	al_destroy_sample(theme);
+	al_destroy_sample_instance(instance_theme);
 
 	al_destroy_sample(eat_fruit);
+
+	al_destroy_sample(theme);
 
 	al_destroy_bitmap(back);
 

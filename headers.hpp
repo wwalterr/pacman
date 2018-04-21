@@ -27,8 +27,6 @@
 
 #include "classes/extras.hpp"
 
-#include "classes/wall.hpp"
-
 #include "classes/food.hpp"
 
 #include "classes/pac.hpp"

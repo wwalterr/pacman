@@ -20,27 +20,27 @@ private:
 public:
   Wall(void);
 
-  Wall(const float x, const float y, const int size, char const *img);
+  Wall(const float, const float, const int, char const *);
 
   void draw(void);
 
-  void setX(const float x);
+  void setX(const float);
 
   float getX(void);
 
-  void setY(const float y);
+  void setY(const float);
 
   float getY(void);
 
-  void setSize(const int size);
+  void setSize(const int);
 
   int getSize(void);
 
-  void setImg(char const *img);
+  void setImg(char const *);
 
   ALLEGRO_BITMAP *getImg(void);
 
-  void set(const float x, const float y);
+  void set(const float, const float);
 
   ~Wall(void);
 };
