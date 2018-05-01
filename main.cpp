@@ -233,6 +233,52 @@ int main(const int argc, const char *argv[])
 				direction = intention;
 			else if (intention == 3 && pac.moveDown(map))
 				direction = intention;
+
+			// Enemy
+
+			switch(enemy.getDirection()) {
+				case 0 : // Left
+					cout << "\n\033[31mLeft\033[37m\n";
+				case 1 : // Right
+					cout << "\n\033[36mRight\033[37m\n";
+
+					switch(2 + rand() % 2) {
+						case 2:
+							if(enemy.moveUp(map))
+								enemy.setDirection(2);
+							
+							break;
+
+						case 3:
+							if(enemy.moveDown(map))
+								enemy.setDirection(3);
+					}
+
+					break;
+
+				case 2 : // Up
+					cout << "\n\033[32mUp\033[37m\n";
+				case 3 : // Down
+					cout << "\n\033[34mLeft\033[37m\n";
+
+					switch(rand() % 2) {
+						case 0:
+							if(enemy.moveLeft(map))
+								enemy.setDirection(0);
+							
+							break;
+
+						case 1:
+							if(enemy.moveRight(map))
+								enemy.setDirection(1);
+					}
+
+					break;
+			}
+
+			enemy.move(enemy.getDirection(), map);
+
+			enemy.draw();
 		}
 
 		if (redraw)
@@ -259,7 +305,9 @@ int main(const int argc, const char *argv[])
 
 				f[counter].draw();
 			}
-						
+
+			enemy.draw();
+	
 			pac.move(direction, map);
 
 			pac.draw();
@@ -275,7 +323,7 @@ int main(const int argc, const char *argv[])
 			al_draw_bitmap(logo_bottom, 185.0, 597.0, 0);
 
 			al_flip_display();
-		}		
+		}	
 	}
 
 	al_destroy_bitmap(logo_bottom);
