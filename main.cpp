@@ -9,6 +9,7 @@ using namespace std;
 
 int main(const int argc, const char *argv[])
 {
+	srand (time(NULL));
 
 	char map[ROWS][COLS] = {
 		"WWWWWWWWWWWWWWWW",
@@ -141,20 +142,6 @@ int main(const int argc, const char *argv[])
 
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
-	// Game Loop
-
-	Pac pac;
-
-	pac.draw();
-
-	al_flip_display();
-
-	int direction = 0, intention = 0, points = 0, life = 3;
-
-	bool redraw = false, mute = false;
-
-	al_start_timer(timer);
-
 	// Status
 
 	ALLEGRO_BITMAP *logo_bottom = al_load_bitmap("images/pacman_logo_bottom.png");
@@ -169,6 +156,24 @@ int main(const int argc, const char *argv[])
 
 	life_btn.setIconX(443.0);
 
+	// Game Loop
+
+	Enemy enemy;
+
+	enemy.setCharacterCol(1);
+
+	enemy.setCharacterLine(1);
+
+	// enemy.setDirection(1);
+	
+	Pac pac;
+
+	int direction = 0, intention = 0, points = 0, life = 3;
+
+	bool redraw = false, mute = false;
+
+	al_start_timer(timer);
+
 	while (true)
 	{
 		ALLEGRO_EVENT event;
@@ -178,7 +183,7 @@ int main(const int argc, const char *argv[])
 		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 			break;
 
-		if (event.type == ALLEGRO_EVENT_KEY_UP)
+		else if (event.type == ALLEGRO_EVENT_KEY_UP)
 		{
 			if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				break;
@@ -190,7 +195,7 @@ int main(const int argc, const char *argv[])
 			}
 		}
 
-		if (event.type == ALLEGRO_EVENT_KEY_DOWN)
+		else if (event.type == ALLEGRO_EVENT_KEY_DOWN)
 		{
 			switch (event.keyboard.keycode)
 			{
@@ -216,7 +221,7 @@ int main(const int argc, const char *argv[])
 			}
 		}
 
-		if (event.type == ALLEGRO_EVENT_TIMER)
+		else if (event.type == ALLEGRO_EVENT_TIMER)
 		{
 			redraw = true;
 
@@ -254,7 +259,7 @@ int main(const int argc, const char *argv[])
 
 				f[counter].draw();
 			}
-
+						
 			pac.move(direction, map);
 
 			pac.draw();
@@ -270,7 +275,7 @@ int main(const int argc, const char *argv[])
 			al_draw_bitmap(logo_bottom, 185.0, 597.0, 0);
 
 			al_flip_display();
-		}
+		}		
 	}
 
 	al_destroy_bitmap(logo_bottom);

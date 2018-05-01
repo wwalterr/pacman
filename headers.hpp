@@ -5,6 +5,8 @@
 
 #include <string>
 
+#include <time.h>
+
 // Allegro
 
 #include <allegro5/allegro.h>
@@ -30,5 +32,7 @@
 #include "classes/food.hpp"
 
 #include "classes/pac.hpp"
+
+#include "classes/enemy.hpp"
 
 #include "classes/btn.hpp"

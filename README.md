@@ -5,6 +5,10 @@
 
 :fish_cake: Pacman in C++ using Allegro 5 ( [Screenshot](https://github.com/Sphinxs/Pacman/blob/master/screenshot.png) )
 
+#### Install
+
+On Ubuntu [Allegro 5.2](https://raw.githubusercontent.com/Sphinxs/Scripts/master/Allegro.sh) - [Source Code](https://sourceforge.net/projects/allegroport/files/allegro-5.2.2/)
+
 #### Run
 
 ```shell
