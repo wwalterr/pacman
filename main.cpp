@@ -105,16 +105,25 @@ int main(const int argc, const char *argv[])
 
 	al_draw_bitmap(back, 0, 0, 0);
 
-	// Food
+	// Food & Wall
+
+	// Wall w[154];
 
 	Food f[166];
 
-	int counter_food = 0;
+	int counter_food = 0; // counter_wall = 0;
 
 	for (int row = 0; row < ROWS; row++)
 	{
 		for (int col = 0; col < COLS; col++)
 		{
+			/* if (map[row][col] == 'W')
+            {
++                w[counter_wall].set(col, row);
+				
+                 w[counter_wall++].draw();
+			} */
+
 			if (map[row][col] == 'F')
 			{
 				if (row > 9)
@@ -238,9 +247,9 @@ int main(const int argc, const char *argv[])
 
 			switch(enemy.getDirection()) {
 				case 0 : // Left
-					cout << "\n\033[31mLeft\033[37m\n";
+					// cout << "\n\033[31mLeft\033[37m\n";
 				case 1 : // Right
-					cout << "\n\033[36mRight\033[37m\n";
+					// cout << "\n\033[36mRight\033[37m\n";
 
 					switch(2 + rand() % 2) {
 						case 2:
@@ -257,9 +266,9 @@ int main(const int argc, const char *argv[])
 					break;
 
 				case 2 : // Up
-					cout << "\n\033[32mUp\033[37m\n";
+					// cout << "\n\033[32mUp\033[37m\n";
 				case 3 : // Down
-					cout << "\n\033[34mLeft\033[37m\n";
+					// cout << "\n\033[34mLeft\033[37m\n";
 
 					switch(rand() % 2) {
 						case 0:
@@ -323,6 +332,9 @@ int main(const int argc, const char *argv[])
 			al_draw_bitmap(logo_bottom, 185.0, 597.0, 0);
 
 			al_flip_display();
+
+			if(enemy.getCharacterCol() == pac.getCharacterCol() and enemy.getCharacterLine() == pac.getCharacterLine())
+				cout << "\nPacman died\n\n";
 		}	
 	}
 

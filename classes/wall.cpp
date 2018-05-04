@@ -16,7 +16,7 @@ Wall::Wall(void)
     this->img = al_load_bitmap("images/pacman_transparent.png");
 };
 
-Wall::Wall(const float x = 0, const float y = 0, const int size = 30, char const *img = {"images/pacman_wall.png"})
+Wall::Wall(const float x, const float y, const int size, char const *img)
 {
     this->x = x;
 
@@ -62,7 +62,7 @@ int Wall::getSize(void)
     return this->size;
 }
 
-void Wall::setImg(char const *img = {"images/pacman_wall.png"})
+void Wall::setImg(char const *img)
 {
     this->img = al_load_bitmap(img);
 }

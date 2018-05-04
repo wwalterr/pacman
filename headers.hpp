@@ -31,6 +31,8 @@
 
 #include "classes/food.hpp"
 
+#include "classes/wall.hpp"
+
 #include "classes/pac.hpp"
 
 #include "classes/enemy.hpp"
