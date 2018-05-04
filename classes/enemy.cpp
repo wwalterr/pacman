@@ -7,7 +7,7 @@
 
 Enemy::Enemy(void)
 {
-    this->direction = 0;
+    this->direction = 1;
 
     this->character_col = 7;
 
@@ -15,7 +15,7 @@ Enemy::Enemy(void)
 
     this->size = 30;
 
-    this->img = al_load_bitmap("images/pacman_wall.png");
+    this->img = al_load_bitmap("images/ghost_blue.png");
 };
 
 Enemy::Enemy(const int direction = 0, const int character_col = 7, const int character_line = 12, const int size = 30, char const *img = {"images/pacman_wall.png"})

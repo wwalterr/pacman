@@ -173,13 +173,13 @@ int main(const int argc, const char *argv[])
 
 	enemy.setCharacterLine(1);
 
-	// enemy.setDirection(1);
+	enemy.setDirection(1);
 	
 	Pac pac;
 
-	int direction = 0, intention = 0, points = 0, life = 3;
+	int direction = 0, intention = 0, points = 0, life = 3, enemy_random = 0;
 
-	bool redraw = false, mute = false;
+	bool redraw = false, mute = false, enemy_loop = true;
 
 	al_start_timer(timer);
 
@@ -245,52 +245,61 @@ int main(const int argc, const char *argv[])
 
 			// Enemy
 
-			switch(enemy.getDirection()) {
-				case 0 : // Left
-					// cout << "\n\033[31mLeft\033[37m\n";
-				case 1 : // Right
-					// cout << "\n\033[36mRight\033[37m\n";
+			enemy_loop = true;
 
-					switch(2 + rand() % 2) {
-						case 2:
-							if(enemy.moveUp(map))
-								enemy.setDirection(2);
-							
-							break;
+			while(enemy_loop) {
+				enemy_random = rand() % 4;
+				
+				switch(enemy_random) {
+					case 0:
+						if(enemy.moveLeft(map) && enemy.getDirection() != 1) {
+							enemy.setDirection(0);
 
-						case 3:
-							if(enemy.moveDown(map))
-								enemy.setDirection(3);
-					}
+							enemy_loop = false;
 
-					break;
+							cout << "\nLeft\n";	
+						}
 
-				case 2 : // Up
-					// cout << "\n\033[32mUp\033[37m\n";
-				case 3 : // Down
-					// cout << "\n\033[34mLeft\033[37m\n";
+						break;
 
-					switch(rand() % 2) {
-						case 0:
-							if(enemy.moveLeft(map))
-								enemy.setDirection(0);
-							
-							break;
+					case 1:
+						if(enemy.moveRight(map) && enemy.getDirection() != 0) {
+							enemy.setDirection(1);
 
-						case 1:
-							if(enemy.moveRight(map))
-								enemy.setDirection(1);
-					}
+							enemy_loop = false;
 
-					break;
+							cout << "\nRight\n";
+						}
+						
+						break;
+
+					case 2:
+						if(enemy.moveUp(map) && enemy.getDirection() != 3) {
+							enemy.setDirection(2);
+
+							enemy_loop = false;
+
+							cout << "\nUp\n";
+						}
+								
+						break;
+
+					case 3:
+						if(enemy.moveDown(map) && enemy.getDirection() != 2) {
+							enemy.setDirection(3);
+
+							enemy_loop = false;
+
+							cout << "\nDown\n";
+						}
+
+						break;
+				}
 			}
 
-			enemy.move(enemy.getDirection(), map);
-
-			enemy.draw();
 		}
 
-		if (redraw)
+		if (redraw && al_is_event_queue_empty(event_queue))
 		{
 			redraw = false;
 
@@ -315,8 +324,10 @@ int main(const int argc, const char *argv[])
 				f[counter].draw();
 			}
 
+			enemy.move(enemy.getDirection(), map);
+
 			enemy.draw();
-	
+
 			pac.move(direction, map);
 
 			pac.draw();

@@ -132,8 +132,3 @@ bool Character::move(const int direction, char map[][17])
 
     return false;
 }
-
-/* Character::~Character(void)
-{
-    al_destroy_bitmap(this->img);
-} */
