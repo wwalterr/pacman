@@ -7,7 +7,7 @@
 
 #include <time.h>
 
-// Allegro
+// Allegro 5
 
 #include <allegro5/allegro.h>
 
@@ -31,7 +31,7 @@
 
 #include "classes/food.hpp"
 
-#include "classes/wall.hpp"
+// #include "classes/wall.hpp"
 
 #include "classes/pac.hpp"
 

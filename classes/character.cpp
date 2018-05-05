@@ -10,9 +10,11 @@ void Character::draw(void)
     al_draw_bitmap_region(this->img, this->direction * this->size, 0, this->size, this->size, this->character_col * this->size, this->character_line * this->size, 0);
 }
 
-void Character::setDirection(const int direction)
+Character& Character::setDirection(const int direction)
 {
     this->direction = direction;
+
+    return *this;
 }
 
 int Character::getDirection(void)
@@ -20,9 +22,11 @@ int Character::getDirection(void)
     return this->direction;
 }
 
-void Character::setCharacterCol(const int character_col)
+Character& Character::setCharacterCol(const int character_col)
 {
     this->character_col = character_col;
+
+    return *this;
 }
 
 int Character::getCharacterCol(void)
@@ -30,9 +34,11 @@ int Character::getCharacterCol(void)
     return this->character_col;
 }
 
-void Character::setCharacterLine(const int character_line)
+Character& Character::setCharacterLine(const int character_line)
 {
     this->character_line = character_line;
+
+    return *this;
 }
 
 int Character::getCharacterLine(void)

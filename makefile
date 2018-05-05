@@ -9,7 +9,7 @@ INCLUDE=-I/usr/local/include/allegro5
 
 CODES=*.cpp classes/*.cpp
 
-EXE=pacman
+EXE=pacman.exe
 
 all: executable
 

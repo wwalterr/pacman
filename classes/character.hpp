@@ -17,15 +17,15 @@ protected:
 public:
   void draw(void);
 
-  void setDirection(const int);
+  Character& setDirection(const int);
 
   int getDirection(void);
 
-  void setCharacterCol(const int);
+  Character& setCharacterCol(const int);
 
   int getCharacterCol(void);
 
-  void setCharacterLine(const int);
+  Character& setCharacterLine(const int);
 
   int getCharacterLine(void);
 

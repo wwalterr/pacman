@@ -2,3 +2,4 @@
 pacman
 *.o
 .vscode
+pacman.exe

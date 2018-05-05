@@ -18,6 +18,8 @@ public:
 
   Enemy(Enemy &);
 
+  void setImg(char const *);
+  
   ~Enemy(void);
 };
 

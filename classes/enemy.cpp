@@ -48,3 +48,7 @@ Enemy::~Enemy(void)
 {
     al_destroy_bitmap(this->img);
 }
+
+void Enemy::setImg(char const *img) {
+    this->img = al_load_bitmap(img);
+}

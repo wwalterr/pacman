@@ -7,6 +7,8 @@
 
 using namespace std;
 
+void randomGhost(Enemy&, char map[][17]);
+
 int main(const int argc, const char *argv[])
 {
 	srand (time(NULL));
@@ -49,6 +51,8 @@ int main(const int argc, const char *argv[])
 	al_init_font_addon();
 
 	al_init_ttf_addon();
+
+	// Install Add-ons
 
 	al_install_keyboard();
 
@@ -105,25 +109,16 @@ int main(const int argc, const char *argv[])
 
 	al_draw_bitmap(back, 0, 0, 0);
 
-	// Food & Wall
-
-	// Wall w[154];
+	// Food
 
 	Food f[166];
 
-	int counter_food = 0; // counter_wall = 0;
+	int counter_food = 0;
 
 	for (int row = 0; row < ROWS; row++)
 	{
 		for (int col = 0; col < COLS; col++)
 		{
-			/* if (map[row][col] == 'W')
-            {
-+                w[counter_wall].set(col, row);
-				
-                 w[counter_wall++].draw();
-			} */
-
 			if (map[row][col] == 'F')
 			{
 				if (row > 9)
@@ -167,19 +162,27 @@ int main(const int argc, const char *argv[])
 
 	// Game Loop
 
-	Enemy enemy;
+	// Enemy
 
-	enemy.setCharacterCol(1);
+	Enemy enemy_red, enemy_blue;
 
-	enemy.setCharacterLine(1);
+	enemy_red.setCharacterCol(1).setCharacterLine(1).setDirection(1);
 
-	enemy.setDirection(1);
+	enemy_blue.setCharacterCol(14).setCharacterLine(18).setDirection(0);
 	
+	enemy_blue.setImg("images/ghost_blue.png");
+
+	// Pacman
+
 	Pac pac;
 
-	int direction = 0, intention = 0, points = 0, life = 3, enemy_random = 0;
+	// Controls
 
-	bool redraw = false, mute = false, enemy_loop = true;
+	int direction = 0, intention = 0, points = 0, life = 3;
+
+	bool redraw = false, mute = false;
+
+	// Timer Event
 
 	al_start_timer(timer);
 
@@ -243,51 +246,11 @@ int main(const int argc, const char *argv[])
 			else if (intention == 3 && pac.moveDown(map))
 				direction = intention;
 
-			// Enemy
+			// Enemys
 
-			enemy_loop = true;
+			randomGhost(enemy_red, map);
 
-			while(enemy_loop) {
-				enemy_random = rand() % 4;
-				
-				switch(enemy_random) {
-					case 0:
-						if(enemy.moveLeft(map) && enemy.getDirection() != 1) {
-							enemy.setDirection(0);
-
-							enemy_loop = false;
-						}
-
-						break;
-
-					case 1:
-						if(enemy.moveRight(map) && enemy.getDirection() != 0) {
-							enemy.setDirection(1);
-
-							enemy_loop = false;
-						}
-						
-						break;
-
-					case 2:
-						if(enemy.moveUp(map) && enemy.getDirection() != 3) {
-							enemy.setDirection(2);
-
-							enemy_loop = false;
-						}
-								
-						break;
-
-					case 3:
-						if(enemy.moveDown(map) && enemy.getDirection() != 2) {
-							enemy.setDirection(3);
-
-							enemy_loop = false;
-						}
-
-						break;
-				}
-			}
+			randomGhost(enemy_blue, map);
 
 		}
 
@@ -316,13 +279,23 @@ int main(const int argc, const char *argv[])
 				f[counter].draw();
 			}
 
-			enemy.move(enemy.getDirection(), map);
+			// Enemys
 
-			enemy.draw();
+			enemy_blue.move(enemy_blue.getDirection(), map);
+			
+			enemy_blue.draw();
+
+			enemy_red.move(enemy_red.getDirection(), map);
+			
+			enemy_red.draw();
+
+			// Pacman
 
 			pac.move(direction, map);
-
+			
 			pac.draw();
+
+			// Status
 
 			points_btn.setStr(to_string(points).c_str());
 
@@ -333,11 +306,10 @@ int main(const int argc, const char *argv[])
 			life_btn.showStr().showIcon();
 
 			al_draw_bitmap(logo_bottom, 185.0, 597.0, 0);
-
+			
+			// Flush
+			
 			al_flip_display();
-
-			if(enemy.getCharacterCol() == pac.getCharacterCol() and enemy.getCharacterLine() == pac.getCharacterLine())
-				cout << "\nPacman died\n\n";
 		}	
 	}
 
@@ -362,4 +334,52 @@ int main(const int argc, const char *argv[])
 	al_destroy_display(display);
 
 	return 0;
+}
+
+void randomGhost(Enemy& enemy_obj, char map[][17]) {
+	bool enemy_loop = true;
+
+	int enemy_random = 0;
+
+	while(enemy_loop) {
+		enemy_random = rand() % 4;
+		
+		switch(enemy_random) {
+			case 0:
+				if(enemy_obj.moveLeft(map) && enemy_obj.getDirection() != 1) {
+					enemy_obj.setDirection(0);
+
+					enemy_loop = false;
+				}
+
+				break;
+
+			case 1:
+				if(enemy_obj.moveRight(map) && enemy_obj.getDirection() != 0) {
+					enemy_obj.setDirection(1);
+
+					enemy_loop = false;
+				}
+				
+				break;
+
+			case 2:
+				if(enemy_obj.moveUp(map) && enemy_obj.getDirection() != 3) {
+					enemy_obj.setDirection(2);
+
+					enemy_loop = false;
+				}
+						
+				break;
+
+			case 3:
+				if(enemy_obj.moveDown(map) && enemy_obj.getDirection() != 2) {
+					enemy_obj.setDirection(3);
+
+					enemy_loop = false;
+				}
+
+				break;
+		}
+	}
 }
