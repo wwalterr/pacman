@@ -256,8 +256,6 @@ int main(const int argc, const char *argv[])
 							enemy.setDirection(0);
 
 							enemy_loop = false;
-
-							cout << "\nLeft\n";	
 						}
 
 						break;
@@ -267,8 +265,6 @@ int main(const int argc, const char *argv[])
 							enemy.setDirection(1);
 
 							enemy_loop = false;
-
-							cout << "\nRight\n";
 						}
 						
 						break;
@@ -278,8 +274,6 @@ int main(const int argc, const char *argv[])
 							enemy.setDirection(2);
 
 							enemy_loop = false;
-
-							cout << "\nUp\n";
 						}
 								
 						break;
@@ -289,8 +283,6 @@ int main(const int argc, const char *argv[])
 							enemy.setDirection(3);
 
 							enemy_loop = false;
-
-							cout << "\nDown\n";
 						}
 
 						break;
