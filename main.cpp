@@ -9,6 +9,8 @@ using namespace std;
 
 void randomGhost(Enemy&, char map[][17]);
 
+bool compareGhostPac(Enemy&, Pac&);
+
 int main(const int argc, const char *argv[])
 {
 	srand (time(NULL));
@@ -160,7 +162,21 @@ int main(const int argc, const char *argv[])
 
 	life_btn.setIconX(443.0);
 
-	// Game Loop
+	// Winner & Game Over
+
+	Btn gameover, winner;
+
+	winner.setIcon("images/winner.png");
+	
+	winner.setIconX(115.0);
+
+	winner.setIconY(180.0);
+
+	gameover.setIcon("images/gameover.png");
+
+	gameover.setIconX(115.0);
+
+	gameover.setIconY(180.0);
 
 	// Enemy
 
@@ -186,6 +202,8 @@ int main(const int argc, const char *argv[])
 
 	al_start_timer(timer);
 
+	// Game Loop
+	
 	while (true)
 	{
 		ALLEGRO_EVENT event;
@@ -236,6 +254,46 @@ int main(const int argc, const char *argv[])
 		else if (event.type == ALLEGRO_EVENT_TIMER)
 		{
 			redraw = true;
+
+			// Life
+
+			if(life <= 0) {
+				al_stop_samples();
+
+				al_clear_to_color(al_map_rgb(225,15,36));
+
+				gameover.showIcon();
+
+				al_flip_display();
+
+				al_rest(5.0);
+
+				break;
+			}
+
+			if(points == 164) {
+				al_stop_samples();
+				
+				al_clear_to_color(al_map_rgb(97,207,135));
+
+				winner.showIcon();
+
+				al_flip_display();
+
+				al_rest(5.0);
+
+				break;
+			}
+
+			if(compareGhostPac(enemy_blue, pac) || compareGhostPac(enemy_red, pac)) {
+				life--;
+
+				direction = 0;
+
+				pac.setCharacterCol(7).setCharacterLine(12).setDirection(0);
+			}
+
+			// Pacman
 
 			if (intention == 0 && pac.moveLeft(map))
 				direction = intention;
@@ -310,7 +368,7 @@ int main(const int argc, const char *argv[])
 			// Flush
 			
 			al_flip_display();
-		}	
+		}
 	}
 
 	al_destroy_bitmap(logo_bottom);
@@ -336,7 +394,7 @@ int main(const int argc, const char *argv[])
 	return 0;
 }
 
-void randomGhost(Enemy& enemy_obj, char map[][17]) {
+void randomGhost(Enemy& e_obj, char map[][17]) {
 	bool enemy_loop = true;
 
 	int enemy_random = 0;
@@ -346,8 +404,8 @@ void randomGhost(Enemy& enemy_obj, char map[][17]) {
 		
 		switch(enemy_random) {
 			case 0:
-				if(enemy_obj.moveLeft(map) && enemy_obj.getDirection() != 1) {
-					enemy_obj.setDirection(0);
+				if(e_obj.moveLeft(map) && e_obj.getDirection() != 1) {
+					e_obj.setDirection(0);
 
 					enemy_loop = false;
 				}
@@ -355,8 +413,8 @@ void randomGhost(Enemy& enemy_obj, char map[][17]) {
 				break;
 
 			case 1:
-				if(enemy_obj.moveRight(map) && enemy_obj.getDirection() != 0) {
-					enemy_obj.setDirection(1);
+				if(e_obj.moveRight(map) && e_obj.getDirection() != 0) {
+					e_obj.setDirection(1);
 
 					enemy_loop = false;
 				}
@@ -364,8 +422,8 @@ void randomGhost(Enemy& enemy_obj, char map[][17]) {
 				break;
 
 			case 2:
-				if(enemy_obj.moveUp(map) && enemy_obj.getDirection() != 3) {
-					enemy_obj.setDirection(2);
+				if(e_obj.moveUp(map) && e_obj.getDirection() != 3) {
+					e_obj.setDirection(2);
 
 					enemy_loop = false;
 				}
@@ -373,8 +431,8 @@ void randomGhost(Enemy& enemy_obj, char map[][17]) {
 				break;
 
 			case 3:
-				if(enemy_obj.moveDown(map) && enemy_obj.getDirection() != 2) {
-					enemy_obj.setDirection(3);
+				if(e_obj.moveDown(map) && e_obj.getDirection() != 2) {
+					e_obj.setDirection(3);
 
 					enemy_loop = false;
 				}
@@ -382,4 +440,11 @@ void randomGhost(Enemy& enemy_obj, char map[][17]) {
 				break;
 		}
 	}
+}
+
+bool compareGhostPac(Enemy& e_obj, Pac& p_obj) {
+	if(e_obj.getCharacterCol() == p_obj.getCharacterCol() && e_obj.getCharacterLine() == p_obj.getCharacterLine())
+		return true;
+	
+	return false;
 }
