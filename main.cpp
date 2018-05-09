@@ -7,15 +7,11 @@
 
 using namespace std;
 
-void randomGhost(Enemy&, char map[][17]);
-
-bool compareGhostPac(Enemy&, Pac&);
-
 int main(const int argc, const char *argv[])
 {
-	srand (time(NULL));
+	srand(time(NULL));
 
-	char map[ROWS][COLS] = {
+	char map[ROWS][COLS]{
 		"WWWWWWWWWWWWWWWW",
 		"WFFFFFFFFFFFFFFW",
 		"WFWWWWWFFWWWWWFW",
@@ -62,7 +58,7 @@ int main(const int argc, const char *argv[])
 
 	// Window
 
-	ALLEGRO_DISPLAY *display = nullptr;
+	ALLEGRO_DISPLAY *display{nullptr};
 
 	al_set_new_display_flags(ALLEGRO_WINDOWED);
 
@@ -83,13 +79,13 @@ int main(const int argc, const char *argv[])
 
 	al_reserve_samples(2);
 
-	ALLEGRO_SAMPLE *theme = nullptr;
+	ALLEGRO_SAMPLE *theme{nullptr};
 
-	ALLEGRO_SAMPLE *eat_fruit = nullptr;
+	ALLEGRO_SAMPLE *eat_fruit{nullptr};
 
-	ALLEGRO_SAMPLE_INSTANCE *instance_theme = nullptr;
+	ALLEGRO_SAMPLE_INSTANCE *instance_theme{nullptr};
 
-	ALLEGRO_SAMPLE_INSTANCE *instance_eat_fruit = nullptr;
+	ALLEGRO_SAMPLE_INSTANCE *instance_eat_fruit{nullptr};
 
 	theme = al_load_sample("audios/pacman_theme.wav");
 
@@ -115,11 +111,11 @@ int main(const int argc, const char *argv[])
 
 	Food f[166];
 
-	int counter_food = 0;
+	int counter_food{0};
 
-	for (int row = 0; row < ROWS; row++)
+	for (int row{0}; row < ROWS; row++)
 	{
-		for (int col = 0; col < COLS; col++)
+		for (int col{0}; col < COLS; col++)
 		{
 			if (map[row][col] == 'F')
 			{
@@ -137,7 +133,7 @@ int main(const int argc, const char *argv[])
 
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
-	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 4); // Framerate
+	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 6); // Framerate
 
 	if (!event_queue)
 		fail("Failed to create Event Queue");
@@ -167,7 +163,7 @@ int main(const int argc, const char *argv[])
 	Btn gameover, winner;
 
 	winner.setIcon("images/winner.png");
-	
+
 	winner.setIconX(115.0);
 
 	winner.setIconY(180.0);
@@ -185,7 +181,7 @@ int main(const int argc, const char *argv[])
 	enemy_red.setCharacterCol(1).setCharacterLine(1).setDirection(1);
 
 	enemy_blue.setCharacterCol(14).setCharacterLine(18).setDirection(0);
-	
+
 	enemy_blue.setImg("images/ghost_blue.png");
 
 	// Pacman
@@ -194,16 +190,16 @@ int main(const int argc, const char *argv[])
 
 	// Controls
 
-	int direction = 0, intention = 0, points = 0, life = 3;
+	int direction{0}, intention{0}, points{0}, life{3};
 
-	bool redraw = false, mute = false;
+	bool redraw{false}, mute{false};
 
 	// Timer Event
 
 	al_start_timer(timer);
 
 	// Game Loop
-	
+
 	while (true)
 	{
 		ALLEGRO_EVENT event;
@@ -220,7 +216,7 @@ int main(const int argc, const char *argv[])
 			else if (event.keyboard.keycode == ALLEGRO_KEY_O)
 			{
 				mute = true;
-				
+
 				al_stop_samples();
 			}
 		}
@@ -257,10 +253,11 @@ int main(const int argc, const char *argv[])
 
 			// Life
 
-			if(life <= 0) {
+			if (life <= 0)
+			{
 				al_stop_samples();
 
-				al_clear_to_color(al_map_rgb(225,15,36));
+				al_clear_to_color(al_map_rgb(225, 15, 36));
 
 				gameover.showIcon();
 
@@ -271,10 +268,11 @@ int main(const int argc, const char *argv[])
 				break;
 			}
 
-			if(points == 164) {
+			if (points == 164)
+			{
 				al_stop_samples();
-				
-				al_clear_to_color(al_map_rgb(97,207,135));
+
+				al_clear_to_color(al_map_rgb(97, 207, 135));
 
 				winner.showIcon();
 
@@ -285,7 +283,8 @@ int main(const int argc, const char *argv[])
 				break;
 			}
 
-			if(compareGhostPac(enemy_blue, pac) || compareGhostPac(enemy_red, pac)) {
+			if (compareGhostPac(enemy_blue, pac) || compareGhostPac(enemy_red, pac))
+			{
 				life--;
 
 				direction = 0;
@@ -306,10 +305,12 @@ int main(const int argc, const char *argv[])
 
 			// Enemys
 
-			randomGhost(enemy_red, map);
+			if (!compareGhost(enemy_red, enemy_blue))
+			{
+				randomGhost(enemy_red, map);
 
-			randomGhost(enemy_blue, map);
-
+				randomGhost(enemy_blue, map);
+			}
 		}
 
 		if (redraw && al_is_event_queue_empty(event_queue))
@@ -320,7 +321,7 @@ int main(const int argc, const char *argv[])
 
 			al_draw_bitmap(back, 0, 0, 0);
 
-			for (int counter = 0; counter < counter_food; counter++)
+			for (int counter{0}; counter < counter_food; counter++)
 			{
 				if (pac.getCharacterLine() == f[counter].getY() && pac.getCharacterCol() == f[counter].getX())
 				{
@@ -340,17 +341,17 @@ int main(const int argc, const char *argv[])
 			// Enemys
 
 			enemy_blue.move(enemy_blue.getDirection(), map);
-			
+
 			enemy_blue.draw();
 
 			enemy_red.move(enemy_red.getDirection(), map);
-			
+
 			enemy_red.draw();
 
 			// Pacman
 
 			pac.move(direction, map);
-			
+
 			pac.draw();
 
 			// Status
@@ -364,9 +365,9 @@ int main(const int argc, const char *argv[])
 			life_btn.showStr().showIcon();
 
 			al_draw_bitmap(logo_bottom, 185.0, 597.0, 0);
-			
+
 			// Flush
-			
+
 			al_flip_display();
 		}
 	}
@@ -392,59 +393,4 @@ int main(const int argc, const char *argv[])
 	al_destroy_display(display);
 
 	return 0;
-}
-
-void randomGhost(Enemy& e_obj, char map[][17]) {
-	bool enemy_loop = true;
-
-	int enemy_random = 0;
-
-	while(enemy_loop) {
-		enemy_random = rand() % 4;
-		
-		switch(enemy_random) {
-			case 0:
-				if(e_obj.moveLeft(map) && e_obj.getDirection() != 1) {
-					e_obj.setDirection(0);
-
-					enemy_loop = false;
-				}
-
-				break;
-
-			case 1:
-				if(e_obj.moveRight(map) && e_obj.getDirection() != 0) {
-					e_obj.setDirection(1);
-
-					enemy_loop = false;
-				}
-				
-				break;
-
-			case 2:
-				if(e_obj.moveUp(map) && e_obj.getDirection() != 3) {
-					e_obj.setDirection(2);
-
-					enemy_loop = false;
-				}
-						
-				break;
-
-			case 3:
-				if(e_obj.moveDown(map) && e_obj.getDirection() != 2) {
-					e_obj.setDirection(3);
-
-					enemy_loop = false;
-				}
-
-				break;
-		}
-	}
-}
-
-bool compareGhostPac(Enemy& e_obj, Pac& p_obj) {
-	if(e_obj.getCharacterCol() == p_obj.getCharacterCol() && e_obj.getCharacterLine() == p_obj.getCharacterLine())
-		return true;
-	
-	return false;
 }
