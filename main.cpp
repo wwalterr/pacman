@@ -133,7 +133,7 @@ int main(const int argc, const char *argv[])
 
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
-	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 6); // Framerate
+	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 5); // Framerate
 
 	if (!event_queue)
 		fail("Failed to create Event Queue");
@@ -176,13 +176,21 @@ int main(const int argc, const char *argv[])
 
 	// Enemy
 
-	Enemy enemy_red, enemy_blue;
+	Enemy enemy_red, enemy_blue, enemy_orange, enemy_pink;
 
 	enemy_red.setCharacterCol(1).setCharacterLine(1).setDirection(1);
 
 	enemy_blue.setCharacterCol(14).setCharacterLine(18).setDirection(0);
 
 	enemy_blue.setImg("images/ghost_blue.png");
+
+	enemy_orange.setCharacterCol(14).setCharacterLine(1).setDirection(3);
+
+	enemy_orange.setImg("images/ghost_orange.png");
+
+	enemy_pink.setCharacterCol(1).setCharacterLine(19).setDirection(2);
+
+	enemy_pink.setImg("images/ghost_pink.png");
 
 	// Pacman
 
@@ -283,7 +291,7 @@ int main(const int argc, const char *argv[])
 				break;
 			}
 
-			if (compareGhostPac(enemy_blue, pac) || compareGhostPac(enemy_red, pac))
+			if (compareGhostPac(enemy_blue, pac) || compareGhostPac(enemy_red, pac) || compareGhostPac(enemy_orange, pac))
 			{
 				life--;
 
@@ -303,14 +311,14 @@ int main(const int argc, const char *argv[])
 			else if (intention == 3 && pac.moveDown(map))
 				direction = intention;
 
-			// Enemys
+			randomGhost(enemy_red, map);
 
-			if (!compareGhost(enemy_red, enemy_blue))
-			{
-				randomGhost(enemy_red, map);
+			randomGhost(enemy_blue, map);
 
-				randomGhost(enemy_blue, map);
-			}
+			randomGhost(enemy_orange, map);
+
+			randomGhost(enemy_pink, map);
+
 		}
 
 		if (redraw && al_is_event_queue_empty(event_queue))
@@ -344,9 +352,17 @@ int main(const int argc, const char *argv[])
 
 			enemy_blue.draw();
 
+			enemy_orange.move(enemy_orange.getDirection(), map);
+
+			enemy_orange.draw();
+
 			enemy_red.move(enemy_red.getDirection(), map);
 
 			enemy_red.draw();
+
+			enemy_pink.move(enemy_pink.getDirection(), map);
+
+			enemy_pink.draw();
 
 			// Pacman
 
