@@ -9,7 +9,7 @@
 
 #include "character.hpp"
 
-class Enemy : public Character
+class Enemy : virtual public Character
 {
 public:
   Enemy(void);
@@ -19,8 +19,10 @@ public:
   Enemy(Enemy &);
 
   void setImg(char const *);
-  
-  ~Enemy(void);
+
+  virtual bool move(const int, char map[][17]) override;
+
+  void randomGhost(char map[][17]);
 };
 
 #endif

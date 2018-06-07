@@ -43,9 +43,9 @@ public:
 
   bool moveDown(char map[][17]);
 
-  bool move(const int, char map[][17]);
-
-  // ~Character(void);
+  virtual ~Character(void);
+  
+  virtual bool move(const int, char map[][17]) = 0;
 };
 
 #endif

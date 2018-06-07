@@ -311,13 +311,13 @@ int main(const int argc, const char *argv[])
 			else if (intention == 3 && pac.moveDown(map))
 				direction = intention;
 
-			randomGhost(enemy_red, map);
+			enemy_red.randomGhost(map);
 
-			randomGhost(enemy_blue, map);
+			enemy_blue.randomGhost(map);
 
-			randomGhost(enemy_orange, map);
+			enemy_orange.randomGhost(map);
 
-			randomGhost(enemy_pink, map);
+			enemy_pink.randomGhost(map);
 
 		}
 

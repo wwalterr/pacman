@@ -9,10 +9,6 @@
 
 int fail(const char *);
 
-bool compareGhost(Enemy &, Enemy &);
-
 bool compareGhostPac(Enemy &, Pac &);
-
-void randomGhost(Enemy &, char map[][17]);
 
 #endif

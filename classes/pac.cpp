@@ -44,7 +44,44 @@ Pac::Pac(Pac &obj)
     this->img = obj.img;
 }
 
-Pac::~Pac(void)
+bool Pac::move(const int direction, char map[][17])
 {
-    al_destroy_bitmap(this->img);
+    this->setDirection(direction);
+
+    switch (this->direction)
+    {
+    case 0: // Left
+        if (!moveLeft(map))
+            return false;
+
+        this->character_col -= 1;
+
+        return true;
+
+    case 1: // Right
+        if (!moveRight(map))
+            return false;
+
+        this->character_col += 1;
+
+        return true;
+
+    case 2: // Top
+        if (!moveUp(map))
+            return false;
+
+        this->character_line -= 1;
+
+        return true;
+
+    case 3: // Bottom
+        if (!moveDown(map))
+            return false;
+
+        this->character_line += 1;
+
+        return true;
+    };
+
+    return false;
 }

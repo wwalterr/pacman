@@ -44,11 +44,103 @@ Enemy::Enemy(Enemy &obj)
     this->img = obj.img;
 }
 
-Enemy::~Enemy(void)
-{
-    al_destroy_bitmap(this->img);
-}
-
 void Enemy::setImg(char const *img) {
     this->img = al_load_bitmap(img);
+}
+
+bool Enemy::move(const int direction, char map[][17])
+{
+    this->setDirection(direction);
+
+    switch (this->direction)
+    {
+    case 0: // Left
+        if (!moveLeft(map))
+            return false;
+
+        this->character_col -= 1;
+
+        return true;
+
+    case 1: // Right
+        if (!moveRight(map))
+            return false;
+
+        this->character_col += 1;
+
+        return true;
+
+    case 2: // Top
+        if (!moveUp(map))
+            return false;
+
+        this->character_line -= 1;
+
+        return true;
+
+    case 3: // Bottom
+        if (!moveDown(map))
+            return false;
+
+        this->character_line += 1;
+
+        return true;
+    };
+
+    return false;
+}
+
+void Enemy::randomGhost(char map[][17])
+{
+	bool enemy_loop{true};
+
+	int enemy_random{0};
+
+	while (enemy_loop)
+	{
+		enemy_random = rand() % 4;
+
+		switch (enemy_random)
+		{
+		case 0:
+			if (this->moveLeft(map) && this->getDirection() != 1)
+			{
+				this->setDirection(0);
+
+				enemy_loop = false;
+			}
+
+			break;
+
+		case 1:
+			if (this->moveRight(map) && this->getDirection() != 0)
+			{
+				this->setDirection(1);
+
+				enemy_loop = false;
+			}
+
+			break;
+
+		case 2:
+			if (this->moveUp(map) && this->getDirection() != 3)
+			{
+				this->setDirection(2);
+
+				enemy_loop = false;
+			}
+
+			break;
+
+		case 3:
+			if (this->moveDown(map) && this->getDirection() != 2)
+			{
+				this->setDirection(3);
+
+				enemy_loop = false;
+			}
+
+			break;
+		}
+	}
 }

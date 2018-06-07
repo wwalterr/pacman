@@ -9,7 +9,7 @@
 
 #include "character.hpp"
 
-class Pac : public Character
+class Pac : virtual public Character
 {
 public:
   Pac(void);
@@ -18,7 +18,7 @@ public:
 
   Pac(Pac &);
 
-  ~Pac(void);
+  virtual bool move(const int, char map[][17]) override;
 };
 
 #endif
