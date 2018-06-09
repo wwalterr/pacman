@@ -15,7 +15,7 @@ int fail(const char *message)
         al_show_native_message_box(nullptr, "Error", "Error", message, nullptr, ALLEGRO_MESSAGEBOX_ERROR));
 }
 
-bool compareGhostPac(Enemy &e_obj, Pac &p_obj)
+bool compareGhostPac(Character &e_obj, Pac &p_obj)
 {
 	if (e_obj.getCharacterCol() == p_obj.getCharacterCol() && e_obj.getCharacterLine() == p_obj.getCharacterLine())
 		return true;

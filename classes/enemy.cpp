@@ -18,7 +18,7 @@ Enemy::Enemy(void)
     this->img = al_load_bitmap("images/ghost_red.png");
 };
 
-Enemy::Enemy(const int direction = 0, const int character_col = 7, const int character_line = 12, const int size = 30, char const *img = {"images/pacman_wall.png"})
+Enemy::Enemy(const int direction = 0, const int character_col = 7, const int character_line = 12, const int size = 30, char const *img = {"images/ghost_red.png"})
 {
     this->direction = direction;
 
@@ -46,48 +46,6 @@ Enemy::Enemy(Enemy &obj)
 
 void Enemy::setImg(char const *img) {
     this->img = al_load_bitmap(img);
-}
-
-bool Enemy::move(const int direction, char map[][17])
-{
-    this->setDirection(direction);
-
-    switch (this->direction)
-    {
-    case 0: // Left
-        if (!moveLeft(map))
-            return false;
-
-        this->character_col -= 1;
-
-        return true;
-
-    case 1: // Right
-        if (!moveRight(map))
-            return false;
-
-        this->character_col += 1;
-
-        return true;
-
-    case 2: // Top
-        if (!moveUp(map))
-            return false;
-
-        this->character_line -= 1;
-
-        return true;
-
-    case 3: // Bottom
-        if (!moveDown(map))
-            return false;
-
-        this->character_line += 1;
-
-        return true;
-    };
-
-    return false;
 }
 
 void Enemy::randomGhost(char map[][17])

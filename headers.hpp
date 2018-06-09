@@ -31,10 +31,12 @@
 
 #include "classes/food.hpp"
 
-// #include "classes/wall.hpp"
+#include "classes/enemy_clever.hpp"
 
 #include "classes/pac.hpp"
 
 #include "classes/enemy.hpp"
 
 #include "classes/btn.hpp"
+
+#include "classes/dijkstra.hpp"

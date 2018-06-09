@@ -3,12 +3,12 @@
 
 #define EXTRAS_H
 
-#include "enemy.hpp"
+#include "character.hpp"
 
 #include "pac.hpp"
 
 int fail(const char *);
 
-bool compareGhostPac(Enemy &, Pac &);
+bool compareGhostPac(Character &, Pac &);
 
 #endif

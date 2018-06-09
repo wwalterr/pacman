@@ -20,8 +20,6 @@ public:
 
   void setImg(char const *);
 
-  virtual bool move(const int, char map[][17]) override;
-
   void randomGhost(char map[][17]);
 };
 

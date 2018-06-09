@@ -176,7 +176,9 @@ int main(const int argc, const char *argv[])
 
 	// Enemy
 
-	Enemy enemy_red, enemy_blue, enemy_orange, enemy_pink;
+	Enemy enemy_red, enemy_blue;
+
+	EnemyClever enemy_orange, enemy_pink;
 
 	enemy_red.setCharacterCol(1).setCharacterLine(1).setDirection(1);
 
@@ -195,6 +197,24 @@ int main(const int argc, const char *argv[])
 	// Pacman
 
 	Pac pac;
+
+	// Path Find
+
+	Dijkstra path(115600);
+
+	for (int row{0}; row < ROWS; row++)
+	{
+		for (int col{0}; col < COLS; col++)
+		{
+			for (int row_c{0}; row_c < ROWS; row_c++)
+			{
+				for (int col_c{0}; col_c < COLS; col_c++)
+				{
+					path.addEdge(row * col, row_c * col_c, row * col + row_c * col_c);
+				}
+			}
+		}
+	}
 
 	// Controls
 
@@ -291,7 +311,7 @@ int main(const int argc, const char *argv[])
 				break;
 			}
 
-			if (compareGhostPac(enemy_blue, pac) || compareGhostPac(enemy_red, pac) || compareGhostPac(enemy_orange, pac))
+			if (compareGhostPac(enemy_blue, pac) || compareGhostPac(enemy_red, pac) || compareGhostPac(enemy_orange, pac) || compareGhostPac(enemy_pink, pac))
 			{
 				life--;
 
@@ -315,10 +335,9 @@ int main(const int argc, const char *argv[])
 
 			enemy_blue.randomGhost(map);
 
-			enemy_orange.randomGhost(map);
+			enemy_orange.smartGhost(map, path, pac.getCharacterLine(), pac.getCharacterCol());
 
-			enemy_pink.randomGhost(map);
-
+			enemy_pink.smartGhost(map, path, pac.getCharacterLine(), pac.getCharacterCol());
 		}
 
 		if (redraw && al_is_event_queue_empty(event_queue))

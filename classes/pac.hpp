@@ -17,8 +17,6 @@ public:
   Pac(const int, const int, const int, const int, char const *);
 
   Pac(Pac &);
-
-  virtual bool move(const int, char map[][17]) override;
 };
 
 #endif
