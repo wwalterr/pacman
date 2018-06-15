@@ -15,17 +15,19 @@ protected:
   ALLEGRO_BITMAP *img;
 
 public:
+  virtual ~Character(void);
+
   void draw(void);
 
-  Character& setDirection(const int);
+  Character &setDirection(const int);
 
   int getDirection(void);
 
-  Character& setCharacterCol(const int);
+  Character &setCharacterCol(const int);
 
   int getCharacterCol(void);
 
-  Character& setCharacterLine(const int);
+  Character &setCharacterLine(const int);
 
   int getCharacterLine(void);
 
@@ -43,8 +45,6 @@ public:
 
   bool moveDown(char map[][17]);
 
-  virtual ~Character(void);
-  
   virtual bool move(const int, char map[][17]);
 };
 

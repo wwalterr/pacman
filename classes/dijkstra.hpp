@@ -9,35 +9,29 @@
 
 #include <list>
 
-using namespace std;
-
 class Dijkstra
 {
-  protected:
-    int v;
+protected:
+  int v;
 
-    int infinite;
+  int infinite;
 
-    list<pair<int, int>> *adj;
+  std::list<std::pair<int, int>> *adj;
 
-  public:
-    Dijkstra(void);
+public:
+  Dijkstra(void);
 
-    Dijkstra(const int);
+  Dijkstra(const int);
 
-    Dijkstra(Dijkstra &);
+  virtual ~Dijkstra(void);
 
-    virtual ~Dijkstra(void);
+  void setV(const int);
 
-    void operator=(Dijkstra &);
+  int getV(void);
 
-    void setV(const int);
+  virtual void addEdge(const int, const int, const int);
 
-    int getV(void);
-
-    virtual void addEdge(const int, const int, const int);
-
-    int dijkstra(const int, const int) const;
+  int dijkstra(const int, const int) const;
 };
 
 #endif

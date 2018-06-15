@@ -3,6 +3,12 @@
 
 #define EXTRAS_H
 
+#include <iostream>
+
+#include <allegro5/allegro.h>
+
+#include <allegro5/allegro_native_dialog.h>
+
 #include "character.hpp"
 
 #include "pac.hpp"

@@ -1,18 +1,26 @@
 
 #### [Pacman](https://github.com/Sphinxs/Pacman)
 
-:fish_cake: Pacman in C++ with Allegro 5 ( [Screenshot](https://github.com/Sphinxs/Pacman/blob/master/screenshot.png) )
+:fish_cake: Pacman in C++ with Allegro 5
 
-#### Install
+#### About
 
-On Ubuntu - [Allegro 5.2](https://raw.githubusercontent.com/Sphinxs/Scripts/master/Allegro.sh)
+Pacman, is an arcade game considered one of the classics of the medium, and an icon of 1980s popular culture.
 
 #### Run
 
 ```shell
-    git clone https://github.com/Sphinxs/Pacman.git
-
-    cd Pacman
-
     make && make run
+```
+
+#### Debug
+
+```shell
+    gdb pacman
+
+    run
+
+    backtrace
+
+    kill
 ```

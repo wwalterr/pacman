@@ -11,24 +11,15 @@ Dijkstra::Dijkstra(void)
 Dijkstra::Dijkstra(const int vertices)
 {
     this->v = vertices;
-    adj = new list<pair<int, int>>[this->v];
+
+    adj = new std::list<std::pair<int, int>>[this->v];
 
     this->infinite = 99999999;
-}
-
-Dijkstra::Dijkstra(Dijkstra &obj)
-{
-    this->v = obj.getV();
 }
 
 Dijkstra::~Dijkstra(void)
 {
     delete[] this->adj;
-}
-
-void Dijkstra::operator=(Dijkstra &obj)
-{
-    this->v = obj.getV();
 }
 
 void Dijkstra::setV(const int vertices)
@@ -43,7 +34,7 @@ int Dijkstra::getV(void)
 
 void Dijkstra::addEdge(const int v_base, const int v_destiny, const int vd_coast)
 {
-    this->adj[v_base].push_back(make_pair(v_destiny, vd_coast));
+    this->adj[v_base].push_back(std::make_pair(v_destiny, vd_coast));
 }
 
 int Dijkstra::dijkstra(const int origin, const int destity) const
@@ -52,9 +43,9 @@ int Dijkstra::dijkstra(const int origin, const int destity) const
 
     int visited[this->v]{0};
 
-    priority_queue<
-        pair<int, int>,
-        vector<pair<int, int>>, greater<pair<int, int>>>
+    std::priority_queue<
+        std::pair<int, int>,
+        std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>>
         p_queue;
 
     for (register int counter = 0; counter < this->v; counter++)
@@ -66,11 +57,11 @@ int Dijkstra::dijkstra(const int origin, const int destity) const
 
     dist[origin] = 0;
 
-    p_queue.push(make_pair(dist[origin], origin));
+    p_queue.push(std::make_pair(dist[origin], origin));
 
     while (!p_queue.empty())
     {
-        pair<int, int> top = p_queue.top();
+        std::pair<int, int> top = p_queue.top();
 
         int v_top = top.second;
 
@@ -80,7 +71,7 @@ int Dijkstra::dijkstra(const int origin, const int destity) const
         {
             visited[v_top] = 1;
 
-            list<pair<int, int>>::iterator it;
+            std::list<std::pair<int, int>>::iterator it;
 
             for (it = adj[v_top].begin(); it != adj[v_top].end(); it++)
             {
@@ -92,7 +83,7 @@ int Dijkstra::dijkstra(const int origin, const int destity) const
                 {
                     dist[v_] = dist[v_top] + c_;
 
-                    p_queue.push(make_pair(dist[v_], v_));
+                    p_queue.push(std::make_pair(dist[v_], v_));
                 }
             }
         }

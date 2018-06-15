@@ -1,10 +1,6 @@
 
 #include "character.hpp"
 
-#include <allegro5/allegro.h>
-
-#include <allegro5/allegro_native_dialog.h>
-
 Character::~Character(void)
 {
     al_destroy_bitmap(this->img);
@@ -15,7 +11,7 @@ void Character::draw(void)
     al_draw_bitmap_region(this->img, this->direction * this->size, 0, this->size, this->size, this->character_col * this->size, this->character_line * this->size, 0);
 }
 
-Character& Character::setDirection(const int direction)
+Character &Character::setDirection(const int direction)
 {
     this->direction = direction;
 
@@ -27,7 +23,7 @@ int Character::getDirection(void)
     return this->direction;
 }
 
-Character& Character::setCharacterCol(const int character_col)
+Character &Character::setCharacterCol(const int character_col)
 {
     this->character_col = character_col;
 
@@ -39,7 +35,7 @@ int Character::getCharacterCol(void)
     return this->character_col;
 }
 
-Character& Character::setCharacterLine(const int character_line)
+Character &Character::setCharacterLine(const int character_line)
 {
     this->character_line = character_line;
 
@@ -61,7 +57,7 @@ int Character::getSize(void)
     return this->size;
 }
 
-void Character::set(const int character_col = 7, const int character_line = 12, const int direction = 0)
+void Character::set(const int character_col, const int character_line, const int direction = 0)
 {
     this->setCharacterCol(character_col);
 

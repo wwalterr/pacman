@@ -1,7 +1,7 @@
 
-#ifndef BTN_H
+#ifndef BUTTON_H
 
-#define BTN_H
+#define BUTTON_H
 
 #include <allegro5/allegro.h>
 
@@ -9,9 +9,8 @@
 
 #include <allegro5/allegro_ttf.h>
 
-class Btn
+class Button
 {
-
 private:
   ALLEGRO_BITMAP *icon;
 
@@ -19,26 +18,26 @@ private:
 
   ALLEGRO_FONT *font;
 
-  const char *font_path;
+  char *str;
 
-  const char *str;
+  char *font_path;
 
   int font_size, font_flag;
 
   float font_x, font_y, icon_x, icon_y;
 
 public:
-  Btn();
+  Button();
 
-  Btn(const char *, const char *, const int, const int, const int, const int, const int, const float, const float, const char *, const float, const float);
+  Button(char *, char *, const int, const int, const int, const int, const int, const float, const float, char *, const float, const float);
 
-  ~Btn(void);
+  ~Button(void);
 
   void updateFont(void);
 
-  void setFontPath(const char *);
+  void setFontPath(char *);
 
-  const char *getFontPath(void);
+  char *getFontPath(void);
 
   void setFontSize(const int);
 
@@ -60,27 +59,25 @@ public:
 
   float getIconY(void);
 
-  void setX(const float);
+  void setFontX(const float);
 
-  float getX(void);
+  float getFontX(void);
 
-  void setY(const float);
+  void setFontY(const float);
 
-  float getY(void);
+  float getFontY(void);
 
-  void setStr(const char *);
+  void setStr(char *);
 
-  const char *getStr(void);
+  char *getStr(void);
 
-  Btn &showStr(void);
-
-  void setIcon(const char *);
+  void setIcon(char *);
 
   ALLEGRO_BITMAP *getIcon(void);
 
-  void showIcon(void);
+  Button &showStr(void);
 
-  void showIcon(Btn);
+  void showIcon(void);
 };
 
 #endif

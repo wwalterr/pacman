@@ -5,6 +5,8 @@
 
 #include <allegro5/allegro_native_dialog.h>
 
+#include <iostream>
+
 EnemyClever::EnemyClever(void)
 {
     this->direction = 1;
@@ -51,7 +53,50 @@ void EnemyClever::setImg(char const *img)
 
 void EnemyClever::smartGhost(char map[][17], const Dijkstra &path, const int p_line, const int p_column)
 {
-    int dj{path.dijkstra(this->getCharacterLine() * this->getCharacterCol(), p_line * p_column)};
+    while(true){
+    // Right, Left, Top & Down
 
-    // Delay -> event list -> dijkstra function
+        int cache[] {
+                    path.dijkstra(this->getCharacterLine() * (this->getCharacterCol() - 1), p_line * p_column),
+                    path.dijkstra(this->getCharacterLine() * (this->getCharacterCol() + 1), p_line * p_column),
+                    path.dijkstra((this->getCharacterLine() + 1) * this->getCharacterCol(), p_line * p_column),
+                    path.dijkstra((this->getCharacterLine() - 1) * this->getCharacterCol(), p_line * p_column)};
+
+        int smallest = cache[0], smallestIndice{0};
+
+        for (int counter = 1; counter <= 3; counter++)
+        {
+            if (cache[counter] < smallest)
+            {
+                smallest = cache[counter];
+
+                smallestIndice = counter;
+            }
+        }
+
+        std::cout << "\n\n\033[31mL\033[37m " << cache[0] << " \033[31mR\033[37m " << cache[1] << " \033[31mU\033[37m " << cache[2] << " \033[31mD\033[37m " << cache[3] << " \033[34mS\033[37m " << cache[smallestIndice] << "\n\n";
+
+        switch (smallestIndice)
+        {
+        case 0:
+            if (this->moveLeft(map) && this->getDirection() != 1)
+                this->setDirection(0);
+            return;
+
+        case 1:
+            if (this->moveRight(map) && this->getDirection() != 0)
+                this->setDirection(1);
+            return;
+
+        case 2:
+            if (this->moveUp(map) && this->getDirection() != 3)
+                this->setDirection(2);
+            return;
+
+        case 3:
+            if (this->moveDown(map) && this->getDirection() != 2)
+                this->setDirection(3);
+            return;
+        }
+    }
 }

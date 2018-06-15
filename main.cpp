@@ -50,8 +50,6 @@ int main(const int argc, const char *argv[])
 
 	al_init_ttf_addon();
 
-	// Install Add-ons
-
 	al_install_keyboard();
 
 	al_install_audio();
@@ -71,9 +69,9 @@ int main(const int argc, const char *argv[])
 
 	al_set_window_title(display, "Pac Man");
 
-	ALLEGRO_BITMAP *icon = al_load_bitmap("images/pacman_logo.png");
+	ALLEGRO_BITMAP *icon_system = al_load_bitmap("images/logo_system.png");
 
-	al_set_display_icon(display, icon);
+	al_set_display_icon(display, icon_system);
 
 	// Audio
 
@@ -87,9 +85,9 @@ int main(const int argc, const char *argv[])
 
 	ALLEGRO_SAMPLE_INSTANCE *instance_eat_fruit{nullptr};
 
-	theme = al_load_sample("audios/pacman_theme.wav");
+	theme = al_load_sample("audios/theme.wav");
 
-	eat_fruit = al_load_sample("audios/pacman_eat_fruit.wav");
+	eat_fruit = al_load_sample("audios/eat_fruit.wav");
 
 	instance_theme = al_create_sample_instance(theme);
 
@@ -103,9 +101,9 @@ int main(const int argc, const char *argv[])
 
 	// Background
 
-	ALLEGRO_BITMAP *back = al_load_bitmap("images/pacman_pattern.png");
+	ALLEGRO_BITMAP *background = al_load_bitmap("images/map.png");
 
-	al_draw_bitmap(back, 0, 0, 0);
+	al_draw_bitmap(background, 0, 0, 0);
 
 	// Food
 
@@ -120,7 +118,7 @@ int main(const int argc, const char *argv[])
 			if (map[row][col] == 'F')
 			{
 				if (row > 9)
-					f[counter_food].setImg("images/pacman_food_blue.png");
+					f[counter_food].setImg("images/food_blue.png");
 
 				f[counter_food].set(col, row);
 
@@ -133,7 +131,7 @@ int main(const int argc, const char *argv[])
 
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
-	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 5); // Framerate
+	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 4); // Framerate
 
 	if (!event_queue)
 		fail("Failed to create Event Queue");
@@ -146,29 +144,29 @@ int main(const int argc, const char *argv[])
 
 	// Status
 
-	ALLEGRO_BITMAP *logo_bottom = al_load_bitmap("images/pacman_logo_bottom.png");
+	ALLEGRO_BITMAP *logo_status = al_load_bitmap("images/logo_status.png");
 
-	Btn points_btn, life_btn;
+	Button points_bt, life_bt;
 
-	points_btn.setIcon("images/pacman_cherry.png");
+	points_bt.setIcon((char *)"images/cherry.png");
 
-	life_btn.setIcon("images/pacman_life.png");
+	life_bt.setIcon((char *)"images/life.png");
 
-	life_btn.setX(421.0);
+	life_bt.setFontX(421.0);
 
-	life_btn.setIconX(443.0);
+	life_bt.setIconX(443.0);
 
 	// Winner & Game Over
 
-	Btn gameover, winner;
+	Button gameover, winner;
 
-	winner.setIcon("images/winner.png");
+	winner.setIcon((char *)"images/winner.png");
 
 	winner.setIconX(115.0);
 
 	winner.setIconY(180.0);
 
-	gameover.setIcon("images/gameover.png");
+	gameover.setIcon((char *)"images/gameover.png");
 
 	gameover.setIconX(115.0);
 
@@ -181,6 +179,8 @@ int main(const int argc, const char *argv[])
 	EnemyClever enemy_orange, enemy_pink;
 
 	enemy_red.setCharacterCol(1).setCharacterLine(1).setDirection(1);
+
+	enemy_red.setImg("images/ghost_red.png");
 
 	enemy_blue.setCharacterCol(14).setCharacterLine(18).setDirection(0);
 
@@ -206,13 +206,7 @@ int main(const int argc, const char *argv[])
 	{
 		for (int col{0}; col < COLS; col++)
 		{
-			for (int row_c{0}; row_c < ROWS; row_c++)
-			{
-				for (int col_c{0}; col_c < COLS; col_c++)
-				{
-					path.addEdge(row * col, row_c * col_c, row * col + row_c * col_c);
-				}
-			}
+			path.addEdge(row * COLS + col, row * COLS + col + 1, 1);
 		}
 	}
 
@@ -227,7 +221,7 @@ int main(const int argc, const char *argv[])
 	al_start_timer(timer);
 
 	// Game Loop
-
+	
 	while (true)
 	{
 		ALLEGRO_EVENT event;
@@ -346,7 +340,7 @@ int main(const int argc, const char *argv[])
 
 			al_clear_to_color(al_map_rgb(0, 0, 0));
 
-			al_draw_bitmap(back, 0, 0, 0);
+			al_draw_bitmap(background, 0, 0, 0);
 
 			for (int counter{0}; counter < counter_food; counter++)
 			{
@@ -391,15 +385,15 @@ int main(const int argc, const char *argv[])
 
 			// Status
 
-			points_btn.setStr(to_string(points).c_str());
+			points_bt.setStr(const_cast<char*>(to_string(points).c_str()));
 
-			points_btn.showStr().showIcon();
+			points_bt.showStr().showIcon();
 
-			life_btn.setStr(to_string(life).c_str());
+			life_bt.setStr(const_cast<char*>(to_string(life).c_str()));
 
-			life_btn.showStr().showIcon();
+			life_bt.showStr().showIcon();
 
-			al_draw_bitmap(logo_bottom, 185.0, 597.0, 0);
+			al_draw_bitmap(logo_status, 185.0, 597.0, 0);
 
 			// Flush
 
@@ -407,7 +401,7 @@ int main(const int argc, const char *argv[])
 		}
 	}
 
-	al_destroy_bitmap(logo_bottom);
+	al_destroy_bitmap(logo_status);
 
 	al_destroy_timer(timer);
 
@@ -421,9 +415,9 @@ int main(const int argc, const char *argv[])
 
 	al_destroy_sample(theme);
 
-	al_destroy_bitmap(back);
+	al_destroy_bitmap(background);
 
-	al_destroy_bitmap(icon);
+	al_destroy_bitmap(icon_system);
 
 	al_destroy_display(display);
 

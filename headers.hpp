@@ -37,6 +37,6 @@
 
 #include "classes/enemy.hpp"
 
-#include "classes/btn.hpp"
+#include "classes/button.hpp"
 
 #include "classes/dijkstra.hpp"
