@@ -1,7 +1,7 @@
 
 #### [Pacman](https://github.com/Sphinxs/Pacman)
 
-:fish_cake: Pacman in C++ with Allegro 5
+:fish_cake: Pacman in C++ using Allegro 5
 
 #### About
 
