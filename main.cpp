@@ -1,4 +1,3 @@
-
 #include "headers.hpp"
 
 #define ROWS 20

@@ -1,4 +1,9 @@
+# Binary
 pacman
+
+# Object
 *.o
+
+# Editor
 .vscode
-pacman.exe
+.vs
