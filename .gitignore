@@ -1,9 +1,8 @@
-# Binary
+# binary
 pacman
 
-# Object
+# object
 *.o
 
-# Editor
+# editor
 .vscode
-.vs

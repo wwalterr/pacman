@@ -1,69 +1,59 @@
-## [Pacman](https://github.com/Sphinxs/Pacman)
+### Pacman
 
-:fish_cake: Pacman in C++ using Allegro 5
+:fish_cake: Pacman with Dijkstra path finder written in C++ using Allegro 5
 
-### About
-
-Pacman, is an arcade game considered one of the classics of the medium, and an icon of 1980s popular culture. This game was developed in the OO class by [Sphinxs](https://github.com/Sphinxs).
-
-### Setup
+#### Setup
 
 Install Allegro 5 dependencies:
 
-```shell
-sudo apt install -y git build-essential cmake xorg-dev libgl1-mesa-dev libglu-dev libpng-dev libz-dev libcurl4-gnutls-dev libfreetype6-dev libjpeg-dev libvorbis-dev libopenal-dev libphysfs-dev libgtk2.0-dev libasound-dev libflac-dev libdumb1-dev exuberant-ctags dvi2ps dvipdfmx latex2html pandoc liballegro-dialog5-dev
+```sh
+sudo apt install -y build-essential cmake xorg-dev libgl1-mesa-dev libglu-dev libpng-dev libz-dev libcurl4-gnutls-dev libfreetype6-dev libjpeg-dev libvorbis-dev libopenal-dev libphysfs-dev libgtk2.0-dev libasound-dev libflac-dev libdumb1-dev exuberant-ctags dvi2ps dvipdfmx latex2html pandoc
 ```
 
-Add Allegro 5 PPA to your distro:
+Add Allegro 5 PPA:
 
-```shell
+```sh
 add-apt-repository ppa:allegro/5.2
 ```
 
-If your distro don't accept PPA try to add the source [url](https://launchpad.net/~allegro/+archive/ubuntu/5.2) (*Technical details about this PPA*):
+Install Allegro 5 (`apt update`):
 
-```shell
-echo deb http://ppa.launchpad.net/allegro/5.2/ubuntu bionic main "\n"deb-src http://ppa.launchpad.net/allegro/5.2/ubuntu bionic main >> /etc/apt/sources.list
+```sh
+sudo apt install liballegro5-dev liballegro-acodec5-dev liballegro-audio5-dev liballegro-dialog5-dev liballegro-image5-dev liballegro-physfs5-dev liballegro-ttf5-dev liballegro-video5-dev allegro5-doc
 ```
 
-Install the lib:
+Install the image optimizer:
 
-```shell
-sudo apt update && sudo apt install liballegro5-dev
+```sh
+sudo apt install pngcrush
 ```
 
-If you receive the error, try to add the required key:
+#### Run
 
-```shell
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys key_here # Modify the 'key_here'
-```
+Build the source code (compiling and linking):
 
-> The game was tested in Ubuntu Budgie 18.04, Linux Mint 19.1 and Deepin 15.04
-
-### Run
-
-To run you can run the `makefile`, first compile the game:
-
-```shell
+```sh
 make
 ```
 
-And start:
+Start the executable:
 
 ```
 make run
 ```
 
-### Debug
+#### Debug
 
-If you want to contribute to the game and need to debug, use the [gdb](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf) to find the errors and resolve them. Basic usage:
+Use the [GDB](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf) to debug the code.
 
-```shell
-gdb pacman # Load the game in debug mode
+Basic usage:
 
-run # Starts the game
+```sh
+gdb pacman  # load the executable
 
-backtrace # Summary of how the game is running
+run  # start the executable
 
-kill # Stop the game
+backtrace  # summary how the executable is running
+
+kill  # stop the executable
 ```
