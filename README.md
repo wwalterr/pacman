@@ -1,59 +1,88 @@
 ### Pacman
 
-:fish_cake: Pacman with Dijkstra path finder written in C++ using Allegro 5
+Pacman written in C++ using Allegro 5, plus Dijkstra path finder
+
+> See the interface through the [Pacman](./pacman.png) image
 
 #### Setup
 
-Install Allegro 5 dependencies:
+<details>
+<summary>Dependencies</summary>
 
 ```sh
-sudo apt install -y build-essential cmake xorg-dev libgl1-mesa-dev libglu-dev libpng-dev libz-dev libcurl4-gnutls-dev libfreetype6-dev libjpeg-dev libvorbis-dev libopenal-dev libphysfs-dev libgtk2.0-dev libasound-dev libflac-dev libdumb1-dev exuberant-ctags dvi2ps dvipdfmx latex2html pandoc
+sudo apt install -y build-essential cmake xorg-dev libgl1-mesa-dev libglu-dev libpng-dev libz-dev libcurl4-gnutls-dev libfreetype6-dev libjpeg-dev libvorbis-dev libopenal-dev libphysfs-dev libgtk2.0-dev libasound-dev libflac-dev libdumb1-dev exuberant-ctags
 ```
 
-Add Allegro 5 PPA:
+</details>
+
+<details>
+<summary>Allegro 5</summary>
+
+<details>
+<summary>PPA</summary>
 
 ```sh
-add-apt-repository ppa:allegro/5.2
+sudo add-apt-repository ppa:allegro/5.2
 ```
 
-Install Allegro 5 (`apt update`):
+</details>
+
+<details>
+<summary>Packages</summary>
 
 ```sh
-sudo apt install liballegro5-dev liballegro-acodec5-dev liballegro-audio5-dev liballegro-dialog5-dev liballegro-image5-dev liballegro-physfs5-dev liballegro-ttf5-dev liballegro-video5-dev allegro5-doc
+sudo apt install liballegro5-dev liballegro-acodec5-dev liballegro-audio5-dev liballegro-dialog5-dev liballegro-image5-dev liballegro-physfs5-dev liballegro-ttf5-dev liballegro-video5-dev
 ```
 
-Install the image optimizer:
+</details>
+
+</details>
+
+<details>
+<summary>Image Optimizer</summary>
 
 ```sh
 sudo apt install pngcrush
 ```
 
+</details>
+
 #### Run
 
-Build the source code (compiling and linking):
+<details>
+<summary>Compile</summary>
 
 ```sh
 make
 ```
 
-Start the executable:
+</details>
+
+<details>
+<summary>Execute</summary>
 
 ```
 make run
 ```
 
+</details>
+
 #### Debug
 
-Use the [GDB](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf) to debug the code.
-
-Basic usage:
+Use the GDB to debug the code.
 
 ```sh
-gdb pacman  # load the executable
+gdb pacman  # load executable
+```
 
-run  # start the executable
+```sh
+run  # execute the executable
+```
 
+```sh
 backtrace  # summary how the executable is running
+```
 
+```sh
 kill  # stop the executable
 ```

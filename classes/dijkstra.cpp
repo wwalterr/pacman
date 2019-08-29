@@ -48,7 +48,7 @@ int Dijkstra::dijkstra(const int origin, const int destity) const
         std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>>
         p_queue;
 
-    for (register int counter = 0; counter < this->v; counter++)
+    for (int counter = 0; counter < this->v; counter++)
     {
         dist[counter] = infinite;
 
