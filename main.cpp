@@ -173,9 +173,7 @@ int main(const int argc, const char *argv[])
 
 	// Enemy
 
-	Enemy enemy_red, enemy_blue;
-
-	EnemyClever enemy_orange, enemy_pink;
+	Enemy enemy_red, enemy_blue, enemy_pink, enemy_orange;
 
 	enemy_red.setCharacterCol(1).setCharacterLine(1).setDirection(1);
 
@@ -197,7 +195,7 @@ int main(const int argc, const char *argv[])
 
 	Pac pac;
 
-	// Path Find
+	// Path find
 
 	Dijkstra path(115600);
 
@@ -220,7 +218,7 @@ int main(const int argc, const char *argv[])
 	al_start_timer(timer);
 
 	// Game Loop
-	
+
 	while (true)
 	{
 		ALLEGRO_EVENT event;
@@ -328,9 +326,14 @@ int main(const int argc, const char *argv[])
 
 			enemy_blue.randomGhost(map);
 
-			enemy_orange.smartGhost(map, path, pac.getCharacterLine(), pac.getCharacterCol());
+			enemy_orange.randomGhost(map);
 
-			enemy_pink.smartGhost(map, path, pac.getCharacterLine(), pac.getCharacterCol());
+			enemy_pink.randomGhost(map);
+
+			// Path finder enemies (instantiate as EnemyClever)
+			// enemy_orange.smartGhost(map, path, pac.getCharacterLine(), pac.getCharacterCol());
+
+			// enemy_pink.smartGhost(map, path, pac.getCharacterLine(), pac.getCharacterCol());
 		}
 
 		if (redraw && al_is_event_queue_empty(event_queue))
@@ -384,11 +387,11 @@ int main(const int argc, const char *argv[])
 
 			// Status
 
-			points_bt.setStr(const_cast<char*>(to_string(points).c_str()));
+			points_bt.setStr(const_cast<char *>(to_string(points).c_str()));
 
 			points_bt.showStr().showIcon();
 
-			life_bt.setStr(const_cast<char*>(to_string(life).c_str()));
+			life_bt.setStr(const_cast<char *>(to_string(life).c_str()));
 
 			life_bt.showStr().showIcon();
 
