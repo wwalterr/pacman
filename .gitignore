@@ -1,5 +1,5 @@
-# object
-*.o
-
-# editor
+# Editor
 .vscode
+
+# Binary
+*.o
