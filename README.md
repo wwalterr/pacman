@@ -21,17 +21,17 @@ The classic Pac-man game with Dijkstra path finder.
 
 Use the APT package manager to install general dependencies.
 
-```bash
+```sh
 sudo apt install -y build-essential cmake xorg-dev libgl1-mesa-dev libglu-dev libpng-dev libz-dev libcurl4-gnutls-dev libfreetype6-dev libjpeg-dev libvorbis-dev libopenal-dev libphysfs-dev libgtk2.0-dev libasound-dev libflac-dev libdumb1-dev exuberant-ctags pngcrush
 ```
 
 Use the APT package manager to add the Allegro 5 PPA and install it.
 
-```bash
+```sh
 sudo add-apt-repository ppa:allegro/5.2
 ```
 
-```bash
+```sh
 sudo apt install liballegro5-dev liballegro-acodec5-dev liballegro-audio5-dev liballegro-dialog5-dev liballegro-image5-dev liballegro-physfs5-dev liballegro-ttf5-dev liballegro-video5-dev
 ```
 
@@ -39,7 +39,7 @@ sudo apt install liballegro5-dev liballegro-acodec5-dev liballegro-audio5-dev li
 
 Create a build.
 
-```bash
+```sh
 make
 ```
 
