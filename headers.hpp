@@ -1,5 +1,4 @@
 // Builtins
-
 #include <iostream>
 
 #include <string>
@@ -7,7 +6,6 @@
 #include <time.h>
 
 // Allegro 5
-
 #include <allegro5/allegro.h>
 
 #include <allegro5/allegro_native_dialog.h>
@@ -25,7 +23,6 @@
 #include <allegro5/allegro_ttf.h>
 
 // Project
-
 #include "classes/extras.hpp"
 
 #include "classes/food.hpp"
