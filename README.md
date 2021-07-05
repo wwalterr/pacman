@@ -4,7 +4,7 @@ Control your Pac-man against ghosts.
 
 ## About
 
-The classic Pac-man game with Dijkstra path finder.
+The classic action Pac-man maze game.
 
 ## Executables
 

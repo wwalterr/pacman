@@ -184,17 +184,6 @@ int main(const int argc, const char *argv[])
 	// Pac-man
 	Pac pac;
 
-	// Path find
-	Dijkstra path(115600);
-
-	for (int row{0}; row < ROWS; row++)
-	{
-		for (int col{0}; col < COLS; col++)
-		{
-			path.addEdge(row * COLS + col, row * COLS + col + 1, 1);
-		}
-	}
-
 	// Controls
 	int direction{0}, intention{0}, points{0}, life{3};
 
@@ -231,7 +220,7 @@ int main(const int argc, const char *argv[])
 
 		if (event.type == ALLEGRO_EVENT_KEY_DOWN)
 		{
-			// Orientation: left -> right and top -> down
+			// Left (a), right (d), top (w) & down (s)
 			switch (event.keyboard.keycode)
 			{
 			case ALLEGRO_KEY_DOWN:
@@ -317,11 +306,6 @@ int main(const int argc, const char *argv[])
 			enemy_orange.randomGhost(map);
 
 			enemy_pink.randomGhost(map);
-
-			// Path finder enemies (instantiate as EnemyClever)
-			// enemy_orange.smartGhost(map, path, pac.getCharacterLine(), pac.getCharacterCol());
-
-			// enemy_pink.smartGhost(map, path, pac.getCharacterLine(), pac.getCharacterCol());
 		}
 
 		// Redraw
