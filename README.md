@@ -1,88 +1,84 @@
-### Pacman
+# Pacman
 
-Pacman written in C++ using Allegro 5, plus Dijkstra path finder
+Control your Pac-man against ghosts.
 
-> See the interface through the [Pacman](./pacman.png) image
+## About
 
-#### Setup
+The classic Pac-man game with Dijkstra path finder.
 
-<details>
-<summary>Dependencies</summary>
+## Executables
 
-```sh
-sudo apt install -y build-essential cmake xorg-dev libgl1-mesa-dev libglu-dev libpng-dev libz-dev libcurl4-gnutls-dev libfreetype6-dev libjpeg-dev libvorbis-dev libopenal-dev libphysfs-dev libgtk2.0-dev libasound-dev libflac-dev libdumb1-dev exuberant-ctags
+[Linux](./pacman)
+
+## Built with
+
+- [C++](https://en.cppreference.com/w/)
+- [Allegro 5](https://liballeg.org/)
+
+## Installation
+
+Use the APT package manager to install general dependencies.
+
+```bash
+sudo apt install -y build-essential cmake xorg-dev libgl1-mesa-dev libglu-dev libpng-dev libz-dev libcurl4-gnutls-dev libfreetype6-dev libjpeg-dev libvorbis-dev libopenal-dev libphysfs-dev libgtk2.0-dev libasound-dev libflac-dev libdumb1-dev exuberant-ctags pngcrush
 ```
 
-</details>
+Use the APT package manager to add the Allegro 5 PPA and install it.
 
-<details>
-<summary>Allegro 5</summary>
-
-<details>
-<summary>PPA</summary>
-
-```sh
+```bash
 sudo add-apt-repository ppa:allegro/5.2
 ```
 
-</details>
-
-<details>
-<summary>Packages</summary>
-
-```sh
+```bash
 sudo apt install liballegro5-dev liballegro-acodec5-dev liballegro-audio5-dev liballegro-dialog5-dev liballegro-image5-dev liballegro-physfs5-dev liballegro-ttf5-dev liballegro-video5-dev
 ```
 
-</details>
+## Usage
 
-</details>
+Create a build.
 
-<details>
-<summary>Image Optimizer</summary>
-
-```sh
-sudo apt install pngcrush
-```
-
-</details>
-
-#### Run
-
-<details>
-<summary>Compile</summary>
-
-```sh
+```bash
 make
 ```
 
-</details>
+Execute the build.
 
-<details>
-<summary>Execute</summary>
-
-```
+```bash
 make run
 ```
 
-</details>
+## Debug
 
-#### Debug
+Use the GDB debugger to debug the build.
 
-Use the GDB to debug the code.
-
-```sh
-gdb pacman  # load executable
+```bash
+gdb pacman  # Load executable
 ```
 
-```sh
-run  # execute the executable
+```bash
+(gdb) run  # Execute the executable
 ```
 
-```sh
-backtrace  # summary how the executable is running
+```bash
+(gdb) backtrace  # Summary how the execution
 ```
 
-```sh
-kill  # stop the executable
+```bash
+(gdb) kill  # Stop the executable
 ```
+
+## Contributing
+
+Pull requests are welcome. Please, consider the following.
+
+1. Make sure you code have quality, a.k.a standards
+2. Make sure your code is secure
+3. Make sure your code has no performance issues
+4. Make sure your code is documented, if necessary
+5. Describe the changes that were done
+
+> No issue or PR template required, but be informative
+
+## License
+
+[MIT](./LICENSE.md)
