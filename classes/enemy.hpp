@@ -1,4 +1,3 @@
-
 #ifndef ENEMY_H
 
 #define ENEMY_H
@@ -12,15 +11,15 @@
 class Enemy : virtual public Character
 {
 public:
-  Enemy(void);
+	Enemy(void);
 
-  Enemy(const int, const int, const int, const int, char const *);
+	Enemy(const int, const int, const int, const int, char const *);
 
-  Enemy(Enemy &);
+	Enemy(Enemy &);
 
-  void setImg(char const *);
+	void setImg(char const *);
 
-  void randomGhost(char map[][17]);
+	void randomGhost(char map[][17]);
 };
 
 #endif

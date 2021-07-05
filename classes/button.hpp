@@ -1,4 +1,3 @@
-
 #ifndef BUTTON_H
 
 #define BUTTON_H
@@ -12,72 +11,72 @@
 class Button
 {
 private:
-  ALLEGRO_BITMAP *icon;
+	ALLEGRO_BITMAP *icon;
 
-  ALLEGRO_COLOR color;
+	ALLEGRO_COLOR color;
 
-  ALLEGRO_FONT *font;
+	ALLEGRO_FONT *font;
 
-  char *str;
+	char *str;
 
-  char *font_path;
+	char *font_path;
 
-  int font_size, font_flag;
+	int font_size, font_flag;
 
-  float font_x, font_y, icon_x, icon_y;
+	float font_x, font_y, icon_x, icon_y;
 
 public:
-  Button();
+	Button();
 
-  Button(char *, char *, const int, const int, const int, const int, const int, const float, const float, char *, const float, const float);
+	Button(char *, char *, const int, const int, const int, const int, const int, const float, const float, char *, const float, const float);
 
-  ~Button(void);
+	~Button(void);
 
-  void updateFont(void);
+	void updateFont(void);
 
-  void setFontPath(char *);
+	void setFontPath(char *);
 
-  char *getFontPath(void);
+	char *getFontPath(void);
 
-  void setFontSize(const int);
+	void setFontSize(const int);
 
-  int getFontSize(void);
+	int getFontSize(void);
 
-  void setFontFlag(const int);
+	void setFontFlag(const int);
 
-  int getFontFlag(void);
+	int getFontFlag(void);
 
-  void setColor(const int, const int, const int);
+	void setColor(const int, const int, const int);
 
-  ALLEGRO_COLOR getColor(void);
+	ALLEGRO_COLOR getColor(void);
 
-  void setIconX(const float);
+	void setIconX(const float);
 
-  float getIconX(void);
+	float getIconX(void);
 
-  void setIconY(const float);
+	void setIconY(const float);
 
-  float getIconY(void);
+	float getIconY(void);
 
-  void setFontX(const float);
+	void setFontX(const float);
 
-  float getFontX(void);
+	float getFontX(void);
 
-  void setFontY(const float);
+	void setFontY(const float);
 
-  float getFontY(void);
+	float getFontY(void);
 
-  void setStr(char *);
+	void setStr(char *);
 
-  char *getStr(void);
+	char *getStr(void);
 
-  void setIcon(char *);
+	void setIcon(char *);
 
-  ALLEGRO_BITMAP *getIcon(void);
+	ALLEGRO_BITMAP *getIcon(void);
 
-  Button &showStr(void);
+	Button &showStr(void);
 
-  void showIcon(void);
+	void showIcon(void);
 };
 
 #endif

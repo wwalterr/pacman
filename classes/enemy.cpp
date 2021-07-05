@@ -1,4 +1,3 @@
-
 #include "enemy.hpp"
 
 #include <allegro5/allegro.h>
@@ -7,45 +6,46 @@
 
 Enemy::Enemy(void)
 {
-    this->direction = 1;
+	this->direction = 1;
 
-    this->character_col = 7;
+	this->character_col = 7;
 
-    this->character_line = 12;
+	this->character_line = 12;
 
-    this->size = 30;
+	this->size = 30;
 
-    this->img = al_load_bitmap("images/ghost_red.png");
+	this->img = al_load_bitmap("images/ghost_red.png");
 };
 
 Enemy::Enemy(const int direction = 0, const int character_col = 7, const int character_line = 12, const int size = 30, char const *img = {"images/ghost_red.png"})
 {
-    this->direction = direction;
+	this->direction = direction;
 
-    this->character_col = character_col;
+	this->character_col = character_col;
 
-    this->character_line = character_line;
+	this->character_line = character_line;
 
-    this->size = size;
+	this->size = size;
 
-    this->img = al_load_bitmap(img);
+	this->img = al_load_bitmap(img);
 };
 
 Enemy::Enemy(Enemy &obj)
 {
-    this->direction = obj.direction;
+	this->direction = obj.direction;
 
-    this->character_col = obj.character_col;
+	this->character_col = obj.character_col;
 
-    this->character_line = obj.character_line;
+	this->character_line = obj.character_line;
 
-    this->size = obj.size;
+	this->size = obj.size;
 
-    this->img = obj.img;
+	this->img = obj.img;
 }
 
-void Enemy::setImg(char const *img) {
-    this->img = al_load_bitmap(img);
+void Enemy::setImg(char const *img)
+{
+	this->img = al_load_bitmap(img);
 }
 
 void Enemy::randomGhost(char map[][17])
@@ -54,6 +54,7 @@ void Enemy::randomGhost(char map[][17])
 
 	int enemy_random{0};
 
+	// Loop until find a valid random position
 	while (enemy_loop)
 	{
 		enemy_random = rand() % 4;

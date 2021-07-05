@@ -1,4 +1,4 @@
-#include "headers.hpp"
+#include "main.hpp"
 
 #define ROWS 20
 
@@ -33,12 +33,10 @@ int main(const int argc, const char *argv[])
 		"WWWWWWWWWWWWWWWW"};
 
 	// Modules
-
 	if (!al_init())
 		fail("Failed to load Allegro 5");
 
 	// Add-ons
-
 	al_init_image_addon();
 
 	al_init_acodec_addon();
@@ -54,7 +52,6 @@ int main(const int argc, const char *argv[])
 	al_install_audio();
 
 	// Window
-
 	ALLEGRO_DISPLAY *display{nullptr};
 
 	al_set_new_display_flags(ALLEGRO_WINDOWED);
@@ -64,16 +61,15 @@ int main(const int argc, const char *argv[])
 	display = al_create_display(480, 630);
 
 	if (!display)
-		fail("Failed to initialize Display");
+		fail("Failed to initialize display");
 
-	al_set_window_title(display, "Pac Man");
+	al_set_window_title(display, "Pac-man");
 
 	ALLEGRO_BITMAP *icon_system = al_load_bitmap("images/logo_system.png");
 
 	al_set_display_icon(display, icon_system);
 
 	// Audio
-
 	al_reserve_samples(2);
 
 	ALLEGRO_SAMPLE *theme{nullptr};
@@ -99,13 +95,11 @@ int main(const int argc, const char *argv[])
 	al_play_sample(theme, 0.1, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, nullptr);
 
 	// Background
-
 	ALLEGRO_BITMAP *background = al_load_bitmap("images/map.png");
 
 	al_draw_bitmap(background, 0, 0, 0);
 
 	// Food
-
 	Food f[166];
 
 	int counter_food{0};
@@ -127,13 +121,12 @@ int main(const int argc, const char *argv[])
 	}
 
 	// Event
-
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
 	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 4); // Framerate
 
 	if (!event_queue)
-		fail("Failed to create Event Queue");
+		fail("Failed to create event queue");
 
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 
@@ -142,7 +135,6 @@ int main(const int argc, const char *argv[])
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
 	// Status
-
 	ALLEGRO_BITMAP *logo_status = al_load_bitmap("images/logo_status.png");
 
 	Button points_bt, life_bt;
@@ -155,8 +147,7 @@ int main(const int argc, const char *argv[])
 
 	life_bt.setIconX(443.0);
 
-	// Winner & Game Over
-
+	// Winner & game over
 	Button gameover, winner;
 
 	winner.setIcon((char *)"images/winner.png");
@@ -172,7 +163,6 @@ int main(const int argc, const char *argv[])
 	gameover.setIconY(180.0);
 
 	// Enemy
-
 	Enemy enemy_red, enemy_blue, enemy_pink, enemy_orange;
 
 	enemy_red.setCharacterCol(1).setCharacterLine(1).setDirection(1);
@@ -191,12 +181,10 @@ int main(const int argc, const char *argv[])
 
 	enemy_pink.setImg("images/ghost_pink.png");
 
-	// Pacman
-
+	// Pac-man
 	Pac pac;
 
 	// Path find
-
 	Dijkstra path(115600);
 
 	for (int row{0}; row < ROWS; row++)
@@ -208,17 +196,14 @@ int main(const int argc, const char *argv[])
 	}
 
 	// Controls
-
 	int direction{0}, intention{0}, points{0}, life{3};
 
 	bool redraw{false}, mute{false};
 
-	// Timer Event
-
+	// Timer event
 	al_start_timer(timer);
 
-	// Game Loop
-
+	// Game loop
 	while (true)
 	{
 		ALLEGRO_EVENT event;
@@ -311,7 +296,7 @@ int main(const int argc, const char *argv[])
 				pac.setCharacterCol(7).setCharacterLine(12).setDirection(0);
 			}
 
-			// Pacman
+			// Pac-man
 
 			if (intention == 0 && pac.moveLeft(map))
 				direction = intention;
@@ -403,6 +388,7 @@ int main(const int argc, const char *argv[])
 		}
 	}
 
+	// Clean garbage
 	al_destroy_bitmap(logo_status);
 
 	al_destroy_timer(timer);

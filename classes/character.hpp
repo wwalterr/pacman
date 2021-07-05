@@ -1,4 +1,3 @@
-
 #ifndef CHARACTER_H
 
 #define CHARACTER_H
@@ -10,42 +9,42 @@
 class Character
 {
 protected:
-  int direction, character_col, character_line, size;
+	int direction, character_col, character_line, size;
 
-  ALLEGRO_BITMAP *img;
+	ALLEGRO_BITMAP *img;
 
 public:
-  virtual ~Character(void);
+	virtual ~Character(void);
 
-  void draw(void);
+	void draw(void);
 
-  Character &setDirection(const int);
+	Character &setDirection(const int);
 
-  int getDirection(void);
+	int getDirection(void);
 
-  Character &setCharacterCol(const int);
+	Character &setCharacterCol(const int);
 
-  int getCharacterCol(void);
+	int getCharacterCol(void);
 
-  Character &setCharacterLine(const int);
+	Character &setCharacterLine(const int);
 
-  int getCharacterLine(void);
+	int getCharacterLine(void);
 
-  void setSize(const int);
+	void setSize(const int);
 
-  int getSize(void);
+	int getSize(void);
 
-  void set(const int, const int, const int);
+	void set(const int, const int, const int);
 
-  bool moveLeft(char map[][17]);
+	bool moveLeft(char map[][17]);
 
-  bool moveRight(char map[][17]);
+	bool moveRight(char map[][17]);
 
-  bool moveUp(char map[][17]);
+	bool moveUp(char map[][17]);
 
-  bool moveDown(char map[][17]);
+	bool moveDown(char map[][17]);
 
-  virtual bool move(const int, char map[][17]);
+	virtual bool move(const int, char map[][17]);
 };
 
 #endif

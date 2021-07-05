@@ -1,4 +1,3 @@
-
 #ifndef ENEMY_CLEVER_H
 
 #define ENEMY_CLEVER_H
@@ -14,15 +13,15 @@
 class EnemyClever : virtual public Character
 {
 public:
-  EnemyClever(void);
+	EnemyClever(void);
 
-  EnemyClever(const int, const int, const int, const int, char const *);
+	EnemyClever(const int, const int, const int, const int, char const *);
 
-  EnemyClever(EnemyClever &);
+	EnemyClever(EnemyClever &);
 
-  void setImg(char const *);
+	void setImg(char const *);
 
-  void smartGhost(char map[][17], const Dijkstra &, const int, const int);
+	void smartGhost(char map[][17], const Dijkstra &, const int, const int);
 };
 
 #endif

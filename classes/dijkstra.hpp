@@ -1,4 +1,3 @@
-
 #ifndef DIJKSTRA_H
 
 #define DIJKSTRA_H
@@ -12,26 +11,26 @@
 class Dijkstra
 {
 protected:
-  int v;
+	int v;
 
-  int infinite;
+	int infinite;
 
-  std::list<std::pair<int, int>> *adj;
+	std::list<std::pair<int, int>> *adj;
 
 public:
-  Dijkstra(void);
+	Dijkstra(void);
 
-  Dijkstra(const int);
+	Dijkstra(const int);
 
-  virtual ~Dijkstra(void);
+	virtual ~Dijkstra(void);
 
-  void setV(const int);
+	void setV(const int);
 
-  int getV(void);
+	int getV(void);
 
-  virtual void addEdge(const int, const int, const int);
+	virtual void addEdge(const int, const int, const int);
 
-  int dijkstra(const int, const int) const;
+	int dijkstra(const int, const int) const;
 };
 
 #endif

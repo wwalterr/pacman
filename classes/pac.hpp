@@ -1,4 +1,3 @@
-
 #ifndef PAC_H
 
 #define PAC_H
@@ -12,11 +11,11 @@
 class Pac : virtual public Character
 {
 public:
-  Pac(void);
+	Pac(void);
 
-  Pac(const int, const int, const int, const int, char const *);
+	Pac(const int, const int, const int, const int, char const *);
 
-  Pac(Pac &);
+	Pac(Pac &);
 };
 
 #endif

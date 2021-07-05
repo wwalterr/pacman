@@ -1,4 +1,3 @@
-
 #include "enemy_clever.hpp"
 
 #include <allegro5/allegro.h>

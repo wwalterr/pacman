@@ -1,4 +1,3 @@
-
 #ifndef FOOD_H
 
 #define FOOD_H
@@ -9,40 +8,39 @@
 
 class Food
 {
-
 private:
-  float x, y;
+	float x, y;
 
-  int size;
+	int size;
 
-  ALLEGRO_BITMAP *img;
+	ALLEGRO_BITMAP *img;
 
 public:
-  Food(void);
+	Food(void);
 
-  Food(const float, const float, const int, char const *);
+	Food(const float, const float, const int, char const *);
 
-  void draw(void);
+	void draw(void);
 
-  void setX(const float);
+	void setX(const float);
 
-  float getX(void);
+	float getX(void);
 
-  void setY(const float);
+	void setY(const float);
 
-  float getY(void);
+	float getY(void);
 
-  void setSize(const int);
+	void setSize(const int);
 
-  int getSize(void);
+	int getSize(void);
 
-  void setImg(char const *);
+	void setImg(char const *);
 
-  ALLEGRO_BITMAP *getImg(void);
+	ALLEGRO_BITMAP *getImg(void);
 
-  void set(const float, const float);
+	void set(const float, const float);
 
-  ~Food(void);
+	~Food(void);
 };
 
 #endif
