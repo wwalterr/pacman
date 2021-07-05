@@ -8,6 +8,8 @@ The classic Pac-man game with Dijkstra path finder.
 
 ## Executables
 
+> Press the letter `o` to mute the song
+
 [Linux](./pacman)
 
 ## Built with

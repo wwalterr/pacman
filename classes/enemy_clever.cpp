@@ -54,8 +54,7 @@ void EnemyClever::smartGhost(char map[][17], const Dijkstra &path, const int p_l
 {
 	while (true)
 	{
-		// Right, Left, Top & Down
-
+		// Right, left, top & down
 		int cache[]{
 			path.dijkstra(this->getCharacterLine() * (this->getCharacterCol() - 1), p_line * p_column),
 			path.dijkstra(this->getCharacterLine() * (this->getCharacterCol() + 1), p_line * p_column),

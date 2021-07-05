@@ -100,7 +100,7 @@ int main(const int argc, const char *argv[])
 	al_draw_bitmap(background, 0, 0, 0);
 
 	// Food
-	Food f[166];
+	Food food[166];
 
 	int counter_food{0};
 
@@ -111,11 +111,11 @@ int main(const int argc, const char *argv[])
 			if (map[row][col] == 'F')
 			{
 				if (row > 9)
-					f[counter_food].setImg("images/food_blue.png");
+					food[counter_food].setImg("images/food_blue.png");
 
-				f[counter_food].set(col, row);
+				food[counter_food].set(col, row);
 
-				f[counter_food++].draw();
+				food[counter_food++].draw();
 			}
 		}
 	}
@@ -206,18 +206,22 @@ int main(const int argc, const char *argv[])
 	// Game loop
 	while (true)
 	{
+		// Events
 		ALLEGRO_EVENT event;
 
 		al_wait_for_event(event_queue, &event);
 
 		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+		{
 			break;
+		}
 
-		else if (event.type == ALLEGRO_EVENT_KEY_UP)
+		if (event.type == ALLEGRO_EVENT_KEY_UP)
 		{
 			if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				break;
-			else if (event.keyboard.keycode == ALLEGRO_KEY_O)
+
+			if (event.keyboard.keycode == ALLEGRO_KEY_O)
 			{
 				mute = true;
 
@@ -225,8 +229,9 @@ int main(const int argc, const char *argv[])
 			}
 		}
 
-		else if (event.type == ALLEGRO_EVENT_KEY_DOWN)
+		if (event.type == ALLEGRO_EVENT_KEY_DOWN)
 		{
+			// Orientation: left -> right and top -> down
 			switch (event.keyboard.keycode)
 			{
 			case ALLEGRO_KEY_DOWN:
@@ -251,12 +256,11 @@ int main(const int argc, const char *argv[])
 			}
 		}
 
-		else if (event.type == ALLEGRO_EVENT_TIMER)
+		if (event.type == ALLEGRO_EVENT_TIMER)
 		{
 			redraw = true;
 
 			// Life
-
 			if (life <= 0)
 			{
 				al_stop_samples();
@@ -297,7 +301,6 @@ int main(const int argc, const char *argv[])
 			}
 
 			// Pac-man
-
 			if (intention == 0 && pac.moveLeft(map))
 				direction = intention;
 			else if (intention == 1 && pac.moveRight(map))
@@ -321,6 +324,7 @@ int main(const int argc, const char *argv[])
 			// enemy_pink.smartGhost(map, path, pac.getCharacterLine(), pac.getCharacterCol());
 		}
 
+		// Redraw
 		if (redraw && al_is_event_queue_empty(event_queue))
 		{
 			redraw = false;
@@ -331,23 +335,22 @@ int main(const int argc, const char *argv[])
 
 			for (int counter{0}; counter < counter_food; counter++)
 			{
-				if (pac.getCharacterLine() == f[counter].getY() && pac.getCharacterCol() == f[counter].getX())
+				if (pac.getCharacterLine() == food[counter].getY() && pac.getCharacterCol() == food[counter].getX())
 				{
 					if (!mute)
 						al_play_sample(eat_fruit, 0.1, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, nullptr);
 
-					f[counter].set(-1, -1);
+					food[counter].set(-1, -1);
 
 					points++;
 
 					continue;
 				}
 
-				f[counter].draw();
+				food[counter].draw();
 			}
 
 			// Enemys
-
 			enemy_blue.move(enemy_blue.getDirection(), map);
 
 			enemy_blue.draw();
@@ -364,14 +367,12 @@ int main(const int argc, const char *argv[])
 
 			enemy_pink.draw();
 
-			// Pacman
-
+			// Pac-man
 			pac.move(direction, map);
 
 			pac.draw();
 
 			// Status
-
 			points_bt.setStr(const_cast<char *>(to_string(points).c_str()));
 
 			points_bt.showStr().showIcon();
@@ -383,7 +384,6 @@ int main(const int argc, const char *argv[])
 			al_draw_bitmap(logo_status, 185.0, 597.0, 0);
 
 			// Flush
-
 			al_flip_display();
 		}
 	}
