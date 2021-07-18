@@ -6,7 +6,7 @@ Button::Button(void)
 
 	this->setStr((char *)"Text");
 
-	this->setFontPath((char *)"fonts/roboto_regular.ttf");
+	this->setFontPath((char *)"assets/fonts/roboto_regular.ttf");
 
 	this->setFontSize(14);
 

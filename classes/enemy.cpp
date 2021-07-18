@@ -14,10 +14,10 @@ Enemy::Enemy(void)
 
 	this->size = 30;
 
-	this->img = al_load_bitmap("images/ghost_red.png");
+	this->img = al_load_bitmap("assets/images/ghost_red.png");
 };
 
-Enemy::Enemy(const int direction = 0, const int character_col = 7, const int character_line = 12, const int size = 30, char const *img = {"images/ghost_red.png"})
+Enemy::Enemy(const int direction = 0, const int character_col = 7, const int character_line = 12, const int size = 30, char const *img = {"assets/images/ghost_red.png"})
 {
 	this->direction = direction;
 

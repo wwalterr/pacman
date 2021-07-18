@@ -65,7 +65,7 @@ int main(const int argc, const char *argv[])
 
 	al_set_window_title(display, "Pac-man");
 
-	ALLEGRO_BITMAP *icon_system = al_load_bitmap("images/logo_system.png");
+	ALLEGRO_BITMAP *icon_system = al_load_bitmap("assets/images/logo_system.png");
 
 	al_set_display_icon(display, icon_system);
 
@@ -80,9 +80,9 @@ int main(const int argc, const char *argv[])
 
 	ALLEGRO_SAMPLE_INSTANCE *instance_eat_fruit{nullptr};
 
-	theme = al_load_sample("audios/theme.wav");
+	theme = al_load_sample("assets/audios/theme.wav");
 
-	eat_fruit = al_load_sample("audios/eat_fruit.wav");
+	eat_fruit = al_load_sample("assets/audios/eat_fruit.wav");
 
 	instance_theme = al_create_sample_instance(theme);
 
@@ -95,7 +95,7 @@ int main(const int argc, const char *argv[])
 	al_play_sample(theme, 0.1, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, nullptr);
 
 	// Background
-	ALLEGRO_BITMAP *background = al_load_bitmap("images/map.png");
+	ALLEGRO_BITMAP *background = al_load_bitmap("assets/images/map.png");
 
 	al_draw_bitmap(background, 0, 0, 0);
 
@@ -111,7 +111,7 @@ int main(const int argc, const char *argv[])
 			if (map[row][col] == 'F')
 			{
 				if (row > 9)
-					food[counter_food].setImg("images/food_blue.png");
+					food[counter_food].setImg("assets/images/food_blue.png");
 
 				food[counter_food].set(col, row);
 
@@ -135,13 +135,13 @@ int main(const int argc, const char *argv[])
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
 	// Status
-	ALLEGRO_BITMAP *logo_status = al_load_bitmap("images/logo_status.png");
+	ALLEGRO_BITMAP *logo_status = al_load_bitmap("assets/images/logo_status.png");
 
 	Button points_bt, life_bt;
 
-	points_bt.setIcon((char *)"images/cherry.png");
+	points_bt.setIcon((char *)"assets/images/cherry.png");
 
-	life_bt.setIcon((char *)"images/life.png");
+	life_bt.setIcon((char *)"assets/images/life.png");
 
 	life_bt.setFontX(421.0);
 
@@ -150,13 +150,13 @@ int main(const int argc, const char *argv[])
 	// Winner & game over
 	Button gameover, winner;
 
-	winner.setIcon((char *)"images/winner.png");
+	winner.setIcon((char *)"assets/images/winner.png");
 
 	winner.setIconX(115.0);
 
 	winner.setIconY(180.0);
 
-	gameover.setIcon((char *)"images/gameover.png");
+	gameover.setIcon((char *)"assets/images/gameover.png");
 
 	gameover.setIconX(115.0);
 
@@ -167,19 +167,19 @@ int main(const int argc, const char *argv[])
 
 	enemy_red.setCharacterCol(1).setCharacterLine(1).setDirection(1);
 
-	enemy_red.setImg("images/ghost_red.png");
+	enemy_red.setImg("assets/images/ghost_red.png");
 
 	enemy_blue.setCharacterCol(14).setCharacterLine(18).setDirection(0);
 
-	enemy_blue.setImg("images/ghost_blue.png");
+	enemy_blue.setImg("assets/images/ghost_blue.png");
 
 	enemy_orange.setCharacterCol(14).setCharacterLine(1).setDirection(3);
 
-	enemy_orange.setImg("images/ghost_orange.png");
+	enemy_orange.setImg("assets/images/ghost_orange.png");
 
 	enemy_pink.setCharacterCol(1).setCharacterLine(19).setDirection(2);
 
-	enemy_pink.setImg("images/ghost_pink.png");
+	enemy_pink.setImg("assets/images/ghost_pink.png");
 
 	// Pac-man
 	Pac pac;

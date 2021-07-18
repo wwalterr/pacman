@@ -14,10 +14,10 @@ Pac::Pac(void)
 
 	this->size = 30;
 
-	this->img = al_load_bitmap("images/pacman_sprite.png");
+	this->img = al_load_bitmap("assets/images/pacman_sprite.png");
 };
 
-Pac::Pac(const int direction = 0, const int character_col = 7, const int character_line = 12, const int size = 30, char const *img = {"images/pacman_sprite.png"})
+Pac::Pac(const int direction = 0, const int character_col = 7, const int character_line = 12, const int size = 30, char const *img = {"assets/images/pacman_sprite.png"})
 {
 	this->direction = direction;
 

@@ -22,4 +22,4 @@ clean:
 	rm -rf *.o
 
 rgb:
-	pngcrush -ow -rem allb -reduce images/*.png
+	pngcrush -ow -rem allb -reduce assets/images/*.png

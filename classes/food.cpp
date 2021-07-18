@@ -8,7 +8,7 @@ Food::Food(void)
 
 	this->size = 30;
 
-	this->img = al_load_bitmap("images/food_red.png");
+	this->img = al_load_bitmap("assets/images/food_red.png");
 };
 
 Food::Food(const float x, const float y, const int size, char const *img)
@@ -57,7 +57,7 @@ int Food::getSize(void)
 	return this->size;
 }
 
-void Food::setImg(char const *img = {"images/food_red.png"})
+void Food::setImg(char const *img = {"assets/images/food_red.png"})
 {
 	this->img = al_load_bitmap(img);
 }
