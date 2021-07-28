@@ -16,6 +16,7 @@ The classic action Pac-man maze game.
 
 - [C++](https://en.cppreference.com/w/)
 - [Allegro 5](https://liballeg.org/)
+- [Make](https://www.gnu.org/software/make/)
 
 ## Installation
 
