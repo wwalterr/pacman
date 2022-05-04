@@ -1,10 +1,10 @@
 # Pacman
 
-Control your Pac-man against ghosts.
+Control your pac-man against ghosts.
 
 ## About
 
-The classic action Pac-man maze game with a new [map](pacman.png).
+The action pac-man maze game with a new [map](pacman.png).
 
 ## Executables
 
